@@ -1,0 +1,45 @@
+server:
+  port: 8080
+  servlet:
+    # 项目根路径 默认'/'
+    context-path: /
+#  tomcat:
+#    uri-encoding: UTF-8
+spring:
+  servlet:
+    multipart:
+      # 单个文件的最大值
+      max-file-size: 50MB
+      # 上传文件总的最大值
+      max-request-size: 100MB
+  mvc:
+    # 静态资源的访问路径为/**时 才会处理请求 默认值为 /**
+    static-path-pattern: /**
+    view:
+      # controller返回页面路径的前后缀 默认'/'
+      prefix: /
+      suffix: .html
+    pathmatch:
+      # springboot2 后需要手动开启路径匹配 设为false无法拦截*.do等请求
+      use-suffix-pattern: false
+    servlet:
+      # 默认'/
+      path: /
+      load-on-startup: 1 # 默认懒加载 即客户端第一次访问时加载dispatcherServlet
+  resources:
+    # springboot查找静态资源文件的文件路径 默认值不可直接访问templates的文件
+    # 默认值为 classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+    static-locations: classpath:static # ,classpath:templates
+  thymeleaf:
+    # 开发时关闭缓存
+    cache: false
+    # 检查模板位置 默认true
+    check-template-location: true
+    encoding: UTF-8
+    # 解析非严格的html5 标签可不闭合
+    mode: LEGACYHTML5
+    # 模板路径 默认templates
+    prefix: classpath:templates
+    servlet:
+      content-type: text/html
+    suffix: .html

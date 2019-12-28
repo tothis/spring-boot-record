@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传</title>
+    <style>
+        img {
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+<!-- multiple属性表示可以一次选择多个文件 -->
+<input name="file" id="fileUpload" type="file" accept="images/*" multiple>
+
+<button onclick="fileUpload()">开始上传</button>
+
+<img id="image" src onerror="
+    this.src='./image/image1.png';
+    this.onerror=null; // 控制不要一直跳动
+">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    /**
+     * 对应后端java代码 https://gitee.com/tothis/java-base
+     * /tree/master/src/main/java/com/example/file_upload
+     * /FileUploadController.java
+     */
+    document.getElementById('fileUpload').onchange = function () {
+        // 初始化了一个文件读取对象
+        let reader = new FileReader();
+        // 读取文件数据 this.files[0] 文件表单元素选择的第一个文件
+        reader.readAsDataURL(this.files[0]);
+        // 读取完毕后预览
+        reader.onload = function () {
+            // 以base64位数据展示图片
+            console.log(this.result);
+            document.getElementById('image').src = this.result;
+        }
+    }
+
+    function fileUpload() {
+        let formData = new FormData();
+        formData.append('file', $('#fileUpload')[0].files[0]);
+        $.ajax({
+            url: 'http://localhost:8080/file-upload/image',
+            type: 'post',
+            data: formData,
+            // 默认 application/x-www-form-urlencoded
+            contentType: false,
+            // 默认把data值转化成字符串
+            processData: false,
+            success: function (result) {
+                console.log(result);
+            }
+        })
+    }
+</script>
+</body>
+</html>

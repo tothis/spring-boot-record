@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件分片上传</title>
+    <style>
+        img, video {
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+<input name="file" id="fileUpload" type="file" accept="images/*"
+       onchange="fileUpload(this)" multiple>
+
+<!--
+<video>标签支持视频格式和编码
+
+MP4 MPEG4文件使用H264视频编解码器和AAC音频编解码器 (MPEG-LA公司)
+
+WebM WebM文件使用VP8视频编解码器和Vorbis音频编解码器 (Google公司)
+
+Ogg Ogg文件使用Theora视频编解码器和Vorbis音频编解码器 (iTouch开发)
+-->
+<video controls="controls" id="video">
+    不支持视频标签
+</video>
+
+<img id="image" src onerror="
+    this.src='./image/image1.png';
+    this.onerror=null; // 控制不要一直跳动
+">
+
+<button onclick="fileUpload()">开始上传</button>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    /**
+     * 对应后端java代码 https://gitee.com/tothis/java-base
+     * /tree/master/src/main/java/com/example/file_upload
+     * /FileUploadController.java
+     */
+
+    /** 文件分片下标 */
+    let fileIndex = 0;
+
+    /** 进度条 */
+    let progressVal;
+
+    let indexNumberNew = 0;
+
+    let tempsFile = '';
+
+    let video = document.getElementById('video');
+
+    document.getElementById('fileUpload').onchange = function () {
+
+        let file = this.files[0];
+
+        // 获取file的url
+        let url;
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+
+        video.src = url;
+
+        /**
+         * loadstart      视频开始加载时执行
+         * durationchange 视频时长发生变化时执行
+         * loadedmetadata 视频元数据加载后时执行
+         * loadeddata     视频当前帧的数据可用时执行
+         * progress       视频正在下载时执行
+         * canplay        视频准备开始播放时执行
+         * canplaythrough 视频可以正常播放且无需停顿时执行
+         */
+        video.addEventListener('canplaythrough', captureImage);
+    }
+
+    let flag = true;
+
+    function captureImage() {
+        let scale = 0.8;
+        let canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth * scale;
+        canvas.height = video.videoHeight * scale;
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // let image = document.createElement('img');
+        // image.src = canvas.toDataURL('image/png');
+        // image.width = 400;
+        // image.height = 300;
+        // document.getElementById('content').appendChild(image);
+
+        document.getElementById('image').src = canvas.toDataURL('image/png');
+
+        console.log(canvas);
+
+        if (flag) {
+            flag = !flag;
+            // 43失败 44成功
+            setTimeout(captureImage, 44);
+        }
+    }
+
+    /** 上传文件主方法 */
+    function fileUpload(that) {
+        progressVal = 0;
+        indexNumberNew = 0;
+        console.log('0%');
+
+        // console.log(that);
+        // 获取视频文件 从this中获取值
+        // let blob = that.target.files[0];
+        // 获取视频文件 从input中获取
+        let blob = document.getElementById('fileUpload').files[0];
+
+        // 每片文件5M
+        let perPiece = 1024 * 1024 * 5;
+
+        let start = 0,
+            end = 0,
+            filesize = blob.size, // 文件大小(单位字节)
+            filename = blob.name; // 文件名称
+
+        // 计算文件切片总数
+        let totalPieces;
+
+        // 计算文件切片总数 向上取整计算
+        if (filesize % perPiece === 0) {
+            totalPieces = Math.ceil(filesize / perPiece);
+        } else {
+            totalPieces = Math.ceil(filesize / perPiece) + 1;
+        }
+
+        progressVal = totalPieces;
+        // 上传文件
+        while (start < filesize) {
+            // 切片上传
+            end = start + perPiece;
+            if (end > filesize) {
+                // 一次性上传
+                end = filesize;
+            }
+            // 分割文件核心部分slice
+            let chunk = blob.slice(start, end);
+            let formData = new FormData(); // 创建提交数据
+            formData.append('chunk', chunk); // 具体文件数据
+            formData.append('fileIndex', fileIndex); // 当前文件下标
+
+            $.ajax({
+                url: 'http://localhost:8080/file-upload/video',
+                type: 'post',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    // 渲染进度条 如已上传完成则合并文件
+                    mergeFile(data, filename);
+                }
+            });
+            start = end;
+            fileIndex++;
+        }
+    }
+
+    /**
+     * 合并文件
+     * @param data
+     * @param filename
+     */
+    function mergeFile(data, filename) {
+        tempsFile += data.tempFile + ',';
+        indexNumberNew++;
+        // 上传视频进度条
+        console.log((indexNumberNew / progressVal) * 100 + '%');
+
+        /** 上传完所有的视频后执行 */
+        if (fileIndex === indexNumberNew) {
+
+            let formData = new FormData();
+            formData.append('tempFile', tempsFile); // 文件分片名称
+            formData.append('originalFileName', filename); // 文件名称
+
+            $.ajax({
+                url: 'http://localhost:8080/merge-file',
+                type: 'post',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    // 渲染进度条 如已上传完成则合并文件
+                    console.log(data);
+                    console.log('100%');
+                }
+            });
+            // 清空临时文件名称
+            tempsFile = '';
+            // 文件下标归0
+            fileIndex = 0;
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# RabbitMQ
+spring:
+  rabbitmq:
+    host: 192.168.1.87
+    port: 5672
+    username: guest
+    password: guest
+    #消费端配置
+    listener:
+      direct:
+        acknowledge-mode: manual
+      simple:
+        concurrency: 5
+        # 最大消费端数
+        max-concurrency: 10
+        # 限流 多数据量同时只能过来一条
+        prefetch: 1
+        # 自动签收auto 手动确认manual
+        acknowledge-mode: manual
