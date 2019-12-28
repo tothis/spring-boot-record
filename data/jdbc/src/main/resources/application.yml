@@ -1,0 +1,10 @@
+# 数据库配置
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.1.87:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true&serverTimezone=GMT&useSSL=false
+    # 用户名
+    username: root
+    # 密码
+    password: 123456
+    # 数据库驱动
+    driver-class-name: com.mysql.cj.jdbc.Driver

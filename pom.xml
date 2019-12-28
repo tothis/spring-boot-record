@@ -17,6 +17,7 @@
     <!-- 声明子模块 -->
     <modules>
         <module>mvc</module>
+        <module>data</module>
         <module>redis</module>
         <module>mongodb</module>
         <module>rabbitmq</module>
@@ -30,6 +31,7 @@
         <java.version>1.8</java.version>
 
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+        <mysql.version>8.0.18</mysql.version>
         <jackson.version>2.10.1</jackson.version>
         <lombok.version>1.18.10</lombok.version>
         <spring-kafka.version>2.4.0.RELEASE</spring-kafka.version>
@@ -125,6 +127,20 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-amqp</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- jdbc -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- mysql connector -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
