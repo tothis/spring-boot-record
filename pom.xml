@@ -22,6 +22,7 @@
         <module>mongodb</module>
         <module>rabbitmq</module>
         <module>kafka</module>
+        <module>graphql</module>
     </modules>
 
     <!-- properties可被子类继承 -->
@@ -32,6 +33,8 @@
 
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
         <mysql.version>8.0.18</mysql.version>
+        <graphql.version>5.0.2</graphql.version>
+        <graphql-tool.version>5.2.4</graphql-tool.version>
         <jackson.version>2.10.1</jackson.version>
         <lombok.version>1.18.10</lombok.version>
         <spring-kafka.version>2.4.0.RELEASE</spring-kafka.version>
@@ -141,6 +144,25 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- graphql -->
+            <dependency>
+                <groupId>com.graphql-java</groupId>
+                <artifactId>graphql-spring-boot-starter</artifactId>
+                <version>${graphql.version}</version>
+            </dependency>
+            <!-- graphql图形工具 -->
+            <dependency>
+                <groupId>com.graphql-java</groupId>
+                <artifactId>graphiql-spring-boot-starter</artifactId>
+                <version>${graphql.version}</version>
+            </dependency>
+            <!-- graphql工具 -->
+            <dependency>
+                <groupId>com.graphql-java</groupId>
+                <artifactId>graphql-java-tools</artifactId>
+                <version>${graphql-tool.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

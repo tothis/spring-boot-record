@@ -6,10 +6,10 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @EnableMongoRepositories(basePackages = "com.example.repository") // 扫描jpa接口
 @SpringBootApplication
-public class MongoDBLearnApplication {
+public class MongoDBApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MongoDBLearnApplication.class, args);
+        SpringApplication.run(MongoDBApplication.class, args);
     }
 
 }
