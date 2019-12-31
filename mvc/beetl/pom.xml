@@ -16,7 +16,10 @@
     <description>mvc-beetl</description>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetl-framework-starter</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -32,6 +32,7 @@
         <java.version>1.8</java.version>
 
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
+        <beetl.version>1.2.20.RELEASE</beetl.version>
         <mysql.version>8.0.18</mysql.version>
         <graphql.version>5.0.2</graphql.version>
         <graphql-tool.version>5.2.4</graphql-tool.version>
@@ -68,6 +69,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-thymeleaf</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- beetl -->
+            <dependency>
+                <groupId>com.ibeetl</groupId>
+                <artifactId>beetl-framework-starter</artifactId>
+                <version>${beetl.version}</version>
             </dependency>
 
             <!-- lombok -->

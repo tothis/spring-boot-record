@@ -1,0 +1,7 @@
+spring:
+  mvc:
+    view:
+      # mvc后缀 thymeleaf生效 beetl需在BeetlSpringViewResolver中配置
+      suffix: .html
+beetl:
+  suffix: html
