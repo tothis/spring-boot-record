@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -20,20 +21,22 @@ import java.util.UUID;
 @Slf4j
 @CrossOrigin
 @RequestMapping("file-upload")
-@RestController
+@Controller
 public class FileUploadController {
 
     @GetMapping("1")
-    public String page1(){
+    public String page1() {
         return "file-upload1";
     }
+
     @GetMapping("2")
-    public String page2(){
+    public String page2() {
         return "file-upload2";
     }
 
     private final String filePath = "D:/test/";
 
+    @ResponseBody
     @PostMapping("image")
     public Map<String, String> image(MultipartFile file) {
 
@@ -81,6 +84,7 @@ public class FileUploadController {
         return data;
     }
 
+    @ResponseBody
     @PostMapping("video")
     public Map<String, String> video(HttpServletRequest request) {
 
@@ -120,7 +124,8 @@ public class FileUploadController {
     /**
      * 合并所有文件
      */
-    @CrossOrigin
+    @CrossOrigin // 允许跨域
+    @ResponseBody
     @PostMapping("merge-file")
     public Map<String, String> mergeFile(String tempFile, String originalFileName) {
 
