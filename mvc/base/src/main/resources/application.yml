@@ -38,8 +38,8 @@ spring:
     encoding: UTF-8
     # 解析非严格的html5 标签可不闭合
     mode: LEGACYHTML5
-    # 模板路径 默认templates
-    prefix: classpath:templates
+    # 模板路径 默认templates/ 后斜杠不可省略
+    prefix: classpath:templates/
     servlet:
       content-type: text/html
     suffix: .html
