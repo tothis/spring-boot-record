@@ -19,7 +19,9 @@ import java.util.UUID;
  * @description
  */
 @Slf4j
-@CrossOrigin
+@CrossOrigin // 允许跨域
+// 跨域处理
+// response.setHeader("Access-Control-Allow-Origin","*");
 @RequestMapping("file-upload")
 @Controller
 public class FileUploadController {
@@ -34,7 +36,7 @@ public class FileUploadController {
         return "file-upload2";
     }
 
-    private final String filePath = "D:/test/";
+    private final String filePath = System.getProperty("folder");
 
     @ResponseBody
     @PostMapping("image")
@@ -124,7 +126,6 @@ public class FileUploadController {
     /**
      * 合并所有文件
      */
-    @CrossOrigin // 允许跨域
     @ResponseBody
     @PostMapping("merge-file")
     public Map<String, String> mergeFile(String tempFile, String originalFileName) {
