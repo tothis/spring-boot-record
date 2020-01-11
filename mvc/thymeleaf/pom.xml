@@ -10,10 +10,10 @@
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>mvc-thymeleaf</artifactId>
+    <artifactId>thymeleaf</artifactId>
     <version>1.0</version>
-    <name>mvc-thymeleaf</name>
-    <description>mvc-thymeleaf</description>
+    <name>thymeleaf</name>
+    <description>thymeleaf</description>
 
     <dependencies>
         <dependency>

@@ -10,10 +10,10 @@
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>mvc-base</artifactId>
+    <artifactId>base</artifactId>
     <version>1.0</version>
-    <name>mvc-base</name>
-    <description>mvc-base</description>
+    <name>base</name>
+    <description>base</description>
 
     <dependencies>
         <dependency>

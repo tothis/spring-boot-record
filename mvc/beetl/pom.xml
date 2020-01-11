@@ -10,10 +10,10 @@
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>mvc-beetl</artifactId>
+    <artifactId>beetl</artifactId>
     <version>1.0</version>
-    <name>mvc-beetl</name>
-    <description>mvc-beetl</description>
+    <name>beetl</name>
+    <description>beetl</description>
 
     <dependencies>
         <dependency>
