@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,9 +23,12 @@ import java.util.UUID;
 @CrossOrigin // 允许跨域
 // 跨域处理
 // response.setHeader("Access-Control-Allow-Origin","*");
+@Lazy // 懒加载 防止System.getProperty获取不到WebConfig中设置的变量
 @RequestMapping("file-upload")
 @Controller
 public class FileUploadController {
+
+    private String filePath = System.getProperty("folder");
 
     @GetMapping("1")
     public String page1() {
@@ -35,8 +39,6 @@ public class FileUploadController {
     public String page2() {
         return "file-upload2";
     }
-
-    private final String filePath = System.getProperty("folder");
 
     @ResponseBody
     @PostMapping("image")
@@ -156,6 +158,7 @@ public class FileUploadController {
      * @return
      */
     public boolean mergeFiles(String[] _files, String resultPath) {
+
         if (_files == null || _files.length == 0) {
             return false;
         }
