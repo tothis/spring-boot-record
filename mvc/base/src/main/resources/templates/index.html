@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+</head>
+<body>
+
+<p>${string!}-${name!}</p>
+
+<p th:></p>
+
+[[
+for (entry in data) {
+var key = entry.key;
+var value = entry.value;
+print(key + '-' + value + '\n<br>\n');
+}
+]]
+</body>
+</html>

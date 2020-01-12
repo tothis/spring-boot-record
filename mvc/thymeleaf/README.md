@@ -43,19 +43,19 @@ public class TestController {
 }
 ```
 ***
-\${}用法 变量表达式 访问页面上下文变量 配合th标签使用 功能同[jstl](https://blog.csdn.net/setlilei/article/details/84866680)中\${}
+${}用法 变量表达式 访问页面上下文变量 配合th标签使用 功能同jstl中${}
 ```html
-<input type="text" th:value="${user}"/>
+<input type="text" th:value="${user}">
 有值时浏览器显示<input type="text" value="test">
-无值时浏览器显示<input type="text" value/>
+无值时浏览器显示<input type="text" value>
 
 <!-- 模拟数据 model.addAttribute("msg", "<h1>文本</h1>"); -->
 
 <!-- th:text代表直接把值读取发在此标签内 -->
-<input type="text" th:text="${msg}"/>
+<input type="text" th:text="${msg}">
 <!-- 结果会被转义 -->
-有值时<input type="text" value="&gt;h1&lg;文本&gt;h1&lg;"/>
-无值时<input type="text" th:text="${msg}"/>
+有值时<input type="text" value="&gt;h1&lg;文本&gt;h1&lg;">
+无值时<input type="text" th:text="${msg}">
 
 <!-- th:text会对获取的值针对html转义 utext则直接将值替换到标签内部不做任何处理 -->
 <span th:utext="${msg}"><span>
@@ -65,11 +65,11 @@ public class TestController {
 另类取值方式
 ```html
 <!-- 后台传递实体类到页面时通过实体方法取值 -->
-<input type="text" th:text="${user.getName()}"/>
+<input type="text" th:text="${user.getName()}">
 <!-- 后台实体类name变量为private但到页面可通过js取值方式获取值 -->
-<input type="text" th:text="${user.name}"/>
+<input type="text" th:text="${user.name}">
 <!-- 其它写法 原理同上 -->
-<input type="text" th:text="${user['name']}"/>
+<input type="text" th:text="${user['name']}">
 ```
 字符串替换
 ```html
@@ -94,11 +94,11 @@ public class TestController {
 <button onclick="location.href='/user/form?id=1';">修改</button>
 
 <!-- thymeleaf并不能使用'\'对字符进行转义 可增加两个引号解析成一个引号 -->
-<input th:value="${'Welcome'''+user.name+''''}"/>
+<input th:value="${'Welcome'''+user.name+''''}">
 <a th:href="${'javascript:location.replace(''/word/form?id='+file.id+''');'}"></a>
 <button th:onclick="${'location.href=''/video/form?id='+video.id+''''}">编辑</button>
 <!-- 结果如下 -->
-<input th:value="Welcome'李磊'"/>
+<input th:value="Welcome'李磊'">
 <a th:href="javascript:location.replace('/word/form?id=1');"></a>
 <button onclick="location.href='/video/form?id=1'">编辑</button>
 
@@ -209,7 +209,7 @@ th:attr="src=${user==null?'':'user.jpg')}"
 ${pageContext.request.getContextPath()}
 ```
 ```html
-<img th:src="@{/resource/imgage/test.jpg}"/>
+<img th:src="@{/resource/imgage/test.jpg}">
 <a th:href="@{/user/findAll}">查询所有</a>
 <a attr="href=${/user/findAll}">查询所有</a>
 ```
@@ -383,11 +383,6 @@ httpSession
 	Welcome : <span>[[${user.name}]]</span>
 </span>
 ```
-中文乱码 修改IDE的文件编码
-+ File -> Settings -> Editor -> File Encodings -> Default encoding for properties files -> UTF-8
-+ 勾选Transparent native-to-ascii conversion 显示中文
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190418220922803.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NldGxpbGVp,size_16,color_FFFFFF,t_70#pic_center)
-***
 th:with 定义布局变量
 ```html
 <!-- 相当于定义局部变量去接受表达式值 -->
