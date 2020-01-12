@@ -1,0 +1,50 @@
+package ${package.ServiceImpl};
+
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+import ${superServiceImplClassPackage};
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+
+/**
+ * @author ${author}
+ * @datatime ${date}
+ * @description ${table.comment!}业务实现
+ */
+@Service
+<% if (kotlin) { %>
+open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+}
+<% } else { %>
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+
+    @Autowired
+    private ${table.mapperName} i${table.mapperName};
+
+    /**
+     * @param entity 实体对象
+     * @return 插入成功记录数
+     * @description 插入一条记录
+     */
+    public int insert(${entity} entity) {
+        return i${table.mapperName}.insert(entity);
+    }
+
+    /**
+     * @param id 主键id
+     * @return 删除成功记录数
+     * @description 根据id删除 int deleteById(String id) {
+        return i${table.mapperName}.deleteById(id);
+    }
+
+    /**
+     * @param id 主键id
+     * @return 实体
+     * @description 根据id查询
+     */
+    public ${entity} selectById(String id){
+        return i${table.mapperName}.selectById(id);
+    }
+}
+<% } %>

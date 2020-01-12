@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DataJdbcApplication {
+public class BeetlApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DataJdbcApplication.class, args);
+        SpringApplication.run(BeetlApplication.class, args);
     }
 
 }

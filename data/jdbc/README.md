@@ -1,1 +1,1 @@
-# data-jdbc
+# jdbc

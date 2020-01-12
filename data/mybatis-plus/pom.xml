@@ -10,16 +10,31 @@
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>jdbc</artifactId>
+    <artifactId>mybatis-plus</artifactId>
     <version>1.0</version>
-    <name>jdbc</name>
-    <description>jdbc</description>
+    <name>mybatis-plus</name>
+    <description>mybatis-plus</description>
 
     <dependencies>
         <!-- jdbc -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetl-framework-starter</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,0 +1,28 @@
+# 数据库配置
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.10.200:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true&serverTimezone=GMT&useSSL=false
+    # 用户名
+    username: root
+    # 密码
+    password: 123456
+    # 数据库驱动
+    driver-class-name: com.mysql.cj.jdbc.Driver
+# mybatis-plus
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      # 驼峰下划线转换
+      column-underline: true
+      # 逻辑删除配置
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+      db-type: mysql
+    refresh: false
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+  mapper-locations: classpath:com/example/mapper/*.xml
+  type-aliases-package: com.example.model

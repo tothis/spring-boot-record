@@ -17,7 +17,16 @@
 
     <modules>
         <module>jdbc</module>
+        <module>mybatis-plus</module>
     </modules>
+
+    <dependencies>
+        <!-- mysql connector -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+    </dependencies>
 
     <packaging>pom</packaging>
 </project>

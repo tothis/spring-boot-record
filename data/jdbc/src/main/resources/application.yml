@@ -1,6 +1,24 @@
 # 数据库配置
 spring:
   datasource:
+    # 参数名称  				参数说明                                         缺省值 最低版本要求
+    #user					数据库用户名用于连接数据库	                    无	  所有版本
+    #passWord				用户密码用于连接数据库	                        无	  所有版本
+    #useUnicode				是否使用Unicode字符集	                        false 1.1g
+    #characterEncoding		当useUnicode设为true时可指定字符编码 如gbk utf8	false 1.1g
+    #serverTimezone			时区 默认东八区 中国时间会相差8个消失	            utc
+    #useSSL	                是否开启ssl连接                   	            true  5.5.45
+    #useAffectedRows	    默认update操作返回值是记录的matched的条数          false
+    #                               设为true返回值为影响记录数
+    #autoReconnect	        当数据库连接异常中断时是否自动重新连接	            false 1.1
+    #autoReconnectForPools	是否使用针对数据库连接池的重连策略	                false 3.1.3
+    #initialTimeout	        autoReconnect设置为true时两次重连之间的时间间隔    2	  1.1
+    #                               (单位秒)
+    #failOverReadOnly	     自动重连成功后连接是否设置为只读	                true  3.0.12
+    #maxReconnects			autoReconnect设置为true时重试连接的次数	        3	  1.1
+    #connectTimeout			和数据库服务器建立socket连接时的超时(单位毫秒)     0     3.0.1
+    #                               0表示永不超时 适用jdk1.4及高版本
+    #socketTimeout			socket操作读写超时(单位毫秒) 0表示永不超时        	0	3.0.1
     url: jdbc:mysql://192.168.1.87:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true&serverTimezone=GMT&useSSL=false
     # 用户名
     username: root

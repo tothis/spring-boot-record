@@ -1,1 +1,1 @@
-# mvc-beetl
+# beetl

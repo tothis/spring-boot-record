@@ -1,0 +1,68 @@
+package ${package.Controller};
+
+import com.example.entity.${table.entityName};
+import com.example.service.${table.serviceName};
+import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+
+<% if (restControllerStyle) { %>
+import org.springframework.web.bind.annotation.RestController;
+<% } else { %>
+import org.springframework.stereotype.Controller;
+<% } %>
+<% if (isNotEmpty(superControllerClassPackage)) { %>
+import ${superControllerClassPackage};
+<% } %>
+
+/**
+ * @author ${author}
+ * @datetime ${date}
+ * @description ${table.comment!}控制层
+ */
+<% if (restControllerStyle) { %>
+@RestController
+<% } else { %>
+@Controller
+<% } %>
+@RequestMapping("<% if (isNotEmpty(package.ModuleName)) { %>${package.ModuleName}/<% } %><% if (isNotEmpty(controllerMappingHyphenStyle)) { %>${controllerMappingHyphen}<% } else { %>${table.entityPath}<% } %>")
+<% if (kotlin) { %>
+class ${table.controllerName}<% if (isNotEmpty(superControllerClass)) { %> : ${superControllerClass}()<% } %>
+<% } else { %>
+    <% if (isNotEmpty(superControllerClass)) { %>
+public class ${table.controllerName} extends ${superControllerClass} {
+    <% } else { %>
+public class ${table.controllerName} {
+    <% } %>
+
+    @Autowired
+    private ${table.serviceName} i${table.entityName}Service;
+
+    /**
+     * 新增
+     */
+    @ApiOperation("新增数据")
+    @PostMapping("add")
+    public int add(@RequestBody ${entity} entity) {
+        return i${table.entityName}Service.insert(entity);
+    }
+
+    /**
+     * 删除
+     */
+    @ApiOperation("删除数据")
+    @GetMapping("delete")
+    public int delete(@RequestParam("id") String id) {
+        return i${table.entityName}Service.deleteById(id);
+    }
+
+    /**
+     * 查询
+     */
+    @ApiOperation("根据id查询")
+    @GetMapping("selectById")
+    public ${entity} selectById(@RequestParam("id") String id) {
+        return i${table.entityName}Service.selectById(id);
+    }
+}
+<% } %>

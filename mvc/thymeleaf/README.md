@@ -1,4 +1,4 @@
-# mvc-thymeleaf
+# thymeleaf
 ***
 ## thymeleaf使用
 ```html
