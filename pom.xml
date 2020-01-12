@@ -16,8 +16,10 @@
 
     <!-- 声明子模块 -->
     <modules>
+        <module>util</module>
         <module>mvc</module>
         <module>data</module>
+        <module>jackson</module>
         <module>redis</module>
         <module>mongodb</module>
         <module>rabbitmq</module>
@@ -105,6 +107,12 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!-- jackson xml功能 -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
 
@@ -210,12 +218,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-
-        <!-- jackson -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
         </dependency>
     </dependencies>
 

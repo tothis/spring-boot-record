@@ -10,22 +10,21 @@
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>kafka</artifactId>
+    <artifactId>jackson</artifactId>
     <version>1.0</version>
-    <name>kafka</name>
-    <description>kafka</description>
+    <name>jackson</name>
+    <description>jackson</description>
 
     <dependencies>
-        <!-- kafka -->
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-        </dependency>
-
         <!-- jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <!-- jackson xml -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
         </dependency>
     </dependencies>
 
