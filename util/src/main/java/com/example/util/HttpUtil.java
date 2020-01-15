@@ -1,7 +1,5 @@
 package com.example.util;
 
-import org.springframework.http.HttpMethod;
-
 import javax.net.ssl.HttpsURLConnection;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -17,6 +15,10 @@ import java.util.Map;
  * @description
  */
 public class HttpUtil {
+
+    private enum HttpMethod {
+        GET, POST
+    }
 
     private final static int CONNECT_TIMEOUT = 5000;
 
@@ -160,5 +162,9 @@ public class HttpUtil {
         // return result;
 
         return null;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(HttpMethod.GET.name());
     }
 }
