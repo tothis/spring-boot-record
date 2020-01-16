@@ -41,6 +41,7 @@
         <graphql-tool.version>5.2.4</graphql-tool.version>
         <jackson.version>2.10.1</jackson.version>
         <lombok.version>1.18.10</lombok.version>
+        <swagger2.version>2.9.2</swagger2.version>
         <spring-kafka.version>2.4.0.RELEASE</spring-kafka.version>
         <kafka.version>2.4.0</kafka.version>
         <jedis.version>3.1.0</jedis.version>
@@ -192,6 +193,18 @@
                 <groupId>com.graphql-java</groupId>
                 <artifactId>graphql-java-tools</artifactId>
                 <version>${graphql-tool.version}</version>
+            </dependency>
+
+            <!-- swagger2 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger2.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
