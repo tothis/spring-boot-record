@@ -27,6 +27,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
      * @return 插入成功记录数
      * @description 插入一条记录
      */
+    @Override
     public int insert(${entity} entity) {
         return i${table.mapperName}.insert(entity);
     }
@@ -34,7 +35,10 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
     /**
      * @param id 主键id
      * @return 删除成功记录数
-     * @description 根据id删除 int deleteById(String id) {
+     * @description 根据id删除
+     */
+    @Override
+    public int deleteById(String id) {
         return i${table.mapperName}.deleteById(id);
     }
 
@@ -43,6 +47,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
      * @return 实体
      * @description 根据id查询
      */
+    @Override
     public ${entity} selectById(String id){
         return i${table.mapperName}.selectById(id);
     }

@@ -41,7 +41,7 @@ public class ${table.controllerName} {
     /**
      * 新增
      */
-    @ApiOperation("新增数据")
+    // @ApiOperation("新增数据")
     @PostMapping("add")
     public int add(@RequestBody ${entity} entity) {
         return i${table.entityName}Service.insert(entity);
@@ -50,7 +50,7 @@ public class ${table.controllerName} {
     /**
      * 删除
      */
-    @ApiOperation("删除数据")
+    // @ApiOperation("删除数据")
     @GetMapping("delete")
     public int delete(@RequestParam("id") String id) {
         return i${table.entityName}Service.deleteById(id);
@@ -59,7 +59,7 @@ public class ${table.controllerName} {
     /**
      * 查询
      */
-    @ApiOperation("根据id查询")
+    // @ApiOperation("根据id查询")
     @GetMapping("selectById")
     public ${entity} selectById(@RequestParam("id") String id) {
         return i${table.entityName}Service.selectById(id);

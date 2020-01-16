@@ -19,7 +19,13 @@ spring:
     #connectTimeout			和数据库服务器建立socket连接时的超时(单位毫秒)     0     3.0.1
     #                               0表示永不超时 适用jdk1.4及高版本
     #socketTimeout			socket操作读写超时(单位毫秒) 0表示永不超时        	0	3.0.1
-    url: jdbc:mysql://192.168.1.87:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true&serverTimezone=GMT&useSSL=false
+    #zeroDateTimeBehavior   java连接mysql操作值为0的timestamp类型字段
+    #                               不能正确处理 默认抛出一个异常
+    #                               zeroDateTimeBehavior可配置此情况处理策略
+    #                               exception(默认) 抛出异常SQL state [S1009]. Cannot convert value....
+    #                               convertToNull 将日期转换成NULL值
+    #                               round 替换成最近的日期即0001-01-01
+    url: jdbc:mysql://192.168.1.87:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true&serverTimezone=GMT&useSSL=false&zeroDateTimeBehavior=convertToNull
     # 用户名
     username: root
     # 密码

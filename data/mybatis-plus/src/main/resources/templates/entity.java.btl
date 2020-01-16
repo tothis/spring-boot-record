@@ -8,8 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 <% } %>
 <% if (entityLombokModel) { %>
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 <% } %>
 /**
  * @author ${author}
@@ -18,12 +16,6 @@ import lombok.experimental.Accessors;
  */
 <% if (entityLombokModel) { %>
 @Data
-<% if (isNotEmpty(superEntityClass)) { %>
-@EqualsAndHashCode(callSuper = true)
-<% } else { %>
-@EqualsAndHashCode(callSuper = false)
-<% } %>
-@Accessors(chain = true)
 <% } %>
 <% if (table.convert) { %>
 @TableName("${table.name}")
