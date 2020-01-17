@@ -15,33 +15,41 @@ public class DateUtil {
     public static final String FORMAT_DATE = "yyyy-MM-dd";
     public static final String FORMAT_TIME = "HH:mm:ss";
 
-    public static String dateTime(String format) {
+    public static String currentDateTime(String format) {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern(format));
     }
 
-    public static String date(String format) {
+    public static String currentDate(String format) {
         return LocalDate.now().format(DateTimeFormatter.ofPattern(format));
     }
 
-    public static String time(String format) {
+    public static String currentTime(String format) {
         return LocalTime.now().format(DateTimeFormatter.ofPattern(format));
     }
 
-    public static String dateTime() {
-        return dateTime(FORMAT);
+    public static String currentDateTime() {
+        return currentDateTime(FORMAT);
     }
 
-    public static String date() {
-        return date(FORMAT_DATE);
+    public static String currentDate() {
+        return currentDate(FORMAT_DATE);
     }
 
-    public static String time() {
-        return time(FORMAT_TIME);
+    public static String currentTime() {
+        return currentTime(FORMAT_TIME);
+    }
+
+    public static LocalDateTime dateTime(String value) {
+        return dateTime(value, FORMAT);
+    }
+
+    public static LocalDateTime dateTime(String value, String format) {
+        return LocalDateTime.parse(value, DateTimeFormatter.ofPattern(format));
     }
 
     public static void main(String[] args) {
-        System.out.println(dateTime());
-        System.out.println(date());
-        System.out.println(time());
+        System.out.println(currentDateTime());
+        System.out.println(currentDate());
+        System.out.println(currentTime());
     }
 }

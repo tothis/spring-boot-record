@@ -1,10 +1,13 @@
 package com.example.model;
 
+import com.example.validator.Date;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -26,6 +29,8 @@ public class User {
     private String userName;
 
     // @Pattern(regexp = "^(?:[1-9][0-9]?|1[01][0-9]|120)$", message = "年龄在1-120")
+    @Max(value = 120, message = "年龄最大为120")
+    @Min(value = 1, message = "年龄最小为1")
     @Column(name = "age")
     private Byte age;
 
@@ -35,6 +40,9 @@ public class User {
 
     @Column(name = "address")
     private String address;
+
+    @Date("yyyy-MM-dd")
+    private String birthday;
 
     @Column(name = "is_del")
     @AssertFalse(message = "必须为false")
