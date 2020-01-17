@@ -5,29 +5,30 @@
     <!-- 继承父工程 -->
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>spring-boot-record</artifactId>
+        <artifactId>data</artifactId>
         <version>1.0</version>
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>data</artifactId>
+    <artifactId>hibernate-jpa</artifactId>
     <version>1.0</version>
-    <name>data</name>
-    <description>data</description>
-
-    <modules>
-        <module>jdbc</module>
-        <module>mybatis-plus</module>
-        <module>hibernate-jpa</module>
-    </modules>
+    <name>hibernate-jpa</name>
+    <description>hibernate-jpa</description>
 
     <dependencies>
-        <!-- mysql connector -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
     </dependencies>
 
-    <packaging>pom</packaging>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
