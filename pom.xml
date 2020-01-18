@@ -36,6 +36,7 @@
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
         <beetl.version>1.2.20.RELEASE</beetl.version>
         <mysql.version>8.0.18</mysql.version>
+        <mybatis.version>2.1.1</mybatis.version>
         <mybatis-plus.version>3.3.0</mybatis-plus.version>
         <graphql.version>5.0.2</graphql.version>
         <graphql-tool.version>5.2.4</graphql-tool.version>
@@ -171,6 +172,13 @@
                 <version>${mysql.version}</version>
             </dependency>
 
+            <!-- mybatis -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
             <!-- mybatis-plus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -221,6 +229,12 @@
             <groupId>com.example</groupId>
             <artifactId>util</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <!-- jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
 
         <dependency>

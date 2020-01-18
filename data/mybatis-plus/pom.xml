@@ -16,22 +16,19 @@
     <description>mybatis-plus</description>
 
     <dependencies>
-        <!-- jdbc -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-
+        <!-- mybatis-plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
 
+        <!-- mybatis-plus-generator -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
         </dependency>
 
+        <!-- beetl -->
         <dependency>
             <groupId>com.ibeetl</groupId>
             <artifactId>beetl-framework-starter</artifactId>

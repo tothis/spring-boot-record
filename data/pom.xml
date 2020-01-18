@@ -17,6 +17,7 @@
 
     <modules>
         <module>jdbc</module>
+        <module>mybatis</module>
         <module>mybatis-plus</module>
         <module>hibernate-jpa</module>
     </modules>
