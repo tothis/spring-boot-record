@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>mybatis</artifactId>
-    <version>1.0</version>
+    <version>${parent.version}</version>
     <name>mybatis</name>
     <description>mybatis</description>
 
@@ -19,6 +19,12 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>jackson</artifactId>
+            <version>${parent.version}</version>
         </dependency>
 
         <!-- swagger2 -->

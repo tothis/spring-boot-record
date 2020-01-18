@@ -1,6 +1,5 @@
 package com.example.model;
 
-import com.example.validator.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -48,8 +47,8 @@ public class User {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime birthday;
 
-    @Date("yyyy-MM-dd")
-    private String date;
+    // @Date("yyyy-MM-dd")
+    // private String date;
 
     @Column(name = "address")
     private String address;

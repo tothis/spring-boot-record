@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mapper.UserMapper">
-<!--JDBC Type           Java Type-->
-<!--CHAR                String-->
-<!--VARCHAR             String-->
-<!--LONGVARCHAR         String-->
-<!--NUMERIC             java.math.BigDecimal-->
-<!--DECIMAL             java.math.BigDecimal-->
-<!--BIT                 boolean-->
-<!--BOOLEAN             boolean-->
-<!--TINYINT             byte-->
-<!--SMALLINT            short-->
-<!--INTEGER             INTEGER-->
-<!--BIGINT              long-->
-<!--REAL                float-->
-<!--FLOAT               double-->
-<!--DOUBLE              double-->
-<!--BINARY              byte[]-->
-<!--VARBINARY           byte[]-->
-<!--LONGVARBINARY       byte[]-->
-<!--DATE                java.sql.Date-->
-<!--TIME                java.sql.Time-->
-<!--TIMESTAMP           java.sql.Timestamp-->
-<!--CLOB                Clob-->
-<!--BLOB                Blob-->
-<!--ARRAY               Array-->
-<!--DISTINCT            mapping of underlying type-->
-<!--STRUCT              Struct-->
-<!--REF                 Ref-->
-<!--DATALINK            java.net.URL-->
+    <!--JDBC Type           Java Type-->
+    <!--CHAR                String-->
+    <!--VARCHAR             String-->
+    <!--LONGVARCHAR         String-->
+    <!--NUMERIC             java.math.BigDecimal-->
+    <!--DECIMAL             java.math.BigDecimal-->
+    <!--BIT                 boolean-->
+    <!--BOOLEAN             boolean-->
+    <!--TINYINT             byte-->
+    <!--SMALLINT            short-->
+    <!--INTEGER             INTEGER-->
+    <!--BIGINT              long-->
+    <!--REAL                float-->
+    <!--FLOAT               double-->
+    <!--DOUBLE              double-->
+    <!--BINARY              byte[]-->
+    <!--VARBINARY           byte[]-->
+    <!--LONGVARBINARY       byte[]-->
+    <!--DATE                java.sql.Date-->
+    <!--TIME                java.sql.Time-->
+    <!--TIMESTAMP           java.sql.Timestamp-->
+    <!--CLOB                Clob-->
+    <!--BLOB                Blob-->
+    <!--ARRAY               Array-->
+    <!--DISTINCT            mapping of underlying type-->
+    <!--STRUCT              Struct-->
+    <!--REF                 Ref-->
+    <!--DATALINK            java.net.URL-->
 
     <resultMap id="user" type="user">
         <id property="id" javaType="Long" column="id" jdbcType="BIGINT"/>
@@ -40,5 +40,17 @@
 
     <select id="findAll" resultMap="user">
         SELECT id, user_name, password, age, address FROM user
+    </select>
+
+    <select id="findMap" resultMap="user">
+        SELECT id, user_name, password, age, mail, birthday, address FROM `user`
+        <where>
+            <if test="userName != null and userName != ''">
+                AND user_name LIKE "%"#{userName}"%"
+            </if>
+            <if test="age != null and age != ''">
+                AND age = #{age}
+            </if>
+        </where>
     </select>
 </mapper>

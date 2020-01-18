@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.PreparedStatement;
@@ -16,8 +17,9 @@ import java.util.List;
  * @datetime 2019/12/26 22:09
  * @description jdbcTemplate使用
  */
+@RequestMapping("user")
 @RestController
-public class TestController {
+public class UserController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

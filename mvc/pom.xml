@@ -11,12 +11,14 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>mvc</artifactId>
-    <version>1.0</version>
+    <version>${parent.version}</version>
     <name>mvc</name>
     <description>mvc</description>
 
     <modules>
         <module>base</module>
+        <module>beetl</module>
+        <module>thymeleaf</module>
     </modules>
 
     <packaging>pom</packaging>

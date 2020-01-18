@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 李磊
@@ -53,5 +54,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int deleteById(Long id) {
         return userMapper.deleteById(id);
+    }
+
+    @Override
+    public Map<Long, User> findMap(Map params) {
+        return userMapper.findMap(params);
     }
 }

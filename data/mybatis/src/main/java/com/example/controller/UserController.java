@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 李磊
@@ -46,13 +47,19 @@ public class UserController extends BaseController {
             @ApiImplicitParam(name = "id", value = "用户id", required = true, paramType = "path", dataType = "Long")
     })
     @ApiOperation("查询单个用户")
-    @GetMapping("selectById")
+    @GetMapping("select-by-id")
     public User selectById(@RequestParam("id") Long id) {
         return userService.selectById(id);
     }
 
-    @GetMapping("findAll")
+    @GetMapping("find-all")
     public List<User> findAll(User user) {
         return userService.findAll(user);
+    }
+
+    @GetMapping("find-map")
+    // 使用@RequestParam把参数封装为Map
+    public Map<Long, User> findMap(@RequestParam Map params) {
+        return userService.findMap(params);
     }
 }

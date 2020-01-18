@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 李磊
@@ -32,4 +33,6 @@ public interface UserService {
     User selectById(Long id);
 
     List<User> findAll(User User);
+
+    Map<Long, User> findMap(Map params);
 }
