@@ -3,10 +3,14 @@ package com.example.util;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Data;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 李磊
@@ -45,5 +49,41 @@ public final class JsonUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        List<User> list1 = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            int j = i;
+            list1.add(new User() {{
+                setId(Long.valueOf(j));
+                setUserName(String.valueOf(j));
+            }});
+        }
+
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(list1);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        List<User> list2 = new ArrayList<>();
+        try {
+            // 使用TypeReference反序列化
+            list2 = mapper.readValue(json, new TypeReference<List<User>>() {
+            });
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        list2.forEach(System.out::println);
+    }
+
+    @Data
+    static class User {
+        private Long id;
+        private String userName;
     }
 }
