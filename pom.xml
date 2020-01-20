@@ -22,6 +22,7 @@
         <module>data</module>
         <module>jackson</module>
         <module>redis</module>
+        <module>ehcache</module>
         <module>mongodb</module>
         <module>rabbitmq</module>
         <module>kafka</module>
@@ -155,6 +156,13 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-mongodb</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- cache -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-cache</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
 

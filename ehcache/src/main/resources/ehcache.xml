@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+    <!--
+    磁盘缓存位置 java.io.tmpdir对应系统目录
+    Windows [%userprofile%\AppData\Local\Temp\]
+    Solaris [/var/tmp/]
+    Linux [/tmp]
+    Mac OS X [/tmp]
+    -->
+    <diskStore path="java.io.tmpdir/ehcache"/>
+
+    <!-- 默认缓存 -->
+    <defaultCache
+            maxEntriesLocalHeap="10000"
+            eternal="false"
+            timeToIdleSeconds="120"
+            timeToLiveSeconds="120"
+            maxEntriesLocalDisk="10000000"
+            diskExpiryThreadIntervalSeconds="120"
+            memoryStoreEvictionPolicy="LRU">
+        <persistence strategy="localTempSwap"/>
+    </defaultCache>
+    <!-- name 缓存名称 -->
+    <!-- maxElementsInMemory 缓存最大个数 -->
+    <!-- eternal(默认true) 对象是否永久有效 true表示对象永不过期 此时会忽略timeToIdleSeconds和timeToLiveSeconds属性 -->
+    <!-- maxEntriesLocalHeap 堆内存中最大缓存对象数 0表示无限制 -->
+    <!-- timeToIdleSeconds(默认0) 设定允许对象处于空闲状态的最长时间 单位为秒 以对象最后访问时间计算 -->
+    <!-- timeToLiveSeconds(默认0) 设定对象在失效前允许存活时间 最大时间介于创建时间和失效时间之间 为0时对象一直存活 -->
+    <!-- overflowToDisk 当内存中对象数量达到maxElementsInMemory时 Ehcache将会对象写到磁盘中 -->
+    <!-- diskSpoolBufferSizeMB 设定DiskStore(磁盘缓存)缓存区大小 默认30MB 每个Cache都应有单独的缓冲区 -->
+    <!-- maxElementsOnDisk 硬盘最大缓存个数 -->
+    <!-- diskPersistent 是否缓存虚拟机重启数据 -->
+    <!-- diskExpiryThreadIntervalSeconds 磁盘失效线程运行时间间隔 默认是120秒 -->
+    <!-- memoryStoreEvictionPolicy 当达到maxElementsInMemory限制时 Ehcache将会根据指定的策略去清理内存 默认策略是LRU(最近最少使用) 可设为FIFO(先进先出)或是LFU(较少使用) -->
+    <!-- clearOnFlush 内存数量最大时是否清除 -->
+    <!-- statistics(默认false) 是否收集统计信息 -->
+    <!-- copyOnRead(默认false) 当缓存项被读出时 是否返回一份它的拷贝(返回对象是缓存中对象的拷贝) -->
+    <!-- copyOnWrite(默认false) 当缓存项被写入时 是否写入一份它的拷贝(写入缓存的是写入对象的拷贝) -->
+    <cache name="testCache"
+           maxElementsInMemory="1000"
+           eternal="false"
+           timeToIdleSeconds="5"
+           timeToLiveSeconds="5"
+           overflowToDisk="false"
+           memoryStoreEvictionPolicy="LRU"/>
+</ehcache>
