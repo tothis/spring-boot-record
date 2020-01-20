@@ -18,6 +18,7 @@
     <modules>
         <module>util</module>
         <module>mvc</module>
+        <module>shiro</module>
         <module>data</module>
         <module>jackson</module>
         <module>redis</module>
@@ -35,6 +36,9 @@
 
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
         <beetl.version>1.2.20.RELEASE</beetl.version>
+        <shiro.version>1.4.2</shiro.version>
+        <jstl.version>1.2</jstl.version>
+        <tomcat-embed-jasper.version>9.0.30</tomcat-embed-jasper.version>
         <mysql.version>8.0.18</mysql.version>
         <mybatis.version>2.1.1</mybatis.version>
         <mybatis-plus.version>3.3.0</mybatis-plus.version>
@@ -46,6 +50,7 @@
         <spring-kafka.version>2.4.0.RELEASE</spring-kafka.version>
         <kafka.version>2.4.0</kafka.version>
         <jedis.version>3.1.0</jedis.version>
+        <ehcache.version>3.8.1</ehcache.version>
     </properties>
 
     <dependencyManagement>
@@ -67,6 +72,27 @@
                         <artifactId>junit-vintage-engine</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <!-- shiro -->
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring-boot-web-starter</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+
+            <!-- jsp jstl标签 -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>${jstl.version}</version>
+            </dependency>
+
+            <!-- jsp引擎 springboot内置tomcat无此依赖 -->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-jasper</artifactId>
+                <version>${tomcat-embed-jasper.version}</version>
             </dependency>
 
             <!-- thymeleaf -->
@@ -143,6 +169,13 @@
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
+            </dependency>
+
+            <!-- ehcache -->
+            <dependency>
+                <groupId>org.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>${ehcache.version}</version>
             </dependency>
 
             <dependency>

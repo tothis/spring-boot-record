@@ -6,10 +6,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
 @SpringBootApplication
-public class HibernateJpaApplication {
+public class ShiroApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HibernateJpaApplication.class, args);
+        SpringApplication.run(ShiroApplication.class, args);
     }
 
 }

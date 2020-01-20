@@ -1,0 +1,18 @@
+spring:
+  mvc:
+    view:
+      # jsp不能直接放在resources目录下 默认在src/main/webapp和src/main/resources/MATE-INF/resources目录查找
+      prefix: /
+      suffix: .jsp
+  datasource:
+    url: jdbc:mysql://192.168.10.200:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true&serverTimezone=GMT&useSSL=false&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    # 设置创建表的引擎为InnoDB
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
