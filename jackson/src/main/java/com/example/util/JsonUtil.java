@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 
@@ -73,8 +74,14 @@ public final class JsonUtil {
         List<User> list2 = new ArrayList<>();
         try {
             // 使用TypeReference反序列化
-            list2 = mapper.readValue(json, new TypeReference<List<User>>() {
-            });
+            TypeReference<List<User>> typeReference = new TypeReference<List<User>>() {
+            };
+            // 使用JavaType反序列化
+            JavaType javaType = mapper.getTypeFactory().constructParametricType(List.class, User.class);
+
+            list2 = mapper.readValue(json, typeReference);
+            list2 = mapper.readValue(json, javaType);
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

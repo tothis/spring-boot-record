@@ -35,11 +35,24 @@
         <result property="userName" javaType="String" column="user_name" jdbcType="VARCHAR"/>
         <result property="password" javaType="String" column="password" jdbcType="VARCHAR"/>
         <result property="age" javaType="Byte" column="age" jdbcType="TINYINT"/>
-        <result property="address" javaType="String" column="address" jdbcType="VARCHAR"/>
+        <!-- 内部类不能使用别名 -->
+        <collection property="addressList" ofType="com.example.model.User$Address">
+            <result column="id1" property="id"/>
+            <result column="detail" property="detail"/>
+        </collection>
     </resultMap>
 
     <select id="findAll" resultMap="user">
-        SELECT id, user_name, password, age, address FROM user
+        SELECT
+            a.id
+            , a.user_name
+            , a.password
+            , a.age
+            , a.address
+            , b.id AS id1
+            , b.detail
+        FROM user a
+        LEFT JOIN address b ON b.user_id = a.id
     </select>
 
     <select id="findMap" resultMap="user">

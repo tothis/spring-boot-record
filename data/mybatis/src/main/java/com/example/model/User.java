@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author 李磊
@@ -35,6 +36,13 @@ public class User extends BaseEntity {
     @ApiModelProperty(value = "生日", dataType = "LocalDateTime")
     private LocalDateTime birthday;
 
-    @ApiModelProperty(value = "地址", dataType = "String")
-    private String address;
+    @ApiModelProperty(value = "地址", dataType = "Address")
+    private List<Address> addressList;
+
+    @Data
+    // 被mybatis映射结果集需声明为static
+    static class Address {
+        private Long id;
+        private String detail;
+    }
 }

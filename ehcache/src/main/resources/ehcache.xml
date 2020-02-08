@@ -38,7 +38,7 @@
     <!-- statistics(默认false) 是否收集统计信息 -->
     <!-- copyOnRead(默认false) 当缓存项被读出时 是否返回一份它的拷贝(返回对象是缓存中对象的拷贝) -->
     <!-- copyOnWrite(默认false) 当缓存项被写入时 是否写入一份它的拷贝(写入缓存的是写入对象的拷贝) -->
-    <cache name="testCache"
+    <cache name="user"
            maxElementsInMemory="1000"
            eternal="false"
            timeToIdleSeconds="5"
