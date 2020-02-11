@@ -30,19 +30,15 @@ public class User {
     private String userName;
 
     @Length(min = 8, max = 16, message = "密码长度在[8-16]之间")
-    @Column(name = "password")
     private String password;
 
     // @Pattern(regexp = "^(?:[1-9][0-9]?|1[01][0-9]|120)$", message = "年龄在1-120")
     @Max(value = 120, message = "年龄最大为120")
     @Min(value = 1, message = "年龄最小为1")
-    @Column(name = "age")
     private Byte age;
 
-    @Column(name = "mail")
     private String mail;
 
-    @Column(name = "birthday")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime birthday;
@@ -50,8 +46,8 @@ public class User {
     // @Date("yyyy-MM-dd")
     // private String date;
 
-    @Column(name = "address")
-    private String address;
+    // 与 Address 的关联
+    private Long addressId;
 
     @Column(name = "is_del")
     // @AssertFalse(message = "必须为false")

@@ -115,6 +115,7 @@ public class HttpUtil {
      * @return
      */
     private static String param(Map<String, String> param) {
+        if (param == null || param.size() == 0) return "";
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<String, String> entry : param.entrySet()) {
             builder.append(entry.getKey() + "=" + entry.getValue() + "&");

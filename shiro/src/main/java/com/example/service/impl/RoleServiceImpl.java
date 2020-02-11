@@ -13,5 +13,4 @@ import javax.transaction.Transactional;
 @Transactional
 @Service
 public class RoleServiceImpl implements RoleService {
-
 }

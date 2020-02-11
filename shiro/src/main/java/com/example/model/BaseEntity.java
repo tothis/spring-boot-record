@@ -23,13 +23,19 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_EMPTY) // 此注解可被继承 即继承此类的类此注解依然生效
 @JsonIgnoreProperties(ignoreUnknown = true, value = "delFlag")
 @MappedSuperclass // 实体继承jpa映射
-// @SequenceGenerator(name = "tb_user_sq", sequenceName = "tb_user_sqe")
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-//    @Id
-//    @GeneratedValue(generator = "tb_user_sq", strategy = GenerationType.SEQUENCE)
+//    // @Id
+//    // @GeneratedValue(generator = "tb_user_sq", strategy = GenerationType.SEQUENCE)
+//    generator jpa中唯一标识
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sq")
+//    @SequenceGenerator(
+//            name = "user_sq" // 和GeneratedValue的generator值一致
+//            , sequenceName = "tb_user_sqe" // 生成表表名
+//            , allocationSize = 1 // 自增值
+//    )
 //    private Long id;
 
     @ApiModelProperty(value = "数据主键", dataType = "Long")

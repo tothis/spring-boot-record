@@ -1,7 +1,7 @@
 spring:
   mvc:
     view:
-      # jsp²»ÄÜÖ±½Ó·ÅÔÚresourcesÄ¿Â¼ÏÂ Ä¬ÈÏÔÚsrc/main/webappºÍsrc/main/resources/MATE-INF/resourcesÄ¿Â¼²éÕÒ
+      # jspä¸èƒ½ç›´æ¥æ”¾åœ¨resourcesç›®å½•ä¸‹ é»˜è®¤åœ¨src/main/webappå’Œsrc/main/resources/MATE-INF/resourcesç›®å½•æŸ¥æ‰¾
       prefix: /
       suffix: .jsp
   datasource:
@@ -14,5 +14,5 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-    # ÉèÖÃ´´½¨±íµÄÒıÇæÎªInnoDB
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    # è®¾ç½®åˆ›å»ºè¡¨çš„å¼•æ“ä¸ºInnoDB
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
