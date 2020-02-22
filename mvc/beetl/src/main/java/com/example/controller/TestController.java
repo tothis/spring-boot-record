@@ -20,6 +20,7 @@ public class TestController {
                 put(i, i);
             }
         }});
+        model.addAttribute("value", "value");
         return "index";
     }
 }

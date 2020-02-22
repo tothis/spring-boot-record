@@ -8,5 +8,16 @@
 <% for (entry in data) { %>
 <p>${entry.key} ${entry.value}</p>
 <% } %>
+
+<%//%>自定义方法
+${toFixed('.1', 2)}
+<%//format方法%>
+${'content', 'format'}
+<%/*调用java类*/%>
+${@com.example.util.StringUtil.stringToHex("李磊")}
+<%/*
+工具类方法
+*/%>
+${stringUtil.stringToHex('李磊')}
 </body>
 </html>
