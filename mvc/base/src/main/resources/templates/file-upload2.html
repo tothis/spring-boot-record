@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<input name="file" id="fileUpload" type="file" accept="images/*"
+<input name="file" id="fileUpload" type="file" accept="video/*"
        onchange="fileUpload(this)" multiple>
 
 <!--
@@ -31,11 +31,13 @@ Ogg Ogg文件使用Theora视频编解码器和Vorbis音频编解码器 (iTouch�
 </video>
 
 <img id="image" src onerror="
-    this.src='./image/image1.png';
-    this.onerror=null; // 控制不要一直跳动
+    this.src = '/file/image/image.jpg';
+    this.onerror = null; // 控制不要一直跳动
 ">
 
-<button onclick="fileUpload()">开始上传</button>
+<button onclick="videoTime()">打印视频长度</button>
+<button onclick="videoSize()">打印视频大小</button>
+<button onclick="fileUpload()">开始上传视频</button>
 
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script>
@@ -57,7 +59,9 @@ Ogg Ogg文件使用Theora视频编解码器和Vorbis音频编解码器 (iTouch�
 
     let video = document.getElementById('video');
 
-    document.getElementById('fileUpload').onchange = function () {
+    let fileUploadEle = document.getElementById('fileUpload');
+
+    fileUploadEle.onchange = function () {
 
         let file = this.files[0];
 
@@ -102,13 +106,39 @@ Ogg Ogg文件使用Theora视频编解码器和Vorbis音频编解码器 (iTouch�
 
         document.getElementById('image').src = canvas.toDataURL('image/png');
 
-        console.log(canvas);
-
         if (flag) {
             flag = !flag;
-            // 43失败 44成功
-            setTimeout(captureImage, 44);
+            setTimeout(captureImage, 500);
         }
+
+        getTime(video);
+    }
+
+    function videoSize() {
+        console.log(parseInt(fileUploadEle.files[0].size / (1024 * 1024)) + 'MB');
+    }
+
+    function videoTime() {
+        let blob = fileUploadEle.files[0];
+        // 创建DOMString URL生命周期和创建它的窗口中的document绑定
+        // URL对象表示指定的File对象或Blob对象(把对象转换成url使用 十分灵活方便 特别是对于文件对象)
+        const url = URL.createObjectURL(blob);
+
+        // audio可以获取视频或音频时长
+        const audioElement = new Audio(url);
+
+        // 当音频/视频的元数据已加载时 会触发loadedmetadata事件 音频/视频的元数据(时长 尺寸(仅视频) 文本轨道)
+        audioElement.addEventListener("loadedmetadata", function () {
+            getTime(audioElement);
+        });
+    }
+
+    function getTime(object) {
+        // 获取视频播放时间
+        const hour = parseInt((object.duration) / 3600);
+        const minute = parseInt((object.duration % 3600) / 60);
+        const second = Math.ceil(object.duration % 60);
+        console.log(hour + "小时 " + minute + "分 " + second + "秒");
     }
 
     /** 上传文件主方法 */
@@ -157,14 +187,14 @@ Ogg Ogg文件使用Theora视频编解码器和Vorbis音频编解码器 (iTouch�
             formData.append('fileIndex', fileIndex); // 当前文件下标
 
             $.ajax({
-                url: 'http://localhost:8080/file-upload/video',
+                url: 'http://localhost:8080/file/split',
                 type: 'post',
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function (data) {
                     // 渲染进度条 如已上传完成则合并文件
-                    mergeFile(data, filename);
+                    fileMerge(data, filename);
                 }
             });
             start = end;
@@ -177,11 +207,11 @@ Ogg Ogg文件使用Theora视频编解码器和Vorbis音频编解码器 (iTouch�
      * @param data
      * @param filename
      */
-    function mergeFile(data, filename) {
+    function fileMerge(data, filename) {
         tempsFile += data.tempFile + ',';
         indexNumberNew++;
         // 上传视频进度条
-        console.log((indexNumberNew / progressVal) * 100 + '%');
+        console.log(parseInt((indexNumberNew / progressVal) * 100) + '%');
 
         /** 上传完所有的视频后执行 */
         if (fileIndex === indexNumberNew) {
@@ -191,7 +221,7 @@ Ogg Ogg文件使用Theora视频编解码器和Vorbis音频编解码器 (iTouch�
             formData.append('originalFileName', filename); // 文件名称
 
             $.ajax({
-                url: 'http://localhost:8080/merge-file',
+                url: 'http://localhost:8080/file/merge',
                 type: 'post',
                 data: formData,
                 processData: false,

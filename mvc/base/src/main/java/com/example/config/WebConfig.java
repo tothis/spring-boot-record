@@ -1,5 +1,6 @@
 package com.example.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -12,21 +13,29 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    @Value("${upload-file-path}")
+    private String filePath;
+
     /**
      * 静态资源配置
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
-        String os = System.getProperty("os.name");
-        String folder;
-        if (os.toLowerCase().indexOf("win") != -1) {
-            folder = "file:D:/data/";
-        } else {
-            folder = "file:/data/";
-        }
-        System.setProperty("folder", folder);
         // 配置server虚拟路径 handler为浏览器访问路径 locations为对应的本地目录
-        registry.addResourceHandler("/file/**").addResourceLocations(folder);
+        registry.addResourceHandler("/file/**").addResourceLocations("file:" + filePath);
     }
+
+    /**
+     * addCorsMappings配置跨域
+     */
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedMethods("*")
+//                .allowedHeaders("*")
+//                .allowedOrigins("*")
+//                .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
+//                .maxAge(3600)
+//                .allowCredentials(true);
+//    }
 }

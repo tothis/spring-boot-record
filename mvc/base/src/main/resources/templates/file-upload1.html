@@ -4,25 +4,40 @@
     <meta charset="UTF-8">
     <title>文件上传</title>
     <style>
+        html, body {
+            height: 100%;
+        }
+
         img {
             width: 300px;
             height: 200px;
             border-radius: 10px;
             object-fit: cover;
         }
+
+        iframe {
+            display: none;
+            border: none;
+            width: 100%;
+            height: 60%;
+        }
     </style>
 </head>
 <body>
-
 <!-- multiple属性表示可以一次选择多个文件 -->
-<input name="file" id="fileUpload" type="file" accept="images/*" multiple>
+<input name="file" id="fileUpload" type="file" accept="image/*" multiple>
 
 <button onclick="fileUpload()">开始上传</button>
 
+sftp上传<input id="sftpUpload" accept="image/*" type="file">
+
 <img id="image" src onerror="
-    this.src='./image/image1.png';
-    this.onerror=null; // 控制不要一直跳动
+    this.src = '/file/image/image.jpg';
+    this.onerror = null; // 控制不要一直跳动
 ">
+
+doc上传<input id="docUpload" accept="" type="file">
+<iframe name="iframeShow"></iframe>
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script>
     /**
@@ -30,7 +45,8 @@
      * /tree/master/src/main/java/com/example/file_upload
      * /FileUploadController.java
      */
-    document.getElementById('fileUpload').onchange = function () {
+    const file = document.getElementById('fileUpload');
+    file.onchange = function () {
         // 初始化了一个文件读取对象
         let reader = new FileReader();
         // 读取文件数据 this.files[0] 文件表单元素选择的第一个文件
@@ -45,9 +61,9 @@
 
     function fileUpload() {
         let formData = new FormData();
-        formData.append('file', $('#fileUpload')[0].files[0]);
+        formData.append('file', file.files[0]);
         $.ajax({
-            url: 'http://localhost:8080/file-upload/image',
+            url: '/file/image',
             type: 'post',
             data: formData,
             // 默认 application/x-www-form-urlencoded
@@ -56,8 +72,76 @@
             processData: false,
             success: function (result) {
                 console.log(result);
+                formSubmit({action: '/file/download'}, {fileName: result.fileName});
             }
-        })
+        });
+    }
+
+    // sftp上传
+    document.getElementById('sftpUpload').onchange = function () {
+        let formData = new FormData();
+        formData.append('file', this.files[0]);
+        $.ajax({
+            url: '/file/sftp',
+            type: 'post',
+            data: formData,
+            // 默认 application/x-www-form-urlencoded
+            contentType: false,
+            // 默认把data值转化成字符串
+            processData: false,
+            success: function (result) {
+                console.log(result);
+                formSubmit({action: '/file/sftp-download'}, {fileName: result.fileName});
+            }
+        });
+    }
+
+    // doc上传
+    const iframeShow = document.getElementsByName('iframeShow')[0];
+    document.getElementById('docUpload').onchange = function () {
+        let formData = new FormData();
+        formData.append('file', this.files[0]);
+        $.ajax({
+            url: '/file/document',
+            type: 'post',
+            data: formData,
+            // 默认 application/x-www-form-urlencoded
+            contentType: false,
+            // 默认把data值转化成字符串
+            processData: false,
+            success: function (fileName) {
+                console.log(fileName);
+                iframeShow.style.display = 'block';
+                formSubmit({action: './pdf', method: 'post', target: 'iframeShow'}, {fileName: fileName});
+            }
+        });
+    }
+
+    /**
+     * 使用form表单提交数据
+     * @param attrs
+     * @param data
+     * @param method
+     */
+    function formSubmit(attrs, data) {
+        if (attrs && attrs.action) {
+            let form = document.createElement('form');
+            let attrKeys = Object.keys(attrs);
+            for (let i = 0; i < attrKeys.length; i++) {
+                form[attrKeys[i]] = attrs[attrKeys[i]];
+            }
+            if (data) {
+                let keys = Object.keys(data);
+                for (let i = 0; i < keys.length; i++) {
+                    let input = document.createElement('input');
+                    input.name = keys[i];
+                    input.value = data[keys[i]];
+                    form.appendChild(input);
+                }
+            }
+            document.body.appendChild(form).submit();
+            form.remove();
+        }
     }
 </script>
 </body>

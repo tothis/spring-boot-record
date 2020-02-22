@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>pdf</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        object {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<script th:inline="text">
+    function adobeActiveX() {
+        let activeXObject = null;
+        if (window.ActiveXObject) {
+            activeXObject = new ActiveXObject('AcroPDF.PDF');
+            if (!activeXObject) {
+                activeXObject = new ActiveXObject('PDF.PdfCtrl');
+            }
+            if (activeXObject !== null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function adobePlugin() {
+        let plugins = navigator.plugins;
+        let reg = /Adobe Reader|Adobe PDF|Acrobat/gi;
+        for (let i = 0; i < plugins.length; i++) {
+            if (reg.test(plugins[i].name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function mimeType() {
+        let mimeType = navigator.mimeTypes['application/pdf'];
+        return mimeType && mimeType.enabledPlugin;
+    }
+
+    function modelType() {
+        if (adobeActiveX() || adobePlugin()) {
+            return 'adobe';
+        } else if (mimeType()) {
+            return 'generic';
+        }
+    }
+
+    function loadPdf(filePath) {
+        if (modelType()) {
+            let object = document.createElement('object');
+            object.data = filePath;
+            object.type = 'application/pdf';
+            document.body.appendChild(object);
+        }
+    }
+
+    loadPdf('http://localhost:8080/file/[[${fileName}]]');
+</script>
+</body>
+</html>

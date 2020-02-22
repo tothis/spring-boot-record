@@ -43,3 +43,14 @@ spring:
     servlet:
       content-type: text/html
     suffix: .html
+# 自定义变量
+sftp-server:
+  address: 192.168.0.102
+  user-name: root
+  password: root
+  port: 22
+  timeout: 60000
+upload-file-path: D:/data/upload/file/
+# 特殊字符使用 \ 转义或使用 '' 包围
+# open-office: /opt/openoffice4/program/soffice
+open-office-path: '"D:\OpenOffice 4\program\soffice" -headless -accept="socket,host=127.0.0.1,port=8100;urp;" -nofirststartwizard'

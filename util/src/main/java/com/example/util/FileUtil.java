@@ -154,7 +154,6 @@ public final class FileUtil {
                 }
             }
         }
-
         if (!dir.delete()) {
             return false;
         }
@@ -168,7 +167,7 @@ public final class FileUtil {
      * @param filter 过滤器
      * @return 目录内容的文件数组
      */
-    public static File[] listAll(File file, javax.swing.filechooser.FileFilter filter) {
+    public static File[] listAll(File file, FileFilter filter) {
         ArrayList list = new ArrayList();
         File[] files;
         if (!file.exists() || file.isFile()) {
@@ -187,8 +186,7 @@ public final class FileUtil {
      * @param filter 过滤器
      * @param file   目录
      */
-    private static void list(ArrayList list, File file,
-                             javax.swing.filechooser.FileFilter filter) {
+    private static void list(ArrayList list, File file, FileFilter filter) {
         if (filter.accept(file)) {
             list.add(file);
             if (file.isFile()) {
@@ -201,7 +199,6 @@ public final class FileUtil {
                 list(list, files[i], filter);
             }
         }
-
     }
 
     /**
@@ -234,33 +231,8 @@ public final class FileUtil {
      *
      * @param fileName 文件名
      * @return 对应的文件路径
+     * new File(fileName).getAbsolutePath();
      */
-    public static String getFilePath(String fileName) {
-        return new File(fileName).getAbsolutePath();
-    }
-
-    /**
-     * 将DOS/Windows格式的路径转换为UNIX/Linux格式的路径
-     * 其实就是将路径中的"\"全部换为"/" 因为在某些情况下我们转换为这种方式比较方便
-     * 某中程度上说"/"比"\"更适合作为路径分隔符 而且DOS/Windows也将它当作路径分隔符
-     *
-     * @param filePath 转换前的路径
-     * @return 转换后的路径
-     */
-    public static String toUNIXpath(String filePath) {
-        return filePath.replace('\\', '/');
-    }
-
-    /**
-     * 从文件名得到UNIX风格的文件绝对路径
-     *
-     * @param fileName 文件名
-     * @return 对应的UNIX风格的文件路径
-     * @see #toUNIXpath(String filePath) toUNIXpath
-     */
-    public static String getUNIXfilePath(String fileName) {
-        return toUNIXpath(new File(fileName).getAbsolutePath());
-    }
 
     /**
      * 得到文件的类型
@@ -269,15 +241,15 @@ public final class FileUtil {
      * @param fileName 文件名
      * @return 文件名中的类型部分
      */
-    public static String getTypePart(String fileName) {
-        int point = fileName.lastIndexOf('.');
-        int length = fileName.length();
-        if (point == -1 || point == length - 1) {
-            return "";
-        } else {
-            return fileName.substring(point + 1, length);
-        }
-    }
+//    public static String getTypePart(String fileName) {
+//        int point = fileName.lastIndexOf('.');
+//        int length = fileName.length();
+//        if (point == -1 || point == length - 1) {
+//            return "";
+//        } else {
+//            return fileName.substring(point + 1, length);
+//        }
+//    }
 
     /**
      * 得到文件的类型
@@ -286,125 +258,9 @@ public final class FileUtil {
      * @param file 文件
      * @return 文件名中的类型部分
      */
-    public static String getFileType(File file) {
-        return getTypePart(file.getName());
-    }
-
-    /**
-     * 得到文件的名字部分
-     * 实际上就是路径中的最后一个路径分隔符后的部分
-     *
-     * @param fileName 文件名
-     * @return 文件名中的名字部分
-     */
-    public static String getNamePart(String fileName) {
-        int point = getPathLsatIndex(fileName);
-        int length = fileName.length();
-        if (point == -1) {
-            return fileName;
-        } else if (point == length - 1) {
-            int secondPoint = getPathLsatIndex(fileName, point - 1);
-            if (secondPoint == -1) {
-                if (length == 1) {
-                    return fileName;
-                } else {
-                    return fileName.substring(0, point);
-                }
-            } else {
-                return fileName.substring(secondPoint + 1, point);
-            }
-        } else {
-            return fileName.substring(point + 1);
-        }
-    }
-
-    /**
-     * 得到文件名中的父路径部分
-     * 对两种路径分隔符都有效
-     * 不存在时返回""
-     * 如果文件名是以路径分隔符结尾的则不考虑该分隔符 例如"/path/"返回""
-     *
-     * @param fileName 文件名
-     * @return 父路径 不存在或者已经是父目录时返回""
-     */
-    public static String getPathPart(String fileName) {
-        int point = getPathLsatIndex(fileName);
-        int length = fileName.length();
-        if (point == -1) {
-            return "";
-        } else if (point == length - 1) {
-            int secondPoint = getPathLsatIndex(fileName, point - 1);
-            if (secondPoint == -1) {
-                return "";
-            } else {
-                return fileName.substring(0, secondPoint);
-            }
-        } else {
-            return fileName.substring(0, point);
-        }
-    }
-
-    /**
-     * 得到路径分隔符在文件路径中首次出现的位置
-     * 对于DOS或者UNIX风格的分隔符都可以
-     *
-     * @param fileName 文件路径
-     * @return 路径分隔符在路径中首次出现的位置 没有出现时返回-1
-     */
-    public static int getPathIndex(String fileName) {
-        int point = fileName.indexOf('/');
-        if (point == -1) {
-            point = fileName.indexOf('\\');
-        }
-        return point;
-    }
-
-    /**
-     * 得到路径分隔符在文件路径中指定位置后首次出现的位置
-     * 对于DOS或者UNIX风格的分隔符都可以
-     *
-     * @param fileName  文件路径
-     * @param fromIndex 开始查找的位置
-     * @return 路径分隔符在路径中指定位置后首次出现的位置 没有出现时返回-1
-     */
-    public static int getPathIndex(String fileName, int fromIndex) {
-        int point = fileName.indexOf('/', fromIndex);
-        if (point == -1) {
-            point = fileName.indexOf('\\', fromIndex);
-        }
-        return point;
-    }
-
-    /**
-     * 得到路径分隔符在文件路径中最后出现的位置
-     * 对于DOS或者UNIX风格的分隔符都可以
-     *
-     * @param fileName 文件路径
-     * @return 路径分隔符在路径中最后出现的位置 没有出现时返回-1
-     */
-    public static int getPathLsatIndex(String fileName) {
-        int point = fileName.lastIndexOf('/');
-        if (point == -1) {
-            point = fileName.lastIndexOf('\\');
-        }
-        return point;
-    }
-
-    /**
-     * 得到路径分隔符在文件路径中指定位置前最后出现的位置
-     * 对于DOS或者UNIX风格的分隔符都可以
-     *
-     * @param fileName  文件路径
-     * @param fromIndex 开始查找的位置
-     * @return 路径分隔符在路径中指定位置前最后出现的位置 没有出现时返回-1
-     */
-    public static int getPathLsatIndex(String fileName, int fromIndex) {
-        int point = fileName.lastIndexOf('/', fromIndex);
-        if (point == -1) {
-            point = fileName.lastIndexOf('\\', fromIndex);
-        }
-        return point;
-    }
+   // public static String getFileType(File file) {
+//        return getTypePart(file.getName());
+//     }
 
     /**
      * 将文件名中的类型部分去掉
@@ -499,7 +355,6 @@ public final class FileUtil {
      */
     public static boolean genModuleTpl(String path, String modulecontent) throws IOException {
 
-        path = getUNIXfilePath(path);
         String[] patharray = path.split("\\/");
         String modulepath = "";
         for (int i = 0; i < patharray.length - 1; i++) {
@@ -529,7 +384,6 @@ public final class FileUtil {
      * @return 图片的扩展名
      */
     public static String getPicExtendName(String picPath) {
-        picPath = getUNIXfilePath(picPath);
         String picExtend = "";
         if (isExist(picPath + ".gif")) {
             picExtend = ".gif";
@@ -544,45 +398,6 @@ public final class FileUtil {
             picExtend = ".png";
         }
         return picExtend; // 返回图片扩展名
-    }
-
-    /**
-     * 拷贝文件
-     *
-     * @param in  输入文件
-     * @param out 输出文件
-     * @return
-     * @throws Exception
-     */
-    public static boolean copyFile(File in, File out) {
-        try (
-                FileInputStream inputStream = new FileInputStream(in);
-                FileOutputStream outputStream = new FileOutputStream(out)
-
-        ) {
-            byte[] buffer = new byte[1024];
-            int i;
-            while ((i = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, i);
-            }
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * 拷贝文件
-     *
-     * @param infile  输入字符串
-     * @param outfile 输出字符串
-     * @return
-     * @throws Exception
-     */
-    public static boolean copyFile(String infile, String outfile) {
-        return copyFile(new File(infile), new File(outfile));
-
     }
 
     /**
@@ -760,17 +575,6 @@ public final class FileUtil {
         }
     }
 
-    /**
-     * 显示输入流中还剩的字节数
-     */
-    public static void showAvailableBytes(InputStream in) {
-        try {
-            System.out.println("当前字节输入流中的字节数为" + in.available());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     /// 以上为未验证方法 以下为已验证方法
 
     /**
@@ -872,6 +676,58 @@ public final class FileUtil {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 拷贝文件
+     *
+     * @param infile  输入文件
+     * @param outfile 输出文件
+     * @return
+     * @throws Exception
+     */
+    public static boolean copyFile(String infile, String outfile) {
+        return copyFile(new File(infile), new File(outfile));
+    }
+
+    /**
+     * 拷贝文件
+     *
+     * @param in  输入文件
+     * @param out 输出文件
+     * @return
+     * @throws Exception
+     */
+    public static boolean copyFile(InputStream in, OutputStream out) {
+        try {
+            byte[] buffer = new byte[1024];
+            int index;
+            while ((index = in.read(buffer)) != -1) {
+                // System.out.println("输入流字节数 -> " + in.available());
+                out.write(buffer, 0, index);
+            }
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("复制文件出错");
+        }
+    }
+
+    /**
+     * 拷贝文件
+     *
+     * @param in  输入文件
+     * @param out 输出文件
+     * @return
+     * @throws Exception
+     */
+    public static boolean copyFile(File in, File out) {
+        try {
+            return copyFile(new FileInputStream(in),new FileOutputStream(out));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

@@ -1,13 +1,18 @@
 package com.example.controller;
 
+import com.example.util.FileUploadUtil;
+import com.example.util.OpenOfficeUtil;
+import com.example.util.SftpUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.channels.FileChannel;
 import java.util.HashMap;
@@ -20,15 +25,15 @@ import java.util.UUID;
  * @description
  */
 @Slf4j
-@CrossOrigin // 允许跨域
 // 跨域处理
 // response.setHeader("Access-Control-Allow-Origin","*");
-@Lazy // 懒加载 防止System.getProperty获取不到WebConfig中设置的变量
-@RequestMapping("file-upload")
+@CrossOrigin // 允许跨域
+@RequestMapping("file")
 @Controller
-public class FileUploadController {
+public class FileController {
 
-    private String filePath = System.getProperty("folder");
+    @Value("${upload-file-path}")
+    private String filePath;
 
     @GetMapping("1")
     public String page1() {
@@ -43,54 +48,49 @@ public class FileUploadController {
     @ResponseBody
     @PostMapping("image")
     public Map<String, String> image(MultipartFile file) {
+        return FileUploadUtil.uploadFile(file);
+    }
 
-        // 取得当前上传文件的文件名称
-        String fileName = file.getOriginalFilename();
+    /**
+     * sftp上传文件
+     */
+    @ResponseBody
+    @PostMapping("sftp")
+    public Map<String, String> sftp(MultipartFile file) {
+        return SftpUtil.sftpUploadFile(file);
+    }
 
-        // 如果名称不为"" 说明该文件存在 否则说明该文件不存在
-        if (fileName == null || fileName.trim().length() == 0) {
-            return null;
-        }
+    @PostMapping("pdf")
+    public String pdf(Model model, String fileName) {
+        model.addAttribute("fileName", fileName);
+        return "pdf";
+    }
 
-        Map<String, String> data = new HashMap<>();
+    /**
+     * 上传office文档
+     */
+    @ResponseBody
+    @PostMapping("document")
+    public String document(MultipartFile file) {
+        Map<String, String> uploadFile = FileUploadUtil.uploadFile(file);
+        return OpenOfficeUtil.documentConvert(uploadFile.get("fileName"));
+    }
 
-        // 获取文件扩展名
-        String fileExtName = fileName.substring(fileName.lastIndexOf("."));
+    @GetMapping("download")
+    public void download(HttpServletRequest request, HttpServletResponse response
+            , String fileName, String localFileName) {
+        FileUploadUtil.downloadFile(request, response, fileName, localFileName);
+    }
 
-        // 打印文件名称
-        log.info("上传的文件为 >>> [{}]", fileName);
-
-        // 没有'-'的uuid
-        String serverFileName = UUID.randomUUID().toString().replace("-", "");
-
-        // 文件新名称
-        String newFileName = serverFileName + fileExtName;
-
-        File uploadFile = new File(filePath, newFileName);
-
-        // 判断文件父目录是否存在 不存在就创建
-        if (!uploadFile.getParentFile().exists()) {
-            uploadFile.getParentFile().mkdirs();
-        }
-
-        // 保存文件
-        try {
-            file.transferTo(uploadFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-            log.error("上传文件失败 请检查连接参数", e);
-        }
-
-        data.put("fileAddress", newFileName);// 文件地址
-        data.put("fileName", fileName); // 文件原名称
-
-        log.info("文件信息 >>> [{}]", data);
-        return data;
+    @GetMapping("sftp-download")
+    public void sftpDownload(HttpServletRequest request, HttpServletResponse response
+            , String fileName, String localFileName) {
+        SftpUtil.sftpDownloadFile(request, response, fileName, localFileName);
     }
 
     @ResponseBody
-    @PostMapping("video")
-    public Map<String, String> video(HttpServletRequest request) {
+    @PostMapping("split")
+    public Map<String, String> split(HttpServletRequest request) {
 
         Map<String, String> data = new HashMap<>();
 
@@ -100,7 +100,7 @@ public class FileUploadController {
         MultipartFile file = multipartRequest.getFile("chunk");
 
         int index = Integer.parseInt(multipartRequest.getParameter("fileIndex"));
-        log.info("当前文件分片下标为[{}]", index);
+        log.info("当前文件分片下标 -> [{}]", index);
 
         // 新的文件名称 没有的'-'的uuid
         String newFileName = UUID.randomUUID().toString().replace("-", "") + "-" + index + ".tmp";
@@ -129,13 +129,13 @@ public class FileUploadController {
      * 合并所有文件
      */
     @ResponseBody
-    @PostMapping("merge-file")
-    public Map<String, String> mergeFile(String tempFile, String originalFileName) {
+    @PostMapping("merge")
+    public Map<String, String> merge(String tempFile, String originalFileName) {
 
         Map<String, String> data = new HashMap<>();
         String[] tempFiles = tempFile.split(",");
 
-        log.info("分片文件数组为》》{}", "\n" + tempFile.replace(",", "\n"));
+        log.info("分片文件数组 -> {}", "\n" + tempFile.replace(",", "\n"));
         // 文件名后缀 有'.'
         String fileExtName = originalFileName.substring(originalFileName.lastIndexOf("."));
         // 新文件名称 没有'-'的UUID
