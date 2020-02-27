@@ -1,0 +1,11 @@
+# 加密配置文件
+jasypt:
+  encryptor:
+    # 获取参数名为JASYPT的当前系统的环境变量或命令行参数(java -jar xxxx.jar JASYPT=abcd)
+    # 使用命令行直接指定盐值 java -jar xxxx.jar --jasypt.encryptor.password=abcd
+    # JASYPT作为盐值 JASYPT获取不到时使用abcd作为值
+    password: ${JASYPT:abcd}
+    algorithm: PBEWithMD5AndDES # 加密算法
+
+# 使用ENC解密配置文件 ENC()前后不能有其它字符 否则不会解析
+test: ENC(k1MGBmTYnKmchc4fLs/CNA==)

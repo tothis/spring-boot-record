@@ -27,6 +27,7 @@
         <module>rabbitmq</module>
         <module>kafka</module>
         <module>graphql</module>
+        <module>jasypt</module>
     </modules>
 
     <!-- properties可被子类继承 -->
@@ -50,6 +51,7 @@
         <swagger2.version>2.9.2</swagger2.version>
         <jsch.version>0.1.55</jsch.version>
         <jodconverter.version>2.2.1</jodconverter.version>
+        <jasypt.version>2.1.2</jasypt.version>
         <spring-kafka.version>2.4.0.RELEASE</spring-kafka.version>
         <kafka.version>2.4.0</kafka.version>
         <jedis.version>3.1.0</jedis.version>
@@ -277,6 +279,13 @@
                 <groupId>com.artofsolving</groupId>
                 <artifactId>jodconverter</artifactId>
                 <version>${jodconverter.version}</version>
+            </dependency>
+
+            <!-- jasypt加密springboot配置文件 -->
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
