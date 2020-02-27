@@ -30,6 +30,13 @@ spring:
     # springboot查找静态资源文件的文件路径 默认值不可直接访问templates的文件
     # 默认值为 classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
     static-locations: classpath:static # ,classpath:templates
+    chain:
+      strategy:
+        content:
+          # 开启内容版本策略 默认false
+          enabled: true
+          # 指定应用路径 多个以逗号分隔 默认'/**'
+          paths: /**
   thymeleaf:
     # 开发时关闭缓存
     cache: false

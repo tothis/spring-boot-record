@@ -26,7 +26,7 @@ public class HttpUtil {
 
     private final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36";
 
-    public static String get(String urlPath, Map<String, String> param) {
+    public static String get(String urlPath, Map<String, ?> param) {
         HttpURLConnection connection = null;
         try {
             // 服务地址
@@ -70,7 +70,7 @@ public class HttpUtil {
         return null;
     }
 
-    public static String post(String urlPath, Map<String, String> param) {
+    public static String post(String urlPath, Map<String, ?> param) {
         HttpURLConnection connection = null;
         try {
             // 服务地址
@@ -111,17 +111,28 @@ public class HttpUtil {
     /**
      * 组合参数
      *
-     * @param param
+     * @param param 可以为字符串或字符串数组
      * @return
      */
-    private static String param(Map<String, String> param) {
+    public static String param(Map<String, ?> param) {
         if (param == null || param.size() == 0) return "";
-        StringBuilder builder = new StringBuilder();
-        for (Map.Entry<String, String> entry : param.entrySet()) {
-            builder.append(entry.getKey() + "=" + entry.getValue() + "&");
+        StringBuilder result = new StringBuilder();
+        for (Map.Entry<String, ?> entry : param.entrySet()) {
+            Object entryValue = entry.getValue();
+            // if (entryValue.getClass().isArray()) {
+            if (entryValue instanceof String[]) {
+                String[] arrayValue = (String[]) entryValue;
+                for (int i = 0; i < arrayValue.length; i++) {
+                    result.append(entry.getKey() + "=" + arrayValue[i] + "&");
+                }
+            } else if (entryValue instanceof String) {
+                result.append(entry.getKey() + "=" + entryValue + "&");
+            } else {
+                throw new RuntimeException("参数异常");
+            }
         }
         // 删除最后一个'&'字符
-        return builder.deleteCharAt(builder.length() - 1).toString();
+        return result.deleteCharAt(result.length() - 1).toString();
     }
 
     /**

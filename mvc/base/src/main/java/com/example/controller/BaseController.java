@@ -65,15 +65,15 @@ public class BaseController {
         return "index";
     }
 
-    @GetMapping("test")
-    public ModelAndView test(@RequestParam(defaultValue = "0") int flag) {
+    @GetMapping("model-and-view")
+    public ModelAndView modelAndView(@RequestParam(defaultValue = "0") int flag) {
         // 使用双花括号语法初始化类 本质为匿名内部类 + 实例化代码块
         switch (flag) {
             case 0:
                 // 返回页面方式1
                 return new ModelAndView() {{
-                    addObject("name", "name1");
                     setViewName("index");
+                    addObject("name", "name1");
                 }};
             case 1:
                 // 返回页面方式2
@@ -91,5 +91,10 @@ public class BaseController {
                     addObject("name", "name4");
                 }};
         }
+    }
+
+    @GetMapping("semantic")
+    public String semantic() {
+        return "semantic";
     }
 }

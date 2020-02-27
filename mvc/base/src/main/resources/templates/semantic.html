@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>semantic</title>
+    <link th:href="@{/webjars/Semantic-UI/semantic.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="ui vertical inverted sidebar menu visible">
+    <a class="item" href="#">
+        <i class="bug icon"></i><b>bug</b>
+    </a>
+    <div class="item">
+        <div class="ui small active inverted header">mark</div>
+        <div class="menu">
+            <div class="active item">one</div>
+            <div class="item">two<span class="ui mini empty yellow circular ui label"></span></div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/Semantic-UI/semantic.min.js}"></script>
+</body>
+</html>
