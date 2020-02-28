@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
@@ -19,6 +17,7 @@ import java.util.HashMap;
  * @datetime 2020/1/12 15:40
  * @description
  */
+@RequestMapping("base")
 @Controller
 public class BaseController {
 
@@ -54,7 +53,7 @@ public class BaseController {
         model.addAttribute("author", User.builder().name("name" + name).build());
     }
 
-    @GetMapping("")
+    @GetMapping
     public String index(Model model, User user) {
         User author = (User) model.getAttribute("author");
         model.addAttribute("data", new HashMap() {{
@@ -91,6 +90,34 @@ public class BaseController {
                     addObject("name", "name4");
                 }};
         }
+    }
+
+    @GetMapping("forward1")
+    public String forward1() {
+        // 被forwoard的方法请求方法必须一致 GET不能转发POST
+        return "forward:"; // => /base
+        // return "forward:forward2";
+        // return "forward:/base/forward2";
+    }
+
+    @ResponseBody
+    @GetMapping("forward2")
+    public String forward2() {
+        return "forward";
+    }
+
+    @GetMapping("redirect1")
+    public String redirect1() {
+        // 被redirect的方法请求类型必须为GET
+        return "redirect:"; // => /base/
+        // return "redirect:redirect2";
+        // return "redirect:/base/redirect2";
+    }
+
+    @ResponseBody
+    @GetMapping("redirect2")
+    public String redirect2() {
+        return "redirect";
     }
 
     @GetMapping("semantic")

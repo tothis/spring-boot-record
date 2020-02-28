@@ -22,6 +22,10 @@ spring:
     pathmatch:
       # springboot2 后需要手动开启路径匹配 设为false无法拦截*.do等请求
       use-suffix-pattern: false
+    # 开启form表单指定提交方法 默认false
+    hiddenmethod:
+      filter:
+        enabled: true
     servlet:
       # 默认'/
       path: /

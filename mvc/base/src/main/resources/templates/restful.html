@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>restful</title>
+</head>
+<body>
+<table>
+    <tr th:each="user:${users}">
+        <td th:utext="${user.id}"></td>
+        <td th:utext="${user.name}"></td>
+    </tr>
+</table>
+<form th:action="|/restful/post?id=${users?.size()?:0+1}&name=李磊${users?.size()}|" method="post">
+    <button>增</button>
+</form>
+<th:block th:if="${!#lists.isEmpty(users)}">
+    <!-- 使用form表单设置controller请求类型必须使用post提交 请求类型不能设置为get -->
+    <form th:action="|/restful/put?id=${users[0].id}&name=${users[0].name+users[0].id}&_method=put|" method="post">
+        <!-- <input type="hidden" name="_method" value="put"> -->
+        <button>改</button>
+    </form>
+    <form th:action="|/restful/delete/${users[0].id}?_method=delete|" method="post">
+        <!-- <input type="hidden" name="_method" value="delete"> -->
+        <button>删</button>
+    </form>
+</th:block>
+</body>
+</html>
