@@ -18,7 +18,7 @@ public class User extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户名称", dataType = "String")
+    @ApiModelProperty("用户名称")
     private String userName;
 
     @ApiModelProperty("密码")
@@ -27,21 +27,23 @@ public class User extends BaseEntity {
     /**
      * 年龄 byte(127/-128)
      */
-    @ApiModelProperty(value = "年龄", dataType = "Byte")
+    @ApiModelProperty(value = "年龄", example = "0")
     private Byte age;
 
-    @ApiModelProperty(value = "邮箱", dataType = "String")
+    @ApiModelProperty("邮箱")
     private String mail;
 
-    @ApiModelProperty(value = "生日", dataType = "LocalDateTime")
+    @ApiModelProperty("生日")
     private LocalDateTime birthday;
 
-    @ApiModelProperty(value = "地址", dataType = "Address")
+    @ApiModelProperty("地址")
     private List<Address> addressList;
 
     @Data
     // 被mybatis映射结果集需声明为static
+    @ApiModel(value = "com.example.model.User$Address", description = "用户地址")
     static class Address {
+        @ApiModelProperty(example = "1")
         private Long id;
         private String detail;
     }

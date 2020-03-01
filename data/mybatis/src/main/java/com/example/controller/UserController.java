@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.model.Tree;
 import com.example.model.User;
 import com.example.service.UserService;
 import io.swagger.annotations.Api;
@@ -48,7 +49,7 @@ public class UserController {
      */
     @ApiOperation("查询单个用户")
     @GetMapping("select-by-id")
-    public User selectById(@RequestParam("id") Long id) {
+    public User selectById(Long id) {
         return userService.selectById(id);
     }
 
@@ -60,8 +61,28 @@ public class UserController {
 
     @ApiOperation("查询结果封装为map")
     @GetMapping("find-map")
-    // 使用@RequestParam把参数封装为Map
+    // 使用@RequestParam把参数封装为Map required为true参数也可不传
     public Map<Long, User> findMap(@RequestParam Map params) {
         return userService.findMap(params);
+    }
+
+    @GetMapping("boolean")
+    public boolean booleanTest(String value) {
+        return userService.booleanTest(value);
+    }
+
+    @GetMapping("array")
+    public String arrayTest(String[] values) {
+        return userService.arrayTest(values);
+    }
+
+    @GetMapping("tree1")
+    public List<Tree> tree1(Long parentId) {
+        return userService.findAllTreeByParentId1(parentId);
+    }
+
+    @GetMapping("tree2")
+    public List<Tree> tree2(Long parentId) {
+        return userService.findAllTreeByParentId2(parentId);
     }
 }

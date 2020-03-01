@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.model.Tree;
 import com.example.model.User;
 
 import java.util.List;
@@ -35,4 +36,12 @@ public interface UserService {
     List<User> findAll(User User);
 
     Map<Long, User> findMap(Map params);
+
+    boolean booleanTest(String value);
+
+    String arrayTest(String[] values);
+
+    List<Tree> findAllTreeByParentId1(Long parentId);
+
+    List<Tree> findAllTreeByParentId2(Long parentId);
 }

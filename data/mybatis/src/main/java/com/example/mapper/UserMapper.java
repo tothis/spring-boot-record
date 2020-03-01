@@ -1,10 +1,8 @@
 package com.example.mapper;
 
+import com.example.model.Tree;
 import com.example.model.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.MapKey;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -30,6 +28,24 @@ public interface UserMapper {
     @MapKey("id")
     Map<Long, User> findMap(Map params);
 
-    @Select("SELECT #{value}")
-    boolean booleanTest(Object value); // 除0外的数字为true 0 日期 字符串等为false
+    @Select("SELECT IF(#{value}, TRUE, FALSE)")
+    boolean booleanTest(String value); // 除0外的数字或数字开头的值为true 其它值为false
+
+    // 当foreach标签本次循环中无数据时 不会拼接separator
+    @Select("<script>" +
+            "SELECT CONCAT(" +
+            "<foreach collection='values' item='value' index='index' separator=','>" +
+            "<if test=\"value != null and value != ''\">" +
+            "#{value}" +
+            "</if>" +
+            "</foreach>" +
+            ")" +
+            "</script>")
+    // 数组需要使用@Param标识 一般单个参数不需要标识
+    String arrayTest(@Param("values") String[] values);
+
+    List<Tree> findAllTreeByParentId(Long parentId);
+
+    @Select("SELECT id, parent_id AS parentId, name FROM tree")
+    List<Tree> findAllTree();
 }

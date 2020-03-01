@@ -8,4 +8,11 @@ CREATE TABLE `user` (
   `address` varchar(40) DEFAULT NULL COMMENT '地址',
   `is_del` bit(1) NOT NULL DEFAULT b'0' COMMENT '删除标识 0正常(默认) 1删除',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `tree` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `parent_id` bigint(20) NOT NULL COMMENT '上级节点id',
+  `name` varchar(20) DEFAULT NULL COMMENT '名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

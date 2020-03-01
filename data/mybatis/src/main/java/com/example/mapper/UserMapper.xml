@@ -55,7 +55,7 @@
         LEFT JOIN address b ON b.user_id = a.id
     </select>
 
-    <select id="findMap" resultMap="user">
+    <select id='findMap' resultMap='user'>
         SELECT id, user_name, password, age, mail, birthday, address FROM `user`
         <where>
             <if test="userName != null and userName != ''">
@@ -65,5 +65,17 @@
                 AND age = #{age}
             </if>
         </where>
+    </select>
+
+    <!-- sql递归查询 -->
+    <resultMap id="tree" type="Tree">
+        <id column="id" property="id"></id>
+        <result column="parent_id" property="parentId"></result>
+        <result column="name" property="name"></result>
+        <collection property="trees" select="findAllTreeByParentId" column="id"></collection>
+    </resultMap>
+
+    <select id="findAllTreeByParentId" resultMap="tree">
+        SELECT * FROM tree WHERE parent_id = #{parentId}
     </select>
 </mapper>
