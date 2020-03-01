@@ -2,13 +2,15 @@ package com.example.controller;
 
 import com.example.model.User;
 import com.example.service.UserService;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -18,15 +20,17 @@ import java.util.Map;
  * @description 控制层
  */
 @RestController
+@Api(tags = "user接口")
 @RequestMapping("user")
-public class UserController extends BaseController {
+public class UserController {
 
     @Autowired
     private UserService userService;
 
     @ApiOperation("增加用户")
     @GetMapping("add")
-    public int add(User user) {
+    public int add(HttpServletRequest request, User user) {
+        String token = request.getParameter("token");
         return userService.insert(user);
     }
 
@@ -34,29 +38,27 @@ public class UserController extends BaseController {
      * 删除
      */
     @ApiOperation("删除数据")
-    @ApiResponses({@ApiResponse(code = 0, message = "删除用户", response = int.class)})
     @GetMapping("delete")
-    public int delete(@ApiParam(value = "用户id", required = true) @RequestParam("id") Long id) {
+    public int delete(Long id) {
         return userService.deleteById(id);
     }
 
     /**
      * 查询
      */
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户id", required = true, paramType = "path", dataType = "Long")
-    })
     @ApiOperation("查询单个用户")
     @GetMapping("select-by-id")
     public User selectById(@RequestParam("id") Long id) {
         return userService.selectById(id);
     }
 
+    @ApiOperation("查询所有用户")
     @GetMapping("find-all")
     public List<User> findAll(User user) {
         return userService.findAll(user);
     }
 
+    @ApiOperation("查询结果封装为map")
     @GetMapping("find-map")
     // 使用@RequestParam把参数封装为Map
     public Map<Long, User> findMap(@RequestParam Map params) {

@@ -25,5 +25,9 @@
         <button>删</button>
     </form>
 </th:block>
+<script th:inline="javascript">
+    eval([[${city}]]);
+    document.write(JSON.stringify(returnCitySN));
+</script>
 </body>
 </html>

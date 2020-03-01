@@ -18,6 +18,7 @@
     <modules>
         <module>util</module>
         <module>mvc</module>
+        <module>swagger</module>
         <module>shiro</module>
         <module>data</module>
         <module>jackson</module>
@@ -49,6 +50,7 @@
         <jackson.version>2.10.1</jackson.version>
         <lombok.version>1.18.10</lombok.version>
         <swagger2.version>2.9.2</swagger2.version>
+        <swagger2markup.version>1.3.3</swagger2markup.version>
         <jsch.version>0.1.55</jsch.version>
         <jodconverter.version>2.2.1</jodconverter.version>
         <jasypt.version>2.1.2</jasypt.version>
@@ -122,10 +124,10 @@
             </dependency>
 
             <!-- jackson -->
-            <!-- <dependency> -->
-            <!--     <groupId>org.springframework.boot</groupId> -->
-            <!--     <artifactId>spring-boot-starter-json</artifactId> -->
-            <!-- </dependency> -->
+            <!--<dependency>-->
+            <!--    <groupId>org.springframework.boot</groupId>-->
+            <!--    <artifactId>spring-boot-starter-json</artifactId>-->
+            <!--</dependency>-->
             <!--<dependency>-->
             <!--    <groupId>com.fasterxml.jackson.core</groupId>-->
             <!--    <artifactId>jackson-core</artifactId>-->
@@ -265,6 +267,12 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger2.version}</version>
+            </dependency>
+            <!-- swagger2markup -->
+            <dependency>
+                <groupId>io.github.swagger2markup</groupId>
+                <artifactId>swagger2markup</artifactId>
+                <version>${swagger2markup.version}</version>
             </dependency>
 
             <!-- sftp工具 -->

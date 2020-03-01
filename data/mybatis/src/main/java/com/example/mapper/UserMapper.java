@@ -29,4 +29,7 @@ public interface UserMapper {
 
     @MapKey("id")
     Map<Long, User> findMap(Map params);
+
+    @Select("SELECT #{value}")
+    boolean booleanTest(Object value); // 除0外的数字为true 0 日期 字符串等为false
 }

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>index</title>
 </head>
 <body>
     <tagName prefix:attributeName="30"></tagName>
+    <p th:utext="${#util1.util(1)}"></p>
+    <p th:utext="${#util2.util(2)}"></p>
 </body>
 </html>

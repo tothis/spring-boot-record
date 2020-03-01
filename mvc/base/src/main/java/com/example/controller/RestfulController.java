@@ -1,9 +1,11 @@
 package com.example.controller;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,11 +20,15 @@ import java.util.List;
 @Controller
 public class RestfulController {
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     private static List<User> users = new ArrayList();
 
     @GetMapping
     private String get(Model model) {
         model.addAttribute("users", users);
+        model.addAttribute("city", restTemplate.getForEntity("http://pv.sohu.com/cityjson", String.class).getBody());
         return "restful";
     }
 

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>i18n</title>
+</head>
+<body>
+<p th:utext="#{author}"></p>
+<p th:utext="#{constant}"></p>
+
+<a th:href="@{/i18n(language=zh_CN)}">中文</a>
+<a th:href="@{/i18n(language=en_US)}">english</a>
+</body>
+</html>
