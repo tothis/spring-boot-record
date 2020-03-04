@@ -21,6 +21,8 @@ spring:
 mybatis:
   # 扫描实体类生成别名 或在实体类上使用注解@Alias标注
   type-aliases-package: com.example.model
+  # 扫描handler生成别名
+  type-handlers-package: com.example.handler
   # 扫描mapper.xml
   mapper-locations: classpath*:com/example/mapper/*mapper.xml
   configuration:

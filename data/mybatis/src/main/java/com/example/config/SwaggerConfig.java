@@ -32,9 +32,9 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("mybatis-plus使用")
+                .title("mybatis使用")
                 .termsOfServiceUrl("网址")
-                .description("mybatis-plus使用记录")
+                .description("mybatis使用记录")
                 .contact(new Contact("李磊", "url", "mail"))
                 .version("1.0")
                 .build();

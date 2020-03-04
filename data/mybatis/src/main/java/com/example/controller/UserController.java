@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.model.Tree;
 import com.example.model.User;
 import com.example.service.UserService;
+import com.example.type.State;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,5 +85,16 @@ public class UserController {
     @GetMapping("tree2")
     public List<Tree> tree2(Long parentId) {
         return userService.findAllTreeByParentId2(parentId);
+    }
+
+    @GetMapping("insert-enum")
+    // controller转化枚举参考 https://gitee.com/tothis/spring-boot-record/blob/master/mvc/base/src/main/java/com/example/controller/BaseController.java
+    public int insertEnum() {
+        return userService.insertEnum(State.DELETE);
+    }
+
+    @GetMapping("find-enum")
+    public State findEnum() {
+        return userService.findEnum();
     }
 }

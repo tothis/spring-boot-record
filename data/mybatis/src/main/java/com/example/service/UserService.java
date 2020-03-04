@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.model.Tree;
 import com.example.model.User;
+import com.example.type.State;
 
 import java.util.List;
 import java.util.Map;
@@ -44,4 +45,8 @@ public interface UserService {
     List<Tree> findAllTreeByParentId1(Long parentId);
 
     List<Tree> findAllTreeByParentId2(Long parentId);
+
+    int insertEnum(State state);
+
+    State findEnum();
 }

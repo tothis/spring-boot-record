@@ -2,6 +2,7 @@ package com.example.mapper;
 
 import com.example.model.Tree;
 import com.example.model.User;
+import com.example.type.State;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -48,4 +49,10 @@ public interface UserMapper {
 
     @Select("SELECT id, parent_id AS parentId, name FROM tree")
     List<Tree> findAllTree();
+
+    @Insert("INSERT INTO user (is_del) VALUES (#{state})")
+    int insertEnum(State state);
+
+    @Select("SELECT is_del FROM user LIMIT 1")
+    State findEnum();
 }

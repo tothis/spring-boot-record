@@ -4,6 +4,7 @@ import com.example.mapper.UserMapper;
 import com.example.model.Tree;
 import com.example.model.User;
 import com.example.service.UserService;
+import com.example.type.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -105,5 +106,15 @@ public class UserServiceImpl implements UserService {
             }
         }
         return treeList;
+    }
+
+    @Override
+    public int insertEnum(State state) {
+        return userMapper.insertEnum(state);
+    }
+
+    @Override
+    public State findEnum() {
+        return userMapper.findEnum();
     }
 }
