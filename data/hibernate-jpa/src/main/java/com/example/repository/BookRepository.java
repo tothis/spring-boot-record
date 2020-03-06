@@ -15,7 +15,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     // nativeQuery = true 指定使用原生SQL进行查询
     @Query(nativeQuery = true
-            , value = "SELECT" +
+            , value = "select" +
             " b.id" +
             ", b.name" +
             ", GROUP_CONCAT(u.user_name) as userName" +

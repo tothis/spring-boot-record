@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Result<T> {
 
-    private int code;
+    private long code;
 
     private String message;
 

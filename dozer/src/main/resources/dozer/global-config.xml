@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozermapper.github.io/schema/bean-mapping"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd">
+
+    <!-- 全局配置 配置日期的映射格式 -->
+    <configuration>
+        <date-format>yyyy-MM-dd HH:mm:ss</date-format>
+    </configuration>
+
+    <!-- 属性wildcard 为true(默认为true) 表示Dozer会尝试映射两个类的每个字段 为false 仅映射已定义字段 -->
+    <mapping wildcard="true">
+        <class-a>com.example.model.User</class-a>
+        <class-b>com.example.model.UserDTO</class-b>
+        <field>
+            <a>userName</a>
+            <b>password</b>
+        </field>
+        <field>
+            <a>password</a>
+            <b>userName</b>
+        </field>
+    </mapping>
+</mappings>

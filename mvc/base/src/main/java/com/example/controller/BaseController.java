@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.example.type.HttpState;
-import com.example.type.Result;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -127,10 +126,16 @@ public class BaseController {
         return "semantic";
     }
 
+    @ResponseBody
+    @GetMapping("enum1")
+    public HttpState enum1() {
+        return HttpState.OK;
+    }
+
     // http://localhost:8080/base/enum1?state=OK
     @ResponseBody
-    @GetMapping("enum")
-    public Result enumTest(HttpState state) {
-        return Result.success(state.toString());
+    @GetMapping("enum2")
+    public HttpState enum2(HttpState state) {
+        return state;
     }
 }

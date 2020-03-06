@@ -16,6 +16,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * @author 李磊
+ * @datetime 2020/2/10 16:36
+ * @description 多对多一映射
+ */
 @SpringBootTest(classes = HibernateJpaApplication.class)
 class BookRepositoryTest {
 
@@ -64,7 +69,6 @@ class BookRepositoryTest {
         for (String[] book : books) {
             for (int i = 0; i < book.length; i++) {
                 System.out.print(book[i] + (i == book.length - 1 ? " " : ""));
-
             }
             System.out.println();
         }

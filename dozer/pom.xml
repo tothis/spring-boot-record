@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- 继承父工程 -->
+    <parent>
+        <groupId>com.example</groupId>
+        <artifactId>spring-boot-record</artifactId>
+        <version>1.0</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.example</groupId>
+    <artifactId>dozer</artifactId>
+    <version>${parent.version}</version>
+    <name>dozer</name>
+    <description>dozer</description>
+
+    <dependencies>
+        <!-- dozer -->
+        <dependency>
+            <groupId>com.github.dozermapper</groupId>
+            <artifactId>dozer-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- cglib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+        <!-- jdk9及其以后不再包含javaEE相关jar包 jaxb -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.3.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

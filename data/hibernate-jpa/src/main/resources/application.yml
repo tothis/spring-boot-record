@@ -9,7 +9,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        # MySQL55Dialect及其后续版本默认引擎为InnoDB
-        dialect: org.hibernate.dialect.MySQL57Dialect
+    # 设置创建表的引擎为InnoDB 方式一
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+#    properties:
+#      hibernate:
+#        # MySQL55Dialect及其后续版本默认引擎为InnoDB 方式二
+#        dialect: org.hibernate.dialect.MySQL57Dialect

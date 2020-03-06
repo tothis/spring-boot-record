@@ -29,6 +29,7 @@
         <module>kafka</module>
         <module>graphql</module>
         <module>jasypt</module>
+        <module>dozer</module>
     </modules>
 
     <!-- properties可被子类继承 -->
@@ -54,6 +55,7 @@
         <jsch.version>0.1.55</jsch.version>
         <jodconverter.version>2.2.1</jodconverter.version>
         <jasypt.version>2.1.2</jasypt.version>
+        <dozer.version>6.5.0</dozer.version>
         <spring-kafka.version>2.4.0.RELEASE</spring-kafka.version>
         <kafka.version>2.4.0</kafka.version>
         <jedis.version>3.1.0</jedis.version>
@@ -294,6 +296,13 @@
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
                 <version>${jasypt.version}</version>
+            </dependency>
+
+            <!-- dozer -->
+            <dependency>
+                <groupId>com.github.dozermapper</groupId>
+                <artifactId>dozer-spring-boot-starter</artifactId>
+                <version>${dozer.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

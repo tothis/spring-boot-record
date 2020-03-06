@@ -1,31 +1,25 @@
 package com.example.type;
 
 import com.example.i18n.AppLocaleResolver;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import com.example.util.RequestUtil;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-import javax.servlet.http.HttpServletRequest;
-
-@Slf4j
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum HttpState {
     OK(200, "ok", "请求已经成功处理"),
     NOT_FOUND(404, "not found", "资源未找到"),
     FAIL(500, "internal server error", "服务器内部错误");
 
-    private int code;
+    private long code;
     private String us;
     private String cn;
 
-    HttpState(int code, String us, String cn) {
+    HttpState(long code, String us, String cn) {
         this.code = code;
         this.us = us;
         this.cn = cn;
     }
 
-    public int code() {
+    public long code() {
         return code;
     }
 
@@ -37,11 +31,9 @@ public enum HttpState {
         return cn;
     }
 
-    // 获取到当前线程绑定的请求对象
-    private HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-
     public String message() {
-        String language = (String) request.getSession().getAttribute(AppLocaleResolver.LANGUAGE);
+        String language = (String) RequestUtil.getSession()
+                .getAttribute(AppLocaleResolver.LANGUAGE);
         if (language == null)
             return cn;
         switch (language) {
@@ -52,8 +44,8 @@ public enum HttpState {
         }
     }
 
-    // int到enum的转换函数
-    public static HttpState valueOf(int code) {
+    // long到enum的转换函数
+    public static HttpState valueOf(long code) {
         //// 枚举值较少时可以使用switch
         //switch (code) {
         //    case 100:
@@ -72,11 +64,9 @@ public enum HttpState {
     }
 
     @Override
+    @JsonValue
     public String toString() {
-        return "HttpState{" +
-                "code=" + code +
-                ", us='" + us + '\'' +
-                ", cn='" + cn + '\'' +
-                '}';
+        return "{code=" + code + ", us='" + us
+                + '\'' + ", cn='" + cn + '\'' + '}';
     }
 }

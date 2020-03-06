@@ -1,7 +1,7 @@
 # idea
-*.idea
+.idea
 *.iml
 # java
-*target
+**/target
 # log
 *.log
