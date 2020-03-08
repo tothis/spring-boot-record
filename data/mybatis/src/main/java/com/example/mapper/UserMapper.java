@@ -29,8 +29,13 @@ public interface UserMapper {
     @MapKey("id")
     Map<Long, User> findMap(Map params);
 
+    // mysql if判断数字或字符串 除0外的数字或数字开头的值为true 其它值为false
     @Select("SELECT IF(#{value}, TRUE, FALSE)")
-    boolean booleanTest(String value); // 除0外的数字或数字开头的值为true 其它值为false
+    boolean booleanString(String value);
+
+    // java映射mysql数字 负数和0为false 正数为true
+    @Select("SELECT #{value}")
+    boolean booleanInt(int value);
 
     // 当foreach标签本次循环中无数据时 不会拼接separator
     @Select("<script>" +

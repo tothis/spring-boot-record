@@ -65,8 +65,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean booleanTest(String value) {
-        return userMapper.booleanTest(value);
+    public boolean booleanString(String value) {
+        return userMapper.booleanString(value);
+    }
+
+    @Override
+    public boolean booleanInt(int value) {
+        return userMapper.booleanInt(value);
     }
 
     @Override

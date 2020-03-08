@@ -67,9 +67,14 @@ public class UserController {
         return userService.findMap(params);
     }
 
-    @GetMapping("boolean")
-    public boolean booleanTest(String value) {
-        return userService.booleanTest(value);
+    @GetMapping("booleanString")
+    public boolean booleanInt(String value) {
+        return userService.booleanString(value);
+    }
+
+    @GetMapping("booleanInt")
+    public boolean booleanInt(int value) {
+        return userService.booleanInt(value);
     }
 
     @GetMapping("array")

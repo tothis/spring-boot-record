@@ -38,7 +38,9 @@ public interface UserService {
 
     Map<Long, User> findMap(Map params);
 
-    boolean booleanTest(String value);
+    boolean booleanString(String value);
+
+    boolean booleanInt(int value);
 
     String arrayTest(String[] values);
 

@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.type.HttpState;
+import com.example.util.ArrayUtil;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author 李磊
@@ -121,9 +123,30 @@ public class BaseController {
         return "redirect";
     }
 
-    @GetMapping("semantic")
-    public String semantic() {
-        return "semantic";
+    /**
+     * 接收所有form表单name为array的值
+     */
+    @PostMapping("array")
+    public String[] array(String[] array) {
+        return array;
+    }
+
+    /**
+     * 接收json并转为array 接收多个参数时 只能有一个参数可使用@RequestBody
+     */
+    @PostMapping("json-array")
+    public String[] jsonArray(@RequestBody String[] array) {
+        return array;
+    }
+
+    @PostMapping("list")
+    public List<User> list(@RequestBody List<User> list) {
+        return list;
+    }
+
+    @PostMapping("arrays")
+    public String[] arrays(String[] array1, String[] array2) {
+        return (String[]) ArrayUtil.arrayMerge1(array1, array2);
     }
 
     @ResponseBody
@@ -137,5 +160,10 @@ public class BaseController {
     @GetMapping("enum2")
     public HttpState enum2(HttpState state) {
         return state;
+    }
+
+    @GetMapping("semantic")
+    public String semantic() {
+        return "semantic";
     }
 }
