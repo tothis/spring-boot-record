@@ -29,34 +29,34 @@ public class ConvertTest {
             setPassword("密码");
         }};
         long number = 1000_1000;
-        long begin = System.currentTimeMillis();
 
+        long begin = System.currentTimeMillis();
         for (long i = 0L; i < number; i++) {
             UserDTO userDTO = new UserDTO();
             userDTO.setUserName(user.getUserName());
             userDTO.setPassword(user.getPassword());
         }
         System.out.println(System.currentTimeMillis() - begin);
-        begin = System.currentTimeMillis();
 
+        begin = System.currentTimeMillis();
         for (long i = 0L; i < number; i++) {
             beanCopier.copy(user, new UserDTO(), null);
         }
         System.out.println(System.currentTimeMillis() - begin);
-        begin = System.currentTimeMillis();
 
+        begin = System.currentTimeMillis();
         for (long i = 0L; i < number; i++) {
             BeanUtils.copyProperties(user, new UserDTO());
         }
         System.out.println(System.currentTimeMillis() - begin);
-        begin = System.currentTimeMillis();
 
+        begin = System.currentTimeMillis();
         for (long i = 0L; i < number; i++) {
             mapper.map(user, UserDTO.class);
         }
         System.out.println(System.currentTimeMillis() - begin);
-        begin = System.currentTimeMillis();
 
+        begin = System.currentTimeMillis();
         for (long i = 0L; i < number; i++) {
             PropertyUtils.copyProperties(new UserDTO(), user);
         }

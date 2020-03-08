@@ -19,23 +19,17 @@ public class ArrayUtil {
     public static Object[] arrayMerge1(Object[]... arrays) {
         if (arrays == null || arrays.length == 0) return null;
         if (arrays.length == 1) return arrays[0];
-        Object[] temp = {};
-        Object[] result = {};
-        for (int i = 0; i < arrays.length - 1; i++) {
-            Object[] array1;
-            if (i == 0)
-                array1 = arrays[0];
-            else
-                array1 = temp;
-            Object[] array2 = arrays[i + 1];
-            result = new Object[array1.length + array2.length];
-            for (int j = 0; j < array1.length; j++) {
-                result[j] = array1[j];
+
+        int count = 0;
+        for (int i = 0; i < arrays.length; i++) {
+            count += arrays[i].length;
+        }
+        Object[] result = new Object[count];
+        for (int i = 0; i < arrays.length; i++) {
+            Object[] array = arrays[i];
+            for (int j = 0; j < array.length; j++) {
+                result[arrays.length * i + j] = array[j];
             }
-            for (int j = 0; j < array2.length; j++) {
-                result[array1.length + j] = array2[j];
-            }
-            temp = result;
         }
         return result;
     }
