@@ -1,11 +1,14 @@
 package com.example.config;
 
 import com.example.convert.EnumConverterFactory;
+import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -32,22 +35,40 @@ public class WebConfig implements WebMvcConfigurer {
     /**
      * addCorsMappings配置跨域
      */
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**")
-//                .allowedMethods("*")
-//                .allowedHeaders("*")
-//                .allowedOrigins("*")
-//                .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
-//                .maxAge(3600)
-//                .allowCredentials(true);
-//    }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .allowedOrigins("*")
+                .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
+                .maxAge(3600)
+                .allowCredentials(true);
+    }
+
+    /**
+     * 使用cors filter跨域
+     *
+     * @return
+     */
     @Bean
+    public FilterRegistrationBean someFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new CorsFilter());
+        registration.addUrlPatterns("/api/*");
+        registration.setName("corsFilter");
+        registration.setOrder(1);
+        return registration;
+    }
+
+    @Bean
+    // springboot默认不会实例化RestTemplate
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
     @Override
+    // 注册自定义类型转化器
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverterFactory(new EnumConverterFactory());
     }

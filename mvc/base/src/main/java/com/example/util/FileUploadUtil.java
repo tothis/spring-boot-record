@@ -109,7 +109,8 @@ public class FileUploadUtil {
         log.info("下载文件 -> [{}]", fileName);
 
         response.setContentType("application/force-download"); // 设置强制下载不打开
-        response.addHeader("Content-Disposition", "attachment;fileName=" + localFileName); // 设置文件名
+        // attachment设置以附件方式下载 fileName设置文件名称
+        response.addHeader("content-disposition", "attachment;fileName=" + localFileName);
         try (
                 // 获取文件输入流
                 InputStream in = new FileInputStream(filePath + fileName);
