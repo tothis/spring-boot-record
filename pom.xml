@@ -43,6 +43,7 @@
 
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
         <beetl.version>1.2.20.RELEASE</beetl.version>
+        <hikariCP.version>3.4.2</hikariCP.version>
         <shiro.version>1.4.2</shiro.version>
         <jstl.version>1.2</jstl.version>
         <tomcat-embed-jasper.version>9.0.30</tomcat-embed-jasper.version>
@@ -205,6 +206,13 @@
                 <version>${spring-boot.version}</version>
             </dependency>
 
+            <!-- hikariCP连接池 -->
+            <dependency>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+                <version>${hikariCP.version}</version>
+            </dependency>
+
             <!-- jdbc -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -216,6 +224,13 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- aop -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
 

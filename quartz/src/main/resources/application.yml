@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    user:
+      url: jdbc:mysql://192.168.10.200:3306/quartz?useUnicode=true&characterEncoding=utf8&useSSL=false
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    quartz:
+      url: jdbc:mysql://192.168.10.200:3306/quartz?useUnicode=true&characterEncoding=utf8&useSSL=false
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  # quartz配置 对应QuartzProperties配置类
+  quartz:
+    scheduler-name: clusteredScheduler # scheduler名字 默认为schedulerName
+    job-store-type: jdbc # job存储器类型 默认为 memory内存
+    auto-startup: true # quartz是否自动启动
+    startup-delay: 0 # 延迟n秒启动
+    wait-for-jobs-to-complete-on-shutdown: true # 应用关闭 是否等待定时任务执行完成 默认false 建议设为true
+    overwrite-existing-jobs: false # 是否覆盖已有job配置
+    jdbc: # 使用jdbc的jobStore时 jdbc配置
+      initialize-schema: never # 是否自动初始化quartz表结构 never 手动创建表结构
+    # 添加quartz scheduler附加属性 http://www.quartz-scheduler.org/documentation/2.4.0-SNAPSHOT/configuration.html
+    properties:
+      org:
+        quartz:
+          threadPool:
+            threadCount: 25 # 线程池大小 默认为 10
+            threadPriority: 5 # 线程优先级
+            class: org.quartz.simpl.SimpleThreadPool # 线程池类型
