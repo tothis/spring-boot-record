@@ -1,9 +1,10 @@
 package com.example.util;
 
+import com.example.RedisApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(classes = RedisApplication.class)
 class RedisUtilTest {
 
     @Test

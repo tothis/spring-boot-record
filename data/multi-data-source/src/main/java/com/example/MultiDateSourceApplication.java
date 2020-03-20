@@ -10,9 +10,9 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * DataSourceAutoConfiguration会自动配置 实现多数据源需排除它
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-public class DateSourceApplication {
+public class MultiDateSourceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DateSourceApplication.class, args);
+        SpringApplication.run(MultiDateSourceApplication.class, args);
     }
 }

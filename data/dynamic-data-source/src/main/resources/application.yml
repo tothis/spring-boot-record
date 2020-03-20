@@ -1,0 +1,7 @@
+# 数据库配置
+spring:
+  datasource:
+    jdbc-url: jdbc:mysql://192.168.10.200:3306/center?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver

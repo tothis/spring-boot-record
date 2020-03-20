@@ -33,6 +33,7 @@
         <module>dozer</module>
         <module>quartz</module>
         <module>poi</module>
+        <module>websocket</module>
     </modules>
 
     <!-- properties可被子类继承 -->
@@ -114,6 +115,13 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- websocket -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-websocket</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
 

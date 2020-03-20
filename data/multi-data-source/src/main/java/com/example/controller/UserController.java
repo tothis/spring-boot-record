@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.example.config.DataSourceSwitch;
 import com.example.mapper.UserMapper;
 import com.example.model.User;
 import com.example.type.DataSourceEnum;
@@ -29,14 +28,6 @@ public class UserController {
     @DataSourceType(DataSourceEnum.db2)
     @GetMapping("db2/{id}")
     public User db2(@PathVariable Long id) {
-        return userMapper.findById(id);
-    }
-
-    private boolean flag;
-
-    @GetMapping("switch/{id}")
-    public User $switch(@PathVariable Long id) {
-        DataSourceSwitch.set((flag = !flag) ? DataSourceEnum.db1 : DataSourceEnum.db2);
         return userMapper.findById(id);
     }
 }
