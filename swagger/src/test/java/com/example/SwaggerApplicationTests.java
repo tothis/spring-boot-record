@@ -23,7 +23,7 @@ class SwaggerApplicationTests {
 
     {
         try {
-            url = new URL("http://localhost:8080/v2/api-docs?group=doc-dev");
+            url = new URL("http://localhost:8080/v2/api-docs?group=mobile");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

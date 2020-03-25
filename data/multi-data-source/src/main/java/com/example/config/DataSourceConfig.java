@@ -34,19 +34,6 @@ public class DataSourceConfig {
     }
 
     /**
-     * 配置事务管理器 不需要事务可省略此配置
-     */
-    @Bean
-    public DataSourceTransactionManager db1TransactionManager(@Qualifier("db1") DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
-
-    @Bean
-    public DataSourceTransactionManager db2TransactionManager(@Qualifier("db2") DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
-
-    /**
      * @Qualifier 根据名称注入 具有相同类型的多个实例时 使用名称注入
      */
     @Bean
@@ -60,5 +47,13 @@ public class DataSourceConfig {
         // 设置默认的datasource
         dataSource.setDefaultTargetDataSource(db1);
         return dataSource;
+    }
+
+    /**
+     * 配置事务管理器 不需要事务可省略此配置
+     */
+    @Bean
+    public DataSourceTransactionManager transactionManager(MultiDataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
     }
 }

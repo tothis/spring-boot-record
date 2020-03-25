@@ -11,5 +11,7 @@
 <th:block th:inline="text" th:each="entry,entryStat : ${data}">
     [[${entry} + '-' + ${entryStat}]]<br>
 </th:block>
+
+<th:block th:text="${config}"></th:block>
 </body>
 </html>

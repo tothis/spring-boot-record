@@ -1,8 +1,8 @@
 package com.example.controller;
 
-import com.example.mapper.UserMapper;
 import com.example.model.User;
 import com.example.runner.DataSourceRunner;
+import com.example.service.UserService;
 import com.example.type.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,24 +21,24 @@ public class UserController {
     private DataSourceRunner dataSourceRunner;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
-    // @DataSourceType(DataSourceEnum.db1)
-    @DataSourceType
+    @DataSourceType("db1")
     @GetMapping("db1/{id}")
     public User db1(@PathVariable Long id) {
-        return userMapper.findById(id);
+        return userService.findById(id);
     }
 
     @DataSourceType("db2")
     @GetMapping("db2/{id}")
     public User db2(@PathVariable Long id) {
-        return userMapper.findById(id);
+        return userService.findById(id);
     }
 
-    @DataSourceType("center")
-    @GetMapping("reload")
-    public boolean reload() {
+    @DataSourceType
+    @GetMapping("reload/{id}")
+    public boolean reload(@PathVariable Long id) {
+        userService.findById(id);
         return dataSourceRunner.dataSourceTask();
     }
 }

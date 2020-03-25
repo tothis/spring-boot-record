@@ -42,6 +42,11 @@ Ogg Ogg文件使用Theora视频编解码器和Vorbis音频编解码器 (iTouch�
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script>
     /**
+     * 如果只是为了进度条功能 且进度条不需要绝对准确 可使用xhr对象api 后端也无需修改
+     * xhr对象的upload.onprogress事件在上传过程中会多次回调
+     * 可以获取到当前上传的字节数 总字节数 时间戳等信息 根据上传字节数和总字节数计算百分比
+     * 根据时间戳可判断两次progress事件间隔 获取此期间上传字节数 得到上传速度
+     *
      * 对应后端java代码 https://gitee.com/tothis/java-base
      * /tree/master/src/main/java/com/example/file_upload
      * /FileUploadController.java

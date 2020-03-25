@@ -1,10 +1,12 @@
 package com.example.controller;
 
+import com.example.config.MapConfig;
 import com.example.type.HttpState;
 import com.example.util.ArrayUtil;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,9 @@ import java.util.List;
 @RequestMapping("base")
 @Controller
 public class BaseController {
+
+    @Autowired
+    private MapConfig config;
 
     @Getter // 将类对象转化成json需要get方法
     @Setter // 将json转化成类对象需要set方法
@@ -64,6 +69,7 @@ public class BaseController {
                 put(i, i);
             }
         }});
+        model.addAttribute("config", config);
         return "index";
     }
 

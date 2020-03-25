@@ -3,45 +3,25 @@ package com.example.aop;
 import com.example.config.DataSourceSwitch;
 import com.example.type.DataSourceEnum;
 import com.example.type.DataSourceType;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
-
-import java.lang.reflect.Method;
 
 @Component
 @Aspect
 public class DataSourceAspect {
-    @Pointcut("execution(* com.example..*(..)) && @annotation(com.example.type.DataSourceType)")
-    public void dataSourcePointcut() {
+    @Before("@annotation(type)")
+    public void changeDataSource(JoinPoint point, DataSourceType type) {
+        DataSourceEnum value = type.value();
+        DataSourceSwitch.set(value);
+        System.out.println("\033[36m数据源已切换[" + value + "] - " + point.getSignature() + "\033[m");
     }
 
-    @Around("dataSourcePointcut()")
-    public Object doAround(ProceedingJoinPoint joinPoint) {
-        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        Method method = methodSignature.getMethod();
-        DataSourceType sourceType = method.getAnnotation(DataSourceType.class);
-        switch (sourceType.value()) {
-            case db1:
-                DataSourceSwitch.set(DataSourceEnum.db1);
-                break;
-            case db2:
-                DataSourceSwitch.set(DataSourceEnum.db2);
-            default:
-                break;
-        }
-
-        Object result = null;
-        try {
-            result = joinPoint.proceed();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        } finally {
-            DataSourceSwitch.reset();
-        }
-        return result;
+    @After("@annotation(type)")
+    public void reset(JoinPoint point, DataSourceType type) {
+        DataSourceSwitch.reset();
+        System.out.println("\033[34m数据源已还原[" + DataSourceEnum.db1 + "] - " + point.getSignature() + "\033[m");
     }
 }

@@ -1,5 +1,6 @@
 package com.example.runner;
 
+import com.example.config.DataSourceSwitch;
 import com.example.config.DynamicDataSource;
 import com.example.mapper.TableMapper;
 import com.example.model.Table;
@@ -15,6 +16,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+/**
+ * @author 李磊
+ * @datetime 2020/03/18 22:20
+ * @description
+ */
 @Slf4j
 @Component
 // springboot启动后会执行CommandLineRunner实现类的run方法
@@ -30,6 +36,7 @@ public class DataSourceRunner implements CommandLineRunner {
 
     public boolean dataSourceTask() {
         List<Table> tables = tableMapper.findAll();
+        DataSourceSwitch.setDataSource(tables.stream().map(Table::getId).collect(Collectors.toList()));
         Map<Object, Object> dataSourceMap = tables.parallelStream().collect(Collectors.toMap(
                 Table::getId, dbManager -> {
                     HikariDataSource hikariDataSource = new HikariDataSource();

@@ -4,6 +4,7 @@ import com.example.model.User;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * @author 李磊
@@ -17,4 +18,7 @@ public interface UserMapper {
             , @Result(column = "user_name", property = "userName")
     })
     User findById(Long id);
+
+    @Update("UPDATE user SET user_name = 'xxxx'")
+    long update(Long id);
 }
