@@ -4,9 +4,10 @@ import com.example.model.Product;
 import com.example.model.ProductDTO;
 import com.example.model.User;
 import com.example.model.UserDTO;
-import net.sf.cglib.beans.BeanCopier;
+import com.example.util.BeanCopierUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cglib.beans.BeanCopier;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -58,5 +59,16 @@ public class BeanCopierTest {
             return null;
         });
         System.out.println(product);
+    }
+
+    @Test
+    public void test3() {
+        User user = new User();
+        user.setUserName("frank");
+        user.setPassword("密码");
+        UserDTO userDTO = new UserDTO();
+        BeanCopierUtil.copy(user, userDTO);
+        System.out.println(userDTO);
+        System.out.println(BeanCopierUtil.convert(user, UserDTO.class));
     }
 }

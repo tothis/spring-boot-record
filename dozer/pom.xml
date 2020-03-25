@@ -22,13 +22,6 @@
             <artifactId>dozer-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- cglib -->
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>3.3.0</version>
-        </dependency>
-
         <!-- jdk9及其以后不再包含javaEE相关jar包 jaxb -->
         <dependency>
             <groupId>javax.xml.bind</groupId>

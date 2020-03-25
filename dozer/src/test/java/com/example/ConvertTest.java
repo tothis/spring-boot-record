@@ -4,11 +4,11 @@ import com.example.model.User;
 import com.example.model.UserDTO;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
-import net.sf.cglib.beans.BeanCopier;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cglib.beans.BeanCopier;
 
 import java.lang.reflect.InvocationTargetException;
 
