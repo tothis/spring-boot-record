@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * @author 李磊
  * @datetime 2020/3/25 16:45
- * @description bean转换类
+ * @description bean转换类 只可copy同名同类型字段
  */
 public class BeanCopierUtil {
 
