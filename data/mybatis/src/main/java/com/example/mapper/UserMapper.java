@@ -60,4 +60,25 @@ public interface UserMapper {
 
     @Select("SELECT is_del FROM user LIMIT 1")
     State findEnum();
+
+    /**
+     * 使用别名时 ORDER BY要以别名排序 第一个表使用别名
+     * 使用UNION时 注意字段数量一致
+     *
+     * @return
+     */
+    // @Select("SELECT 名称, 排序 FROM `test1` UNION ALL SELECT 名称, 排序 FROM `test2` ORDER BY 排序 DESC")
+    @Select("SELECT 名称, 排序 AS sort FROM `test1` UNION ALL SELECT 名称, 排序 FROM `test2` ORDER BY sort DESC")
+    List<Map> sort();
+
+    /**
+     * test表数据为 content = 'a,b,c'
+     *
+     * @return
+     */
+    @Select("SELECT substring_index( substring_index( a.content, ',', b.help_topic_id + 1 ), ',' ,-1 ) " +
+            "FROM test a JOIN mysql.help_topic b ON b.help_topic_id < ( length( a.content ) " +
+            "- length( REPLACE ( a.content, ',', '' ))+ 1 ) " +
+            "WHERE substring_index(substring_index(a.content, ',', b.help_topic_id+1), ',', -1) <> ''")
+    List<String> split();
 }
