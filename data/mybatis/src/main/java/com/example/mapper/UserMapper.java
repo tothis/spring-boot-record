@@ -18,7 +18,7 @@ public interface UserMapper {
     @Insert("INSERT INTO user (user_name, password, age, mail, birthday, address) VALUES (#{userName}, #{password}, #{age}, #{mail}, #{birthday}, #{address})")
     int insert(User user);
 
-    @Delete("DEELTE FROM user WHERE id = #{id}")
+    @Delete("DELETE FROM user WHERE id = #{id}")
     int deleteById(Long id);
 
     @Select("SELECT user_name, password, age, mail, birthday, address FROM user WHERE id = #{id}")
@@ -81,4 +81,15 @@ public interface UserMapper {
             "- length( REPLACE ( a.content, ',', '' ))+ 1 ) " +
             "WHERE substring_index(substring_index(a.content, ',', b.help_topic_id+1), ',', -1) <> ''")
     List<String> split();
+
+    // 当字符串不为空串时 且判断具体值时需使用双引号包含
+    @Select("<script>" +
+            "<if test=\"e == ''\">" +
+            "SELECT 0" +
+            "</if>" +
+            "<if test='e == \"1\"'>" +
+            "SELECT 1" +
+            "</if>" +
+            "</script>")
+    String $if(String content);
 }
