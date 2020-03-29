@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.model.User;
 import com.example.model.UserDTO;
+import com.example.util.BeanCopierUtil;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -61,5 +62,19 @@ public class ConvertTest {
             PropertyUtils.copyProperties(new UserDTO(), user);
         }
         System.out.println(System.currentTimeMillis() - begin);
+    }
+
+    @Test
+    public void testNullToEmpty() {
+        // 此写法 反射无法获取属性
+        User user1 = new User() {{
+            setUserName("李磊");
+        }};
+        User user2 = new User();
+        user2.setPassword("密码");
+        BeanCopierUtil.nullToEmpty(user1);
+        BeanCopierUtil.nullToEmpty(user2);
+        System.out.println(user1);
+        System.out.println(user2);
     }
 }
