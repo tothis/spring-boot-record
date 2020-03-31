@@ -1,6 +1,9 @@
 spring:
   jackson:
     date-format: yyyy年MM月dd日 HH时mm分ss秒
+    # 在spring-boot2前 返回json数据 时间会自动转换为时间戳 2以后需要手动配置
+    # serialization:
+      # write-dates-as-timestamps: true
     time-zone: GMT+8
     # 参数意义
     # JsonInclude.Include.ALWAYS 默认不生效                  序列化
