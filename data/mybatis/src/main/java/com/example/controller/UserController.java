@@ -63,7 +63,7 @@ public class UserController {
     @ApiOperation("查询结果封装为map")
     @GetMapping("find-map")
     // 使用@RequestParam把参数封装为Map required为true参数也可不传
-    public Map<Long, User> findMap(@RequestParam Map params) {
+    public Map<Long, User> findMap(@RequestParam(required = false) Map params) {
         return userService.findMap(params);
     }
 

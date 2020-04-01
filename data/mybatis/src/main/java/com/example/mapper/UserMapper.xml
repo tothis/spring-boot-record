@@ -1,48 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mapper.UserMapper">
-    <!--JDBC Type           Java Type-->
-    <!--CHAR                String-->
-    <!--VARCHAR             String-->
-    <!--LONGVARCHAR         String-->
-    <!--NUMERIC             java.math.BigDecimal-->
-    <!--DECIMAL             java.math.BigDecimal-->
-    <!--BIT                 boolean-->
-    <!--BOOLEAN             boolean-->
-    <!--TINYINT             byte-->
-    <!--SMALLINT            short-->
-    <!--INTEGER             INTEGER-->
-    <!--BIGINT              long-->
-    <!--REAL                float-->
-    <!--FLOAT               double-->
-    <!--DOUBLE              double-->
-    <!--BINARY              byte[]-->
-    <!--VARBINARY           byte[]-->
-    <!--LONGVARBINARY       byte[]-->
-    <!--DATE                java.sql.Date-->
-    <!--TIME                java.sql.Time-->
-    <!--TIMESTAMP           java.sql.Timestamp-->
-    <!--CLOB                Clob-->
-    <!--BLOB                Blob-->
-    <!--ARRAY               Array-->
-    <!--DISTINCT            mapping of underlying type-->
-    <!--STRUCT              Struct-->
-    <!--REF                 Ref-->
-    <!--DATALINK            java.net.URL-->
-
-    <resultMap id="user" type="user">
-        <id property="id" javaType="Long" column="id" jdbcType="BIGINT"/>
-        <result property="userName" javaType="String" column="user_name" jdbcType="VARCHAR"/>
-        <result property="password" javaType="String" column="password" jdbcType="VARCHAR"/>
-        <result property="age" javaType="Byte" column="age" jdbcType="TINYINT"/>
-        <!-- 内部类不能使用别名 -->
-        <collection property="addressList" ofType="com.example.model.User$Address">
-            <result column="id1" property="id"/>
-            <result column="detail" property="detail"/>
-        </collection>
-    </resultMap>
-
-    <select id="findAll" resultMap="user">
+    <!--
+        传入参数时最好不写parameterType mybatis会自动处理传参 可直接使用属性值
+        parameterMap和resultMap类似 设置入参字段映射(已弃用) https://mybatis.org/mybatis-3/sqlmap-xml.html
+    -->
+    <!--select id="findAll" resultMap="com.example.mapper.CoreMapper.user">
         SELECT
             a.id
             , a.user_name
@@ -53,9 +16,10 @@
             , b.detail
         FROM user a
         LEFT JOIN address b ON b.user_id = a.id
-    </select>
+    </select-->
 
-    <select id='findMap' resultMap='user'>
+    <!-- <select id="findMap" resultMap="com.example.mapper.CoreMapper.user"> -->
+    <select id="findMap" resultMap="user">
         SELECT id, user_name, password, age, mail, birthday, address FROM `user`
         <where>
             <if test="userName != null and userName != ''">
@@ -67,15 +31,7 @@
         </where>
     </select>
 
-    <!-- sql递归查询 -->
-    <resultMap id="tree" type="Tree">
-        <id column="id" property="id"></id>
-        <result column="parent_id" property="parentId"></result>
-        <result column="name" property="name"></result>
-        <collection property="trees" select="findAllTreeByParentId" column="id"></collection>
-    </resultMap>
-
-    <select id="findAllTreeByParentId" resultMap="tree">
+    <select id="findAllTreeByParentId" resultMap="com.example.mapper.CoreMapper.tree">
         SELECT * FROM tree WHERE parent_id = #{parentId}
     </select>
 </mapper>

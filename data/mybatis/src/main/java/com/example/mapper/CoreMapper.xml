@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CoreMapper">
+    <!--resultMap id="user" type="user">
+        <id property="id" javaType="Long" column="id" jdbcType="BIGINT"/>
+        <result property="userName" javaType="String" column="user_name" jdbcType="VARCHAR"/>
+        <result property="password" javaType="String" column="password" jdbcType="VARCHAR"/>
+        <result property="age" javaType="Byte" column="age" jdbcType="TINYINT"/>
+        内部类不能使用别名
+        <collection property="addressList" ofType="com.example.model.User$Address">
+            <result column="id1" property="id"/>
+            <result column="detail" property="detail"/>
+        </collection>
+    </resultMap-->
+
+    <!-- sql递归查询 -->
+    <resultMap id="tree" type="tree">
+        <id column="id" property="id"></id>
+        <result column="parent_id" property="parentId"></result>
+        <result column="name" property="name"></result>
+        <collection property="trees" select="findAllTreeByParentId" column="id"></collection>
+    </resultMap>
+    <!--JDBC Type           Java Type-->
+    <!--CHAR                String-->
+    <!--VARCHAR             String-->
+    <!--LONGVARCHAR         String-->
+    <!--NUMERIC             java.math.BigDecimal-->
+    <!--DECIMAL             java.math.BigDecimal-->
+    <!--BIT                 boolean-->
+    <!--BOOLEAN             boolean-->
+    <!--TINYINT             byte-->
+    <!--SMALLINT            short-->
+    <!--INTEGER             INTEGER-->
+    <!--BIGINT              long-->
+    <!--REAL                float-->
+    <!--FLOAT               double-->
+    <!--DOUBLE              double-->
+    <!--BINARY              byte[]-->
+    <!--VARBINARY           byte[]-->
+    <!--LONGVARBINARY       byte[]-->
+    <!--DATE                java.sql.Date-->
+    <!--TIME                java.sql.Time-->
+    <!--TIMESTAMP           java.sql.Timestamp-->
+    <!--CLOB                Clob-->
+    <!--BLOB                Blob-->
+    <!--ARRAY               Array-->
+    <!--DISTINCT            mapping of underlying type-->
+    <!--STRUCT              Struct-->
+    <!--REF                 Ref-->
+    <!--DATALINK            java.net.URL-->
+</mapper>

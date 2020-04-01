@@ -15,15 +15,36 @@ import java.util.Map;
  */
 public interface UserMapper {
 
+    // 相当于mapper.xml中的useGeneratedKeys="true" keyColumn="id" keyProperty="id"
+    // @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
+    // 可以获取所有数据类型的id
+    @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
     @Insert("INSERT INTO user (user_name, password, age, mail, birthday, address) VALUES (#{userName}, #{password}, #{age}, #{mail}, #{birthday}, #{address})")
     int insert(User user);
 
     @Delete("DELETE FROM user WHERE id = #{id}")
     int deleteById(Long id);
 
+    @ResultMap("user")
     @Select("SELECT user_name, password, age, mail, birthday, address FROM user WHERE id = #{id}")
     User selectById(Long id);
 
+    // @ResultMap("com.example.mapper.CoreMapper.user")
+
+    /**
+     * @Results id 当前类中或当前对应xml其它方法可使用@ResultMap("id")使用此映射 但其它类无法通过namespace引用 xml方式还可通过namespace引用
+     * @Result 映射字段名称和类型
+     * <p>
+     * 无法定义一对多 一对一字段对应 只能通过指定其它方法实现
+     */
+    @Results(id = "user", value = {
+            @Result(id = true, column = "id", property = "id")
+            , @Result(column = "user_name", property = "userName")
+            , @Result(column = "password", property = "password")
+            , @Result(column = "age", property = "age")
+    })
+    @Select("SELECT a.id, a.user_name, a.password, a.age, a.address, b.id AS id1" +
+            ", b.detail FROM user a LEFT JOIN address b ON b.user_id = a.id")
     List<User> findAll(User user);
 
     @MapKey("id")
