@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.List;
 
@@ -20,6 +21,6 @@ public class Department extends BaseEntity {
 
     // 序列化时忽略userList中的每个user的department属性
     @JsonIgnoreProperties("department")
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<User> userList;
 }

@@ -1,6 +1,7 @@
 package com.example.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.UUID;
 
 /**
  * @author 李磊
@@ -91,19 +92,9 @@ public class StringUtil {
         return stringBuilder.toString();
     }
 
-    public static void main(String[] args) {
-        int a = (int) (4 * Math.pow(16, 3) + 14 * Math.pow(16, 2)); // 汉字ASCII码最小值
-        int b = (int) (9 * Math.pow(16, 3) + 15 * Math.pow(16, 2) + 10 * Math.pow(16, 1)) + 5; // 汉字ASCII
-        for (int i = a; i <= b; i++) {
-            word(String.valueOf((char) i));
-        }
-        word("🙃");
-        System.out.printf("one   -> %-5d%ntwo   -> %-5d%nthree -> %-5d%nfour  -> %-5d%n", one, two, three, four);
-    }
-
-    static int one, two, three, four;
-
     public static void word(String word) {
+
+        int one = 0, two = 0, three = 0, four = 0;
 
         String charsetName = "utf8";
 
@@ -154,5 +145,19 @@ public class StringUtil {
                 four++;
             }
         }
+        System.out.printf("one   -> %-5d%ntwo   -> %-5d%nthree -> %-5d%nfour  -> %-5d%n", one, two, three, four);
+    }
+
+    public static String uuid() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
+    public static void main(String[] args) {
+        int a = (int) (4 * Math.pow(16, 3) + 14 * Math.pow(16, 2)); // 汉字ASCII码最小值
+        int b = (int) (9 * Math.pow(16, 3) + 15 * Math.pow(16, 2) + 10 * Math.pow(16, 1)) + 5; // 汉字ASCII
+        for (int i = a; i <= b; i++) {
+            word(String.valueOf((char) i));
+        }
+        word("🙃");
     }
 }

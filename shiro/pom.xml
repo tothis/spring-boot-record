@@ -17,10 +17,10 @@
 
     <dependencies>
         <!-- shiro -->
-        <dependency>
+        <!--dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-web-starter</artifactId>
-        </dependency>
+        </dependency-->
 
         <!-- mysql connector -->
         <dependency>
@@ -54,20 +54,19 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>redis</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>jackson</artifactId>
-            <version>1.0</version>
-        </dependency>
     </dependencies>
 
     <build>
+        <resources>
+            <!-- maven编译src目录时 打包webapp下文件 -->
+            <resource>
+                <directory>src/main/webapp</directory>
+                <targetPath>META-INF/resources</targetPath>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -75,5 +74,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

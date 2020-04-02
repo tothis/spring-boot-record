@@ -5,7 +5,7 @@ spring:
       prefix: /
       suffix: .jsp
   datasource:
-    url: jdbc:mysql://192.168.10.200:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true&serverTimezone=GMT&useSSL=false&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://192.168.10.200:3306/shiro?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true&serverTimezone=GMT&useSSL=false&zeroDateTimeBehavior=convertToNull
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver

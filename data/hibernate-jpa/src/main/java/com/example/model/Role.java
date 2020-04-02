@@ -31,6 +31,7 @@ public class Role extends BaseEntity {
      * 正确用法一方使用@ManyToMany+@JoinTable 另一方使用@ManyToMany(mappedBy = "xxxx")
      * 使用mappedBy方等于放弃维护机会即 使用mappedBy属于被控方 中间表数据只能由主控方删除
      */
+    // @JsonIgnoreProperties("roleList")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "role_user", // 用户和角色关联表名称 不指定时默认名称为'表名1'+'_'+'表名2'

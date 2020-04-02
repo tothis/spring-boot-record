@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -55,7 +56,13 @@ public class User extends BaseEntity {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    /**
+     * @Validated 可用在类型 方法 方法参数上 不可用在成员属性上 无法进行嵌套验证 但可配合嵌套验证注解@Valid嵌套验证
+     * @Valid 可用在方法 构造函数 方法参数和成员属性上 可进行嵌套验证
+     */
+    @Valid // 嵌套验证必须用@Valid
     // 添加了mappedBy属性则不能使用@JoinTable注解
+    // @JsonIgnoreProperties("userList")
     @ManyToMany(mappedBy = "userList")
     private List<Role> roleList;
 }

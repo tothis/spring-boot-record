@@ -1,37 +1,33 @@
 package com.example.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import java.util.List;
 
-@ApiModel(value = "com.example.model.Department", description = "部门")
-@Getter
-@Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
+@ApiModel("部门")
+@Data
 @Entity
-@Table(name = "department")
 public class Department extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "账户名称", dataType = "String")
-    @Column(name = "department_name")
+    @ApiModelProperty("部门名称")
     private String departmentName;
 
     @Transient
-    @ApiModelProperty(value = "父节点", dataType = "String")
+    @ApiModelProperty("父节点")
     private Department department;
 
     @Transient
-    @ApiModelProperty(value = "子节点", dataType = "List")
+    @ApiModelProperty("子节点")
     private List<Department> departmentList;
 
+    @ApiModelProperty("部门下的用户")
     @OneToMany(mappedBy = "department")
-    @ApiModelProperty(value = "用户", dataType = "List")
     private List<User> userList;
 }

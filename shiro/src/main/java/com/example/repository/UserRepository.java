@@ -26,10 +26,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * 不使用@Query 直接用deleteBy+条件 并不需要使用@Modifying
      */
     @Modifying
-    @Query("UPDATE User SET delFlag = true WHERE userName = ?1")
+    @Query("UPDATE User SET state = 2 WHERE userName = ?1")
     int lockUser(String userName);
 
     @Modifying
-    @Query("UPDATE User SET delFlag = false WHERE userName = ?1")
+    @Query("UPDATE User SET state = 0 WHERE userName = ?1")
     int unlockUser(String userName);
 }
