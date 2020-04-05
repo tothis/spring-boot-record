@@ -27,7 +27,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-
         <!-- jpa -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

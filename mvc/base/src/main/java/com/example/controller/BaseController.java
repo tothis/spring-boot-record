@@ -38,10 +38,9 @@ public class BaseController {
         private Byte age;
     }
 
-    @ModelAttribute
+    @ModelAttribute("staff")
     /**
-     * key为user
-     * 直接返回类 相当于把类名转驼峰作为键名
+     * key为staff 未设置注解value值则key为user 相当于把类名转驼峰作为键名
      * 当前类的controller可直接在参数或model中获取
      */
     private User data(Long id, Byte age) {

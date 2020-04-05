@@ -1,29 +1,15 @@
 //package com.example.config;
 //
-//import com.example.realm.UserRealm;
 //import lombok.extern.slf4j.Slf4j;
-//import org.apache.shiro.authc.Authenticator;
-//import org.apache.shiro.authc.pam.FirstSuccessfulStrategy;
-//import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
-//import org.apache.shiro.mgt.DefaultSecurityManager;
 //import org.apache.shiro.mgt.SecurityManager;
-//import org.apache.shiro.session.SessionListener;
-//import org.apache.shiro.session.mgt.SessionManager;
-//import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
+//import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 //import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-//import org.apache.shiro.web.mgt.CookieRememberMeManager;
 //import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-//import org.apache.shiro.web.servlet.SimpleCookie;
-//import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
-//import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
 //
 //import javax.servlet.Filter;
-//import java.util.ArrayList;
-//import java.util.Collection;
 //import java.util.LinkedHashMap;
-//import java.util.UUID;
 //
 ///**
 // * @author 李磊
@@ -319,13 +305,14 @@
 //////        return authorizationAttributeSourceAdvisor;
 //////    }
 ////
-////    /**
-////     * shiro生命周期处理器 设置为静态 可以解决@value注解无法读取application.yml中的配置
-////     */
-//////    @Bean
-//////    public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
-//////        return new LifecycleBeanPostProcessor();
-//////    }
+//
+//    /**
+//     * shiro生命周期处理器 设置为静态 可以解决@value注解无法读取application.yml中的配置
+//     */
+//    @Bean
+//    public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
+//        return new LifecycleBeanPostProcessor();
+//    }
 ////
 ////    /**
 ////     * 解决 无权限页面不跳转 shiroFilterFactoryBean.setUnauthorizedUrl("/unauthorized") 无效
