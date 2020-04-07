@@ -1,9 +1,11 @@
 spring:
   jackson:
+    # jackson只能指定Date序列化格式 LocalDateTime等需要手动配置
     date-format: yyyy年MM月dd日 HH时mm分ss秒
-    # 在spring-boot2前 返回json数据 时间会自动转换为时间戳 2以后需要手动配置
+    # 在spring-boot2前 返回json数据 时间会自动转换为时间戳 LocalDateTime等显示为年月日
+    # 2以后需要手动配置 配置后会覆盖date-format配置
     # serialization:
-      # write-dates-as-timestamps: true
+    #   write-dates-as-timestamps: true
     time-zone: GMT+8
     # 参数意义
     # JsonInclude.Include.ALWAYS 默认不生效                  序列化

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
@@ -15,7 +16,9 @@ import java.util.List;
 
 @ApiModel("用户")
 @Data
+@ToString(exclude = {"roleList", "department"})
 @JsonIgnoreProperties("password")
+@NamedEntityGraph(name = "User.findByUserName", attributeNodes = @NamedAttributeNode("roleList"))
 @Entity
 public class User extends BaseEntity {
 
@@ -28,7 +31,6 @@ public class User extends BaseEntity {
     private String userName;
 
     @ApiModelProperty(value = "用户昵称", dataType = "String")
-    @NotBlank(message = "昵称不能为空")
     @Column(length = 40)
     private String nickName;
 
@@ -46,13 +48,22 @@ public class User extends BaseEntity {
     @ApiModelProperty(value = "加密盐值", hidden = true)
     private String salt;
 
-    @ApiModelProperty(value = "用户密码", hidden = true)
+    @ApiModelProperty("用户密码")
+    @Column(nullable = false)
     private String password;
 
-    @ManyToOne
+    @ApiModelProperty("部门")
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @ManyToMany(mappedBy = "userList")
+    @ApiModelProperty("角色")
+    @JsonIgnoreProperties("userList") // 避免递归死循环
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
     private List<Role> roleList;
 }

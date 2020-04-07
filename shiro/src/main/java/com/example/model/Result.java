@@ -11,11 +11,21 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Result<T> {
 
-    private int code;
+    private long code;
 
     private String message;
 
     private T data;
+
+    public Result(HttpState state) {
+        this.code = state.code();
+        this.message = state.message();
+    }
+
+    public Result(long code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 
     // 成功
     public static Result success() {

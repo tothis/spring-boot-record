@@ -3,15 +3,16 @@ package com.example.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import java.util.List;
 
 @ApiModel("权限")
 @Data
+@ToString(exclude = "roleList")
 @Entity
 public class Permission extends BaseEntity {
 
@@ -33,9 +34,8 @@ public class Permission extends BaseEntity {
     @ApiModelProperty("图标")
     private String icon;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @ManyToMany(mappedBy = "permissionList")
+    private List<Role> roleList;
 
     /**
      * 单表树形结构

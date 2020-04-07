@@ -1,7 +1,9 @@
 package com.example;
 
+import com.example.model.Permission;
 import com.example.model.Role;
 import com.example.model.User;
+import com.example.repository.PermissionRepository;
 import com.example.repository.RoleRepository;
 import com.example.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -27,29 +29,43 @@ class RoleRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PermissionRepository permissionRepository;
+
     @BeforeEach
     void before() {
 
         User user1 = new User();
         user1.setUserName("one");
-
+        userRepository.save(user1);
         User user2 = new User();
         user2.setUserName("two");
-
-        userRepository.save(user1);
         userRepository.save(user2);
+
+        Permission permission1 = new Permission();
+        permission1.setPermissionName("view");
+        permissionRepository.save(permission1);
+        Permission permission2 = new Permission();
+        permission2.setPermissionName("edit");
+        permissionRepository.save(permission2);
 
         List<User> userList = new ArrayList<>();
         userList.add(user1);
         userList.add(user2);
 
+        List<Permission> permissionList = new ArrayList<>();
+        permissionList.add(permission1);
+        permissionList.add(permission2);
+
         Role role1 = new Role();
         role1.setRoleName("角色1");
         role1.setUserList(userList);
+        role1.setPermissionList(permissionList);
 
         Role role2 = new Role();
         role2.setRoleName("角色2");
         role2.setUserList(userList);
+        role2.setPermissionList(permissionList);
 
         roleRepository.save(role1);
         roleRepository.save(role2);
@@ -57,7 +73,6 @@ class RoleRepositoryTest {
 
     @AfterEach
     void after() {
-        // 删除角色时只会删除`角色表`和`角色用户关联表`数据 设置级联删除后 会删除user
         roleRepository.deleteAll();
     }
 

@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * http状态码枚举
- * org.springframework.http.HttpStatus
+ * http状态码枚举 org.springframework.http.HttpStatus
  */
 @Slf4j
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
@@ -72,15 +71,15 @@ public enum HttpState {
     NOT_EXTENDED(510, "获取资源所需的策略没有被满足"),
     NETWORK_AUTHENTICATION_REQUIRED(511, "需要进行网络授权");
 
-    private final int code;
+    private final long code;
     private final String message;
 
-    HttpState(int code, String message) {
+    HttpState(long code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public int code() {
+    public long code() {
         return code;
     }
 
@@ -88,8 +87,8 @@ public enum HttpState {
         return message;
     }
 
-    // int到enum的转换函数
-    public static HttpState valueOf(int code) {
+    // long到enum的转换函数
+    public static HttpState valueOf(long code) {
 //        // 枚举值较少时可以使用switch
 //        switch (code) {
 //            case 100:
@@ -105,34 +104,7 @@ public enum HttpState {
                 return httpState;
         }
 
-        log.error("No matching constant for [{}]", code);
+        log.error("no matching constant for [{}]", code);
         return HttpState.EXPECTATION_FAILED;
-    }
-
-    private static final int
-            INFORMATIONAL = 1, SUCCESSFUL = 2, REDIRECTION = 3, CLIENT_ERROR = 4, SERVER_ERROR = 5;
-
-    public boolean is1xxInformational() {
-        return type() == INFORMATIONAL;
-    }
-
-    public boolean is2xxSuccessful() {
-        return type() == SUCCESSFUL;
-    }
-
-    public boolean is3xxRedirection() {
-        return type() == REDIRECTION;
-    }
-
-    public boolean is4xxClientError() {
-        return type() == CLIENT_ERROR;
-    }
-
-    public boolean is5xxServerError() {
-        return type() == SERVER_ERROR;
-    }
-
-    private int type() {
-        return code / 100;
     }
 }

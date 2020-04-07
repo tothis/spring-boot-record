@@ -1,6 +1,7 @@
 package com.example.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,7 +12,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-@JsonIgnoreProperties("delFlag")
+// 属性为null或为空字符串时不返回前端 此注解可被继承
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+// @JsonIgnoreProperties("state") // 被子类继承后 此配置失效
 @MappedSuperclass // 实体继承jpa映射
 public class BaseEntity implements Serializable {
 
@@ -27,18 +30,19 @@ public class BaseEntity implements Serializable {
 
     @ApiModelProperty("数据创建时间")
     @CreationTimestamp
-    private LocalDateTime createTime;
+    private LocalDateTime createDateTime;
 
     @ApiModelProperty("数据更新者")
     private Long updateBy;
 
     @ApiModelProperty("数据更新时间")
     @UpdateTimestamp
-    private LocalDateTime updateTime;
+    private LocalDateTime updateDateTime;
 
     @ApiModelProperty("数据状态 0正常(默认) 1删除 2禁用")
+    @JsonIgnore
     @Column(name = "state", columnDefinition = "tinyint(1) DEFAULT '0' COMMENT '数据状态 0正常(默认) 1删除 2禁用'")
-    private Byte state;
+    private Byte state = 0;
 
     @ApiModelProperty("起始页")
     private Long startRow;

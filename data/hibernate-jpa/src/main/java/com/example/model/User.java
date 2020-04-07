@@ -63,6 +63,11 @@ public class User extends BaseEntity {
     @Valid // 嵌套验证必须用@Valid
     // 添加了mappedBy属性则不能使用@JoinTable注解
     // @JsonIgnoreProperties("userList")
-    @ManyToMany(mappedBy = "userList")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private List<Role> roleList;
 }

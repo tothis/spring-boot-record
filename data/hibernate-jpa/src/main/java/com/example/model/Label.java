@@ -19,7 +19,8 @@ public class Label extends BaseEntity {
     // 多对多关系中一般不设置级联保存 级联删除 级联更新等操作
     // 关闭懒加载(可级联查询)
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "label_song", // 指定第三张表
+    @JoinTable(
+            name = "label_song", // 指定第三张表
             joinColumns = {@JoinColumn(name = "label_id")}, // 本表与中间表的外键对应
             inverseJoinColumns = {@JoinColumn(name = "song_id")}
     )

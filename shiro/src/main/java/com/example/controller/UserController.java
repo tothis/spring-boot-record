@@ -1,0 +1,64 @@
+package com.example.controller;
+
+import com.example.model.Result;
+import com.example.model.User;
+import com.example.util.StringUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Slf4j
+@RequestMapping("user")
+@Controller
+public class UserController {
+
+    /**
+     * 登录接口
+     */
+    @GetMapping("login")
+    public String loginPage() {
+        return "index";
+    }
+
+    /**
+     * 登录接口
+     */
+    @ResponseBody
+    @GetMapping
+    public Result login(User user) {
+        String userName = user.getUserName();
+        String password = user.getPassword();
+        if (StringUtil.isBlank(userName)) {
+            return Result.fail("用户名不能为空");
+        }
+        if (StringUtil.isBlank(password)) {
+            return Result.fail("密码不能为空");
+        }
+        Subject subject = SecurityUtils.getSubject();
+        try {
+            // 登录
+            subject.login(new UsernamePasswordToken(userName, password));
+            // 从session取出用户信息
+            User loginUser = (User) subject.getPrincipal();
+            // 返回登录用户的信息给前台 含用户的所有角色和权限
+            return Result.success(loginUser);
+        } catch (UnknownAccountException uae) {
+            log.warn("用户帐号不正确");
+            return Result.fail("用户帐号或密码不正确");
+        } catch (IncorrectCredentialsException e) {
+            log.warn("用户密码不正确");
+            return Result.fail("用户帐号或密码不正确");
+        } catch (LockedAccountException e) {
+            log.warn("用户帐号被锁定");
+            return Result.fail("用户帐号被锁定不可用");
+        } catch (AuthenticationException e) {
+            log.warn("登录出错");
+            return Result.fail("登录失败 " + e.getMessage());
+        }
+    }
+}

@@ -1,12 +1,4 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    String basePath = request.getScheme()
-            + "://" + request.getServerName()
-            + ":" + request.getServerPort()
-            + request.getContextPath() + "/";
-%>
+<%@ page pageEncoding="utf8" trimDirectiveWhitespaces="true" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,9 +7,7 @@
     <!-- fontawesome字体库 -->
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <title>登录</title>
-
     <style>
-
         * {
             margin: 0;
             padding: 0;

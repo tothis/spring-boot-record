@@ -15,3 +15,11 @@ spring:
       ddl-auto: update
     # 设置创建表的引擎为InnoDB
     database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+  jackson:
+    date-format: yyyy年MM月dd日 HH时mm分ss秒
+    time-zone: GMT+8
+shiro:
+  # 必须以`/`开头
+  loginUrl: /user/login
+  successUrl: /
+  unauthorizedUrl: /no-auth

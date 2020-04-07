@@ -7,7 +7,6 @@ import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -15,9 +14,9 @@ import java.util.List;
  * @datetime 2020/1/20 11:44
  * @description
  */
-@Transactional
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserRepository userRepository;
 
