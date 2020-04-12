@@ -6,9 +6,9 @@
 </head>
 <body>
 
-<p th:utext="${string} + '-' +${name}"></p>
+<p th:utext="${string}+'-'+${name}"></p>
 
-<th:block th:inline="text" th:each="entry,entryStat : ${data}">
+<th:block th:inline="text" th:each="entry,entryStat:${data}">
     [[${entry} + '-' + ${entryStat}]]<br>
 </th:block>
 

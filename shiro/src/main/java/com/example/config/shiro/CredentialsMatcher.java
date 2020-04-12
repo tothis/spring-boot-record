@@ -1,4 +1,4 @@
-package com.example.config;
+package com.example.config.shiro;
 
 import com.example.util.Encryption;
 import org.apache.shiro.authc.AuthenticationInfo;

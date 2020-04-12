@@ -73,7 +73,7 @@ public class FileController {
     @PostMapping("document")
     public String document(MultipartFile file) {
         Map<String, String> uploadFile = FileUploadUtil.uploadFile(file);
-        return OpenOfficeUtil.documentConvert(uploadFile.get("fileName"));
+        return OpenOfficeUtil.documentConvert(filePath + uploadFile.get("fileName"));
     }
 
     @GetMapping("download")

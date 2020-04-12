@@ -86,7 +86,7 @@ public class OpenOfficeUtil {
                 }
 
                 // 启动openOffice的服务 如果已经启动则不用执行
-                // process = Runtime.getRuntime().exec(openOfficePath); // 执行exe文件
+                process = Runtime.getRuntime().exec(openOfficePath); // 执行exe文件
 
                 // 通过ip地址和端口号连接openOffice
                 OpenOfficeConnection connection = new SocketOpenOfficeConnection("127.0.0.1", 8100);

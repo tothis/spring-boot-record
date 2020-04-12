@@ -21,53 +21,11 @@
 </head>
 <body>
 <script th:inline="text">
-    function adobeActiveX() {
-        let activeXObject = null;
-        if (window.ActiveXObject) {
-            activeXObject = new ActiveXObject('AcroPDF.PDF');
-            if (!activeXObject) {
-                activeXObject = new ActiveXObject('PDF.PdfCtrl');
-            }
-            if (activeXObject !== null) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function adobePlugin() {
-        let plugins = navigator.plugins;
-        let reg = /Adobe Reader|Adobe PDF|Acrobat/gi;
-        for (let i = 0; i < plugins.length; i++) {
-            if (reg.test(plugins[i].name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function mimeType() {
-        let mimeType = navigator.mimeTypes['application/pdf'];
-        return mimeType && mimeType.enabledPlugin;
-    }
-
-    function modelType() {
-        if (adobeActiveX() || adobePlugin()) {
-            return 'adobe';
-        } else if (mimeType()) {
-            return 'generic';
-        }
-    }
-
     function loadPdf(filePath) {
-        if (modelType()) {
-            let object = document.createElement('object');
-            object.data = filePath;
-            object.type = 'application/pdf';
-            document.body.appendChild(object);
-        }
+        let object = document.createElement('object');
+        object.data = filePath;
+        document.body.appendChild(object);
     }
-
     loadPdf('http://localhost:8080/file/[[${fileName}]]');
 </script>
 </body>

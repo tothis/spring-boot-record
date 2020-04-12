@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("1")
+@RequestMapping("test1")
 @RestController
 public class Test1Controller {
 
@@ -16,6 +16,7 @@ public class Test1Controller {
 
     // 用户未登录时(即游客) subject.getPrincipal() == null 接口可访问
     // 用户登录后 subject.getPrincipal() != null 接口不可访问 并抛出UnauthenticatedException异常
+    // config中设置所有接口`authc`后@RequiresGuest注解失效 把此接口设为`anon`后可解决此问题
     @RequiresGuest
     @GetMapping("guest")
     public String guest() {

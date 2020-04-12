@@ -1,4 +1,4 @@
-package com.example.realm;
+package com.example.config.shiro;
 
 import com.example.model.Role;
 import com.example.model.User;
@@ -56,6 +56,11 @@ public class UserRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 
+        // 获取用户名密码 第一种方式
+        // String username = (String) token.getPrincipal();
+        // String password = new String((char[]) token.getCredentials());
+
+        // 获取用户名 密码 第二种方式
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String userName = token.getUsername();
 
@@ -68,9 +73,9 @@ public class UserRealm extends AuthorizingRealm {
         if (user == null) {
             throw new UnknownAccountException("用户名不存在 [" + userName + "]");
         }
-
-        // 查询用户的角色和权限存到SimpleAuthenticationInfo中 这样在其它地方
-        // SecurityUtils.getSubject().getPrincipal()就能拿出用户的所有信息 包括角色和权限
+        if (user.getState().equals(1)) {
+            throw new LockedAccountException("账号已被锁定 请联系管理员");
+        }
 
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, user.getPassword(), super.getName());
         if (user.getSalt() != null) {

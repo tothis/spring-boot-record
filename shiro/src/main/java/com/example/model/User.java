@@ -52,6 +52,10 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
+    @ApiModelProperty("是否记住我")
+    @Transient
+    private Boolean rememberMe;
+
     @ApiModelProperty("部门")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
