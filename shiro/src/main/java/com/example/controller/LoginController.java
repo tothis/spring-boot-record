@@ -1,7 +1,8 @@
 package com.example.controller;
 
-import com.example.model.Result;
 import com.example.model.User;
+import com.example.type.HttpState;
+import com.example.type.Result;
 import com.example.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -31,6 +32,7 @@ public class LoginController {
             return Result.fail("密码不能为空");
         }
         Subject subject = SecurityUtils.getSubject();
+        String result;
         try {
             // 登录
             subject.login(new UsernamePasswordToken(userName, password, user.getRememberMe()));
@@ -40,24 +42,24 @@ public class LoginController {
             return Result.success(loginUser);
         } catch (UnknownAccountException uae) {
             log.warn("用户帐号不存在");
-            return Result.fail("用户帐号或密码不正确");
+            result = "用户帐号或密码不正确";
         } catch (IncorrectCredentialsException e) {
             log.warn("用户密码不正确");
-            return Result.fail("用户帐号或密码不正确");
+            result = "用户帐号或密码不正确";
         } catch (LockedAccountException e) {
             log.warn("用户帐号被锁定");
-            return Result.fail("用户帐号被锁定不可用");
+            result = "用户帐号被锁定不可用";
         } catch (AuthenticationException e) {
-            log.warn("登录出错");
-            return Result.fail("登录失败 " + e.getMessage());
+            result = "登录出错";
         }
+        return new Result(HttpState.BAD_REQUEST.code(), result, null);
     }
 
     /**
      * 退出登录
      */
     @GetMapping("sign-out")
-    public String logout() {
+    public String signOut() {
         SecurityUtils.getSubject().logout();
         return "/login.jsp";
     }

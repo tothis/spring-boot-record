@@ -8,10 +8,10 @@ server:
 spring:
   servlet:
     multipart:
-      # 单个文件的最大值
-      max-file-size: 50MB
+      # 单个文件的最大值 KB MB GB
+      max-file-size: 4GB
       # 上传文件总的最大值
-      max-request-size: 100MB
+      max-request-size: 40GB
   mvc:
     # 静态资源的访问路径为/**时 才会处理请求 默认值为 /**
     static-path-pattern: /**

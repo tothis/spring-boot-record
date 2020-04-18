@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -21,8 +22,12 @@ public class TestController {
         return date;
     }
 
+    @GetMapping("localDateTime")
+    public LocalDateTime localDateTime(LocalDateTime localDateTime) {
+        return localDateTime;
+    }
+
     /**
-     *
      * @param user
      * @return
      */

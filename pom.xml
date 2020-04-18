@@ -21,6 +21,7 @@
         <module>docker</module>
         <module>swagger</module>
         <module>shiro</module>
+        <module>security</module>
         <module>data</module>
         <module>jackson</module>
         <module>redis</module>
@@ -71,6 +72,28 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- 当前项目模块版本 -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>jackson</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>dozer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
@@ -95,6 +118,13 @@
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-spring-boot-web-starter</artifactId>
                 <version>${shiro.version}</version>
+            </dependency>
+
+            <!-- spring security -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
 
             <!-- jsp jstl标签 -->
@@ -392,7 +422,6 @@
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>util</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <!-- jackson -->

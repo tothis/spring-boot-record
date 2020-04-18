@@ -114,9 +114,13 @@ public class FileUploadUtil {
         try (
                 // 获取文件输入流
                 InputStream in = new FileInputStream(filePath + fileName);
+
                 // 获得输出流 通过response获得的输出流 用于向客户端写内容
                 ServletOutputStream out = response.getOutputStream();
         ) {
+
+            // 前端通过此值生成下载进度条
+            response.setHeader("content-length", String.valueOf(in.available()));
 
             // 文件拷贝的模板代码
             int len = 0;

@@ -13,7 +13,7 @@ public class Test2Controller {
 
     // 当前类使用@RequiresAuthentication注解 此方法上未使用其它shiro注解 则使用类注解做访问控制
     @GetMapping
-    public String hello() {
+    public String test() {
         return "已经登录";
     }
 

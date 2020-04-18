@@ -3,6 +3,8 @@
 ### 介绍
 mvc使用相关记录
 ***
+>HTTP协议 https://developer.mozilla.org/zh-CN/docs/Web/HTTP
+
 HTTP协议中Accept与Content-Type区别
 
 Accept属于请求头 Content-Type属于请求体|响应体
@@ -26,7 +28,7 @@ params|请求参数
 method|请求method类型
 consumes|限定请求内容类型 如text/html只对请求为Content-Type为text/html的请求作处理
 produces|设置返回内容类型 仅当request请求头中的(Accept)类型中包含该类型才返回
-headers|指定request中必须包含某些指定的header值，才能让该方法处理请求
+headers|指定request中必须包含某些指定的header值 才能让该方法处理请求
 + 返回值为void produces属性不生效 response.setContentType生效
 + 返回值不为void response.setContentType不生效 produces属性生效
 + headers="key=lilei" 访问此接口需在请求中携带'key=lilei'请求头

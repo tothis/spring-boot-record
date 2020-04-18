@@ -1,9 +1,6 @@
 package com.example;
 
-import com.example.model.Product;
-import com.example.model.ProductDTO;
-import com.example.model.User;
-import com.example.model.UserDTO;
+import com.example.model.*;
 import com.example.util.BeanCopierUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,11 +23,36 @@ public class BeanCopierTest {
         UserDTO userDTO = new UserDTO() {{
             setUserName("李磊");
             setPassword("密码");
+            setAddress(new Address() {{
+                setContent("地址");
+            }});
+            setRemark(new UserDTO().new Remark() {{
+                setContent("备注");
+            }});
+            setRole(new Role() {{
+                setContent("root");
+            }});
         }};
         User user = new User();
         beanCopier.copy(userDTO, user, null);
         userDTO.setUserName("frank");
+        // 复制类时 属性类型为内部类属性不可被复制
         System.out.println(user);
+        UserDTO.Remark remark1 = new UserDTO().new Remark();
+        Remark remark2 = new Remark();
+        Address address1 = new Address();
+        UserDTO.Address address2 = new UserDTO.Address();
+        Role role = new Role();
+        BeanCopierUtil.copy(userDTO.getRemark(), remark1);
+        BeanCopierUtil.copy(userDTO.getRemark(), remark2);
+        BeanCopierUtil.copy(userDTO.getAddress(), address1);
+        BeanCopierUtil.copy(userDTO.getAddress(), address2);
+        BeanCopierUtil.copy(userDTO.getRole(), role);
+        System.out.println(remark1); // 生效
+        System.out.println(remark2); // 生效
+        System.out.println(address1); // 生效
+        System.out.println(address2); // 生效
+        System.out.println(role); // 生效
     }
 
     @Test

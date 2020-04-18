@@ -1,0 +1,22 @@
+spring:
+  mvc:
+    view:
+      prefix: WEB-INF/
+      suffix: .jsp
+  datasource:
+    url: jdbc:mysql://192.168.10.200:3306/spring-security?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true&serverTimezone=GMT&useSSL=false&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    # 设置创建表的引擎为InnoDB
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+  jackson:
+    date-format: yyyy年MM月dd日 HH时mm分ss秒
+    time-zone: GMT+8
+
+iconfont: //at.alicdn.com/t/font_1364052_4gc488yts6h.css

@@ -3,6 +3,7 @@ package com.example.model;
 import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,23 @@ public class User {
     // 返回前端key为'time'
     @JsonProperty(value = "time", access = JsonProperty.Access.READ_WRITE)
     private Date date;
+
+    private LocalDateTime localDateTime;
+
+    /**
+     * get方法和set方法分开使用@JsonFormat配置 可分别控制序列化和反序列化
+     */
+    private Date birthday;
+
+    @JsonFormat(pattern = "yyyy年MM月dd日")
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
 
     private String password;
 

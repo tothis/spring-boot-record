@@ -1,7 +1,7 @@
 package com.example.controller;
 
-import com.example.model.HttpState;
-import com.example.model.Result;
+import com.example.type.HttpState;
+import com.example.type.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authz.UnauthenticatedException;
@@ -22,11 +22,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UnauthenticatedException.class)
     public Result page401() {
-        return new Result(HttpState.UNAUTHORIZED.code(), "用户未登录");
+        return new Result(HttpState.UNAUTHORIZED.code(), "用户未登录", null);
     }
 
     @ExceptionHandler(UnauthorizedException.class)
     public Result page403() {
-        return new Result(HttpState.FORBIDDEN.code(), "用户没有访问权限");
+        return new Result(HttpState.FORBIDDEN.code(), "用户没有访问权限", null);
     }
 }
