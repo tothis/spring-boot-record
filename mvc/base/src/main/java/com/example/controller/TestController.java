@@ -16,15 +16,16 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author 李磊
  * @datetime 2020/1/12 15:40
  * @description
  */
-@RequestMapping("base")
+@RequestMapping("test")
 @Controller
-public class BaseController {
+public class TestController extends BaseClass {
 
     @Autowired
     private MapConfig config;
@@ -170,5 +171,32 @@ public class BaseController {
     @GetMapping("semantic")
     public String semantic() {
         return "semantic";
+    }
+
+    // baseController测试
+    @ResponseBody
+    @GetMapping("test1")
+    public String test1() {
+        LOGGER.info(baseUrl());
+        if (new Random().nextBoolean())
+            setCookie("name", "lilei");
+        else
+            deleteCookie("name");
+        if (Math.random() < 0.5)
+            session.setAttribute("name", "lilei");
+        else
+            session.removeAttribute("name");
+        System.out.println(session.getAttribute("name"));
+        return baseUrl();
+    }
+
+    @GetMapping("test2")
+    public void test2() {
+        // ajax("frank");
+        // 会以第一次调用时type为准 此时依然为json
+        // ajax("李磊", "text/xml");
+
+        ajaxJson("frank", 1);
+        ajaxJson("李磊");
     }
 }
