@@ -19,14 +19,25 @@ public interface UserMapper {
     // @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     // 可以获取所有数据类型的id
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
-    @Insert("INSERT INTO user (user_name, password, age, mail, birthday, address) VALUES (#{userName}, #{password}, #{age}, #{mail}, #{birthday}, #{address})")
+    @Insert("INSERT INTO user (user_name, password, age, mail, birthday) " +
+            "VALUES (#{userName}, #{password}, #{age}, #{mail}, #{birthday}})")
     int insert(User user);
+
+    @Insert("<script>" +
+            "INSERT INTO user (user_name, password, age, mail, birthday) " +
+            "VALUE" +
+            "<foreach collection='array' item='item' separator=','>" +
+            "(#{item.userName}, #{item.password}, #{item.age}, #{item.mail}, #{item.birthday})" +
+            "</foreach>" +
+            "</script>")
+    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
+    int inserts(User[] users);
 
     @Delete("DELETE FROM user WHERE id = #{id}")
     int deleteById(Long id);
 
     @ResultMap("user")
-    @Select("SELECT user_name, password, age, mail, birthday, address FROM user WHERE id = #{id}")
+    @Select("SELECT user_name, password, age, mail, birthday FROM user WHERE id = #{id}")
     User selectById(Long id);
 
     // @ResultMap("com.example.mapper.CoreMapper.user")
@@ -38,13 +49,13 @@ public interface UserMapper {
      * 无法定义一对多 一对一字段对应 只能通过指定其它方法实现
      */
     @Results(id = "user", value = {
-            @Result(id = true, column = "id", property = "id")
-            , @Result(column = "user_name", property = "userName")
-            , @Result(column = "password", property = "password")
-            , @Result(column = "age", property = "age")
+            // 相同名称 可省略书写映射
+            /*@Result(id = true, column = "id", property = "id")
+            , */@Result(column = "user_name", property = "userName")
+            // , @Result(column = "password", property = "password")
+            // , @Result(column = "age", property = "age")
     })
-    @Select("SELECT a.id, a.user_name, a.password, a.age, a.address, b.id AS id1" +
-            ", b.detail FROM user a LEFT JOIN address b ON b.user_id = a.id")
+    @Select("SELECT id, user_name, password, age FROM user")
     List<User> findAll(User user);
 
     @MapKey("id")
@@ -61,15 +72,15 @@ public interface UserMapper {
     // 当foreach标签本次循环中无数据时 不会拼接separator
     @Select("<script>" +
             "SELECT CONCAT(" +
-            "<foreach collection='values' item='value' index='index' separator=','>" +
+            "<foreach collection='array' item='value' index='index' separator=','>" +
             "<if test=\"value != null and value != ''\">" +
             "#{value}" +
             "</if>" +
             "</foreach>" +
             ")" +
             "</script>")
-    // 数组需要使用@Param标识 一般单个参数不需要标识
-    String arrayTest(@Param("values") String[] values);
+    // 数组需要使用@Param标识 或在sql中使用array作为变量名称 一般单个参数不需要标识
+    String arrayTest(/*@Param("values") */String[] values);
 
     List<Tree> findAllTreeByParentId(Long parentId);
 
@@ -113,4 +124,6 @@ public interface UserMapper {
             "</if>" +
             "</script>")
     String $if(String content);
+
+    List<Map> findPage();
 }

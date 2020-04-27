@@ -1,11 +1,14 @@
 package com.example.util;
 
+import com.example.model.User;
 import org.springframework.cglib.beans.BeanCopier;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,18 +46,6 @@ public class BeanCopierUtil {
     }
 
     public static <T> T convert(Object source, Class<T> clazz) {
-        if (source == null || clazz == null)
-            throw new NullPointerException("参数不能为null");
-
-        Class<?> sourceClass = source.getClass();
-        String beanKey = key(sourceClass, clazz);
-        BeanCopier copier;
-        if (beanCopierMap.containsKey(beanKey)) {
-            copier = beanCopierMap.get(beanKey);
-        } else {
-            copier = BeanCopier.create(sourceClass, clazz, false);
-            beanCopierMap.put(beanKey, copier);
-        }
         T result = null;
         try {
             result = clazz.newInstance();
@@ -63,8 +54,21 @@ public class BeanCopierUtil {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        copier.copy(source, result, null);
+        BeanCopierUtil.copy(source, result);
         return result;
+    }
+
+    /**
+     * @param source 资源类
+     */
+    public static <T> List<T> convertList(List source, Class<T> targetClass) {
+        if (source == null || source.isEmpty())
+            throw new NullPointerException("资源对象不能为空");
+        List<T> list = new ArrayList<>();
+        for (Object item : source) {
+            list.add(BeanCopierUtil.convert(item, targetClass));
+        }
+        return list;
     }
 
     private static String key(Class<?> class1, Class<?> class2) {
@@ -87,10 +91,11 @@ public class BeanCopierUtil {
                 try {
                     String getName = "get" + fieldName;
                     if (isExistMethod(beanClass, getName)) {
-                        Object invoke = beanClass.getMethod(getName).invoke(bean);// 调用get方法获取属性值
+                        Object invoke = beanClass.getMethod(getName).invoke(bean); // 调用get方法获取属性值
                         if (invoke == null) {
                             String setName = "set" + fieldName;
                             if (isExistMethod(beanClass, setName))
+                                // 字符串属性为null时 把该属性值设为空字符串
                                 beanClass.getMethod(setName, String.class).invoke(bean, "");
                         }
                     }
@@ -108,7 +113,7 @@ public class BeanCopierUtil {
     public static boolean isExistMethod(Class clazz, String methodName) {
         String clazzName = clazz.getName();
         String[] methods;
-        if (beanCopierMap.containsKey(clazzName)) {
+        if (methodMap.containsKey(clazzName)) {
             methods = methodMap.get(clazzName);
         } else {
             Method[] clazzMethods = clazz.getMethods();
@@ -123,5 +128,14 @@ public class BeanCopierUtil {
             if (method.equals(methodName))
                 return true;
         return false;
+    }
+
+    public static void main(String[] args) {
+        long begin = System.currentTimeMillis();
+        User user = new User();
+        for (int i = 0; i < 1000_000; i++) {
+            nullToEmpty(user);
+        }
+        System.out.println(System.currentTimeMillis() - begin);
     }
 }

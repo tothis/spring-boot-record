@@ -46,15 +46,16 @@ public class TestController {
     @PutMapping
     public String put(
             /**
-             * @RequestParam required值默认为必填 swagger会在前端标识必填
+             * @RequestParam required值默认为必填 swagger文档标识必填
              * 但@RequestParam配和@ApiParam使用 则标识由@ApiParam控制
              * 但接口参数是否必填由@RequestParam控制
              *
-             * name为前端表单的name value为参数描述
+             * name为swagger文档表单name value为参数描述 但接口参数名称由@RequestParam控制
              * 使用@ApiParam需要@RequestParam配合使用
              * 使用example配置示例值 空字符串无法解析为Long 且抛出NumberFormatException
              */
-            @ApiParam(name = "id", value = "主键", example = "0") @RequestParam(required = false) Long id
+            @ApiParam(name = "userId", value = "主键", example = "0")
+            @RequestParam(name = "userId", required = false) Long id
     ) {
         return "put";
     }

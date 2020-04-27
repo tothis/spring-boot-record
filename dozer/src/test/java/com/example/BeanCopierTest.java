@@ -8,6 +8,8 @@ import org.springframework.cglib.beans.BeanCopier;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 李磊
@@ -83,14 +85,42 @@ public class BeanCopierTest {
         System.out.println(product);
     }
 
+    // BeanCopierUtil测试
     @Test
     public void test3() {
         User user = new User();
         user.setUserName("frank");
         user.setPassword("密码");
         UserDTO userDTO = new UserDTO();
-        BeanCopierUtil.copy(user, userDTO);
-        System.out.println(userDTO);
+
         System.out.println(BeanCopierUtil.convert(user, UserDTO.class));
+
+        long begin = System.currentTimeMillis();
+        for (int i = 0; i < 1000_1000; i++) {
+            BeanCopierUtil.copy(user, userDTO);
+        }
+        System.out.println(System.currentTimeMillis() - begin);
+
+        begin = System.currentTimeMillis();
+        for (int i = 0; i < 1000_1000; i++) {
+            BeanCopierUtil.convert(user, UserDTO.class);
+        }
+        System.out.println(System.currentTimeMillis() - begin);
+    }
+
+    // BeanCopierUtil测试List
+    @Test
+    public void test4() {
+        User user1 = new User();
+        user1.setUserName("frank");
+        user1.setPassword("123456");
+        User user2 = new User();
+        user2.setUserName("james");
+        user2.setPassword("password");
+        List<User> list = new ArrayList<>();
+        list.add(user1);
+        list.add(user2);
+        List<UserDTO> result = BeanCopierUtil.convertList(list, UserDTO.class);
+        System.out.println(result);
     }
 }
