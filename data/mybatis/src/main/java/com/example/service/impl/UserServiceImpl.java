@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author 李磊
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UserService {
      * @description 根据id查询
      */
     @Override
-    public User selectById(Long id) {
+    public Optional<User> selectById(Long id) {
         return userMapper.selectById(id);
     }
 

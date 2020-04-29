@@ -51,7 +51,8 @@ public class UserController {
     @ApiOperation("查询单个用户")
     @GetMapping("select-by-id")
     public User selectById(Long id) {
-        return userService.selectById(id);
+        return userService.selectById(id).orElseThrow(() ->
+                new IllegalArgumentException("用户不存在"));
     }
 
     @ApiOperation("查询所有用户")

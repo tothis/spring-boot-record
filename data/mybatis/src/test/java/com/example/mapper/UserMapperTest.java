@@ -2,6 +2,7 @@ package com.example.mapper;
 
 import com.example.MyBatisApplication;
 import com.example.model.User;
+import com.example.util.StringUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,5 +40,16 @@ class UserMapperTest {
     void findPage() {
         // [[{password=密码0, user_name=name0}, {password=密码1, user_name=name1}], [10]]
         System.out.println(mapper.findPage());
+    }
+
+    @Test
+    void split() {
+        Arrays.stream(mapper.split("a,b,c,")).forEach(System.out::println);
+    }
+
+    @Test
+    void run() {
+        System.out.println(StringUtil.uuid());
+        System.out.println(mapper.run());
     }
 }

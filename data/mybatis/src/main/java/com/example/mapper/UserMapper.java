@@ -1,5 +1,6 @@
 package com.example.mapper;
 
+import com.example.mapper.provider.UserProvider;
 import com.example.model.Tree;
 import com.example.model.User;
 import com.example.type.State;
@@ -7,6 +8,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author 李磊
@@ -19,8 +21,14 @@ public interface UserMapper {
     // @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     // 可以获取所有数据类型的id
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
-    @Insert("INSERT INTO user (user_name, password, age, mail, birthday) " +
-            "VALUES (#{userName}, #{password}, #{age}, #{mail}, #{birthday}})")
+    /**
+     * @SelectProvide
+     * 指定的Class 必须能通过无参构造初始化
+     * 指定方法 必须为public 返回值必须为String
+     */
+    @InsertProvider(type = UserProvider.class, method = "insert")
+    // @Insert("INSERT INTO user (user_name, password, age, mail, birthday) " +
+    //         "VALUES (#{userName}, #{password}, #{age}, #{mail}, #{birthday})")
     int insert(User user);
 
     @Insert("<script>" +
@@ -36,9 +44,10 @@ public interface UserMapper {
     @Delete("DELETE FROM user WHERE id = #{id}")
     int deleteById(Long id);
 
+    // 可使用Optional接收
     @ResultMap("user")
     @Select("SELECT user_name, password, age, mail, birthday FROM user WHERE id = #{id}")
-    User selectById(Long id);
+    Optional<User> selectById(Long id);
 
     // @ResultMap("com.example.mapper.CoreMapper.user")
 
@@ -103,16 +112,14 @@ public interface UserMapper {
     @Select("SELECT 名称, 排序 AS sort FROM `test1` UNION ALL SELECT 名称, 排序 FROM `test2` ORDER BY sort DESC")
     List<Map> sort();
 
-    /**
-     * test表数据为 content = 'a,b,c'
-     *
-     * @return
-     */
-    @Select("SELECT substring_index( substring_index( a.content, ',', b.help_topic_id + 1 ), ',' ,-1 ) " +
-            "FROM test a JOIN mysql.help_topic b ON b.help_topic_id < ( length( a.content ) " +
-            "- length( REPLACE ( a.content, ',', '' ))+ 1 ) " +
-            "WHERE substring_index(substring_index(a.content, ',', b.help_topic_id+1), ',', -1) <> ''")
-    List<String> split();
+    @Select("SET @VALUE := #{content};" +
+            "SELECT " +
+            "SUBSTRING_INDEX( SUBSTRING_INDEX( @VALUE, ',', help_topic_id + 1 ), ',', -1 ) " +
+            "FROM mysql.help_topic " +
+            "WHERE help_topic_id < LENGTH( @VALUE ) - LENGTH( REPLACE( @VALUE, ',', '' )) + 1 " +
+            // 字符串以`,`结尾 会多产生一个空字符串数据
+            "AND SUBSTRING_INDEX( SUBSTRING_INDEX( @VALUE, ',', help_topic_id + 1 ), ',', -1 ) <> ''")
+    String[] split(String content);
 
     // 当字符串不为空串时 且判断具体值时需使用双引号包含
     @Select("<script>" +
@@ -126,4 +133,12 @@ public interface UserMapper {
     String $if(String content);
 
     List<Map> findPage();
+
+    // https://commons.apache.org/proper/commons-ognl/language-guide.html
+    // 调用java类方法 需使用`$`包含
+    // @Select("SELECT '${@com.example.util.StringUtil@uuid()}'")
+    // @Select("SELECT ${@com.example.util.StringUtil@uuid().hashCode()}")
+    // @Select("SELECT '${@com.example.util.DateUtil@FORMAT}'")
+    @Select("SELECT '${'李磊'.hashCode()}'")
+    String run();
 }

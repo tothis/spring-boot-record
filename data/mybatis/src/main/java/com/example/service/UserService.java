@@ -6,6 +6,7 @@ import com.example.type.State;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author 李磊
@@ -32,7 +33,7 @@ public interface UserService {
      * @return 实体
      * @description 根据id查询
      */
-    User selectById(Long id);
+    Optional<User> selectById(Long id);
 
     List<User> findAll(User User);
 
