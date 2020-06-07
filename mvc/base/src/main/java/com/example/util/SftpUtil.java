@@ -4,19 +4,16 @@ import com.jcraft.jsch.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
-import java.util.UUID;
 
 /**
  * @author 李磊
@@ -27,46 +24,46 @@ import java.util.UUID;
 @Component
 public final class SftpUtil {
 
-    private static String sftpAddress;
+    private static String host;
 
-    private static Integer sftpPort;
+    private static int port;
 
-    private static String sftpUserName;
+    private static String userName;
 
-    private static String ftpPassword;
+    private static String password;
 
-    private static Integer sftpTimeOut;
+    private static int timeout;
 
-    private static String filePath;
+    private static String basePath;
 
-    @Value("${sftp-server.address}")
-    private void setSftpAddress(String sftpAddress) {
-        SftpUtil.sftpAddress = sftpAddress;
+    @Value("${sftp-server.host}")
+    public void setHost(String host) {
+        SftpUtil.host = host;
     }
 
     @Value("${sftp-server.port}")
-    private void setSftpPort(Integer sftpPort) {
-        SftpUtil.sftpPort = sftpPort;
+    public void setPort(int port) {
+        SftpUtil.port = port;
     }
 
     @Value("${sftp-server.user-name}")
-    private void setSftpUserName(String sftpUserName) {
-        SftpUtil.sftpUserName = sftpUserName;
+    public void setUserName(String userName) {
+        SftpUtil.userName = userName;
     }
 
     @Value("${sftp-server.password}")
-    private void setFtpPassword(String ftpPassword) {
-        SftpUtil.ftpPassword = ftpPassword;
+    public void setPassword(String password) {
+        SftpUtil.password = password;
     }
 
     @Value("${sftp-server.timeout}")
-    private void setSftpTimeOut(Integer sftpTimeOut) {
-        SftpUtil.sftpTimeOut = sftpTimeOut;
+    public void setTimeout(int timeout) {
+        SftpUtil.timeout = timeout;
     }
 
     @Value("${upload-file-path}")
-    private void setFilePath(String filePath) {
-        SftpUtil.filePath = "/" + filePath;
+    public void setBasePath(String basePath) {
+        SftpUtil.basePath = basePath;
     }
 
     /**
@@ -78,52 +75,28 @@ public final class SftpUtil {
     /**
      * sftp上传文件
      */
-    public static Map<String, String> sftpUploadFile(MultipartFile file) {
-
-        // 取得当前上传文件的文件名称
-        String fileName = file.getOriginalFilename();
-
-        // 名称为"" 说明文件不存在
-        if (fileName.trim().isEmpty()) {
-            return new HashMap<String, String>() {{
-                put("message", "文件上传失败");
-            }};
-        }
-        // 获取文件扩展名
-        String fileExtName = fileName.substring(fileName.lastIndexOf("."));
-
-        // 打印文件名称
-        log.info("文件名称 -> [{}]", fileName);
-
-        // 文件新名称 没有'-'的uuid
-        String newFileName = UUID.randomUUID().toString().replace("-", "") + fileExtName;
+    public static void upload(String fileName, InputStream file) {
 
         ChannelSftp sftp;
 
         try {
             // linux服务器地址 账号 密码
-            sftp = getChannel(sftpAddress, sftpPort, sftpUserName, ftpPassword, sftpTimeOut);
+            sftp = getChannel(host, port, userName, password, timeout);
 
             // 判断目录文件夹是否存在 不存在即创建
             try {
-                sftp.stat(filePath);
+                sftp.stat(basePath);
             } catch (SftpException e) {
                 e.printStackTrace();
-                sftp.mkdir(filePath);
-                log.info("创建目录 : " + filePath);
+                sftp.mkdir(basePath);
+                log.info("创建目录 : " + basePath);
             }
 
             // 进入linux服务器文件目录
-            sftp.cd(filePath);
+            sftp.cd(basePath);
 
-            try (
-                    InputStream is = file.getInputStream()
-            ) {
-                // 把文件流命名成文件名称推送到linux
-                sftp.put(is, newFileName, new ProgressMonitor());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // 把文件流命名成文件名称推送到linux
+            sftp.put(file, fileName, new ProgressMonitor());
             closeChannel(); // 关闭连接
         } catch (JSchException e) {
             e.printStackTrace();
@@ -133,11 +106,7 @@ public final class SftpUtil {
             log.error("上传文件失败 请检查连接参数", e);
         }
 
-        log.info("文件上传信息[{}]", filePath + newFileName);
-        return new HashMap<String, String>() {{
-            put("message", "文件上传成功");
-            put("fileName", newFileName);
-        }};
+        log.info("文件上传信息[{}]", basePath + fileName);
     }
 
     static class ProgressMonitor implements SftpProgressMonitor {
@@ -165,7 +134,7 @@ public final class SftpUtil {
     /**
      * sftp下载文件 要下载的文件名 下载到客户端文件名
      */
-    public static void sftpDownloadFile(HttpServletRequest request, HttpServletResponse response
+    public static void downloadFile(HttpServletRequest request, HttpServletResponse response
             , String fileName, String localFileName) {
 
         // 不传客户端本地文件名称 则使用服务器上的名称
@@ -204,13 +173,13 @@ public final class SftpUtil {
         ChannelSftp sftp = null;
         try {
             // linux服务器地址 账号 密码
-            sftp = getChannel(sftpAddress, 22, sftpUserName, ftpPassword, 60000);
+            sftp = getChannel(host, 22, userName, password, 60000);
 
             // 获得输出流 通过response获得的输出流 用于向客户端写内容
             ServletOutputStream out = response.getOutputStream();
 
             // 获取输出流 并自动输出到客户端 路径名 + 文件名
-            sftp.get(filePath + fileName, out);
+            sftp.get(basePath + fileName, out);
 
             out.close(); // 关闭输出流
         } catch (Exception e) {
@@ -221,7 +190,66 @@ public final class SftpUtil {
         }
     }
 
-    // ------------------------------------------------------------
+    /**
+     * sftp下载文件 要下载的文件名 下载到客户端文件名 输出流
+     */
+    public static void download(String fileName, OutputStream out) {
+
+        ChannelSftp sftp = null;
+        try {
+            // linux服务器地址 账号 密码
+            sftp = getChannel(host, 22, userName, password, 60000);
+
+            // 获取输出流 并自动输出到客户端 路径名 + 文件名
+            sftp.get(basePath + fileName, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sftp.quit(); // 退出连接
+            closeChannel(); // 关闭连接
+            try {
+                out.close(); // 关闭输出流
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void webDownload(HttpServletResponse response, String fileName, String localFileName) {
+        if (StringUtil.isBlank(fileName)) {
+            return;
+        }
+        // 不传客户端本地文件名称 则使用服务器上的名称
+        if (StringUtil.isBlank(localFileName)) {
+            localFileName = fileName;
+        } else {
+            // 使用客户端传递的名称 + 服务器上的文件后缀名
+            localFileName += fileName.substring(fileName.lastIndexOf("."));
+        }
+        log.info("下载文件 -> [{}]", fileName);
+        // 设置强制下载不打开
+        response.setContentType("application/force-download");
+        // 设置文件名
+        response.addHeader("Content-Disposition", "attachment;fileName=" + localFileName);
+        ChannelSftp sftp = null;
+        try (
+                // 获得输出流 通过response获得的输出流 用于向客户端写内容
+                ServletOutputStream out = response.getOutputStream()
+        ) {
+            // linux服务器地址 账号 密码
+            sftp = getChannel(host, 22, userName, password, 60000);
+
+            // 获取输出流 并自动输出到客户端 路径名 + 文件名
+            sftp.get(basePath + fileName, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            sftp.quit(); // 退出连接
+            closeChannel(); // 关闭连接
+        }
+    }
+
+    // ----- ----- ----- ----- -----
     private static Session session = null;
 
     private static Channel channel = null;
@@ -229,38 +257,40 @@ public final class SftpUtil {
     /**
      * 使用SFTP方法
      *
-     * @param ftpHost     ip地址
-     * @param ftpPort     端口
-     * @param ftpUserName 用户名
-     * @param ftpPassword 密码
-     * @param timeout     超时时间
+     * @param host     ip地址
+     * @param port     端口
+     * @param userName 用户名
+     * @param password 密码
+     * @param timeout  超时时间
      * @return
      * @throws JSchException
      */
-    private static ChannelSftp getChannel(String ftpHost, int ftpPort
-            , String ftpUserName, String ftpPassword, int timeout) throws JSchException {
+    private static ChannelSftp getChannel(String host, int port
+            , String userName, String password, int timeout) throws JSchException {
 
-        JSch jsch = new JSch(); // 创建JSch对象
-        session = jsch.getSession(ftpUserName, ftpHost, ftpPort); // 根据用户名 主机ip 端口获取一个Session对象
+        if (channel != null) return (ChannelSftp) channel;
+
+        JSch jsch = new JSch();
+        session = jsch.getSession(userName, host, port); // 根据用户名 主机ip 端口获取一个session对象
         log.debug("Session created.");
-        session.setPassword(ftpPassword); // 设置密码
+        session.setPassword(password); // 设置密码
 
         Properties config = new Properties();
         // 不验证host-key 验证会失败
         config.put("StrictHostKeyChecking", "no");
 
-        session.setConfig(config); // 为Session对象设置properties
+        session.setConfig(config); // 为session对象设置properties
         session.setTimeout(timeout); // 设置timeout时间
 
         // 设置登陆超时时间 不设置可能会报错
-        session.connect(1500); // 通过Session建立链接
+        session.connect(1500); // 通过session建立链接
         log.debug("Session connected.");
 
-        channel = session.openChannel("sftp"); // 打开SFTP通道
+        channel = session.openChannel("sftp"); // 打开sftp通道
         log.debug("Opening Channel.");
 
-        channel.connect(); // 建立SFTP通道的连接
-        log.debug("ftpHost = " + ftpHost + ", ftpUserName = " + ftpUserName + ", returning: " + channel);
+        channel.connect(); // 建立sftp通道的连接
+        log.debug("host = " + host + ", userName = " + userName + ", returning: " + channel);
 
         return (ChannelSftp) channel;
     }
@@ -273,7 +303,7 @@ public final class SftpUtil {
             session.disconnect();
         }
     }
-    // ------------------------------------------------------------
+    // ----- ----- ----- ----- -----
 
     public static void main(String[] args) {
 

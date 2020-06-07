@@ -1,8 +1,9 @@
 package com.example.controller;
 
-import com.example.util.FileUploadUtil;
+import com.example.util.FtpUtil;
 import com.example.util.OpenOfficeUtil;
 import com.example.util.SftpUtil;
+import com.example.util.WebFileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -25,9 +26,8 @@ import java.util.UUID;
  * @description
  */
 @Slf4j
-// 跨域处理
-// response.setHeader("Access-Control-Allow-Origin","*");
-@CrossOrigin // 允许跨域
+// 允许跨域
+@CrossOrigin // 或response.setHeader("Access-Control-Allow-Origin", "*");
 @RequestMapping("file")
 @Controller
 public class FileController {
@@ -35,35 +35,53 @@ public class FileController {
     @Value("${upload-file-path}")
     private String filePath;
 
-    @GetMapping("1")
-    public String page1() {
-        return "file-upload1";
+    @ResponseBody
+    @PostMapping("upload")
+    public String upload(MultipartFile file) {
+        return WebFileUtil.uploadFile(file);
     }
 
-    @GetMapping("2")
-    public String page2() {
-        return "file-upload2";
+    @GetMapping("download")
+    public void download(HttpServletResponse r, String fileName, String localFileName) {
+        WebFileUtil.downloadFile(r, fileName, localFileName);
     }
 
     @ResponseBody
-    @PostMapping("image")
-    public Map<String, String> image(MultipartFile file) {
-        return FileUploadUtil.uploadFile(file);
+    @PostMapping("ftp")
+    public String ftp(MultipartFile file) {
+        // 取得当前上传文件的文件名称
+        String fileName = file.getOriginalFilename();
+        String newFileName = WebFileUtil.newFileName(fileName);
+        try {
+            FtpUtil.upload(newFileName, file.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return newFileName;
     }
 
-    /**
-     * sftp上传文件
-     */
+    @GetMapping("ftp-download")
+    public void ftpDownload(HttpServletResponse r, String fileName, String localFileName) {
+        FtpUtil.webDownload(r, fileName, localFileName);
+    }
+
     @ResponseBody
     @PostMapping("sftp")
-    public Map<String, String> sftp(MultipartFile file) {
-        return SftpUtil.sftpUploadFile(file);
+    public String sftp(MultipartFile file) {
+        // 取得当前上传文件的文件名称
+        String fileName = file.getOriginalFilename();
+        String newFileName = WebFileUtil.newFileName(fileName);
+        try {
+            SftpUtil.upload(newFileName, file.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return newFileName;
     }
 
-    @PostMapping("pdf")
-    public String pdf(Model model, String fileName) {
-        model.addAttribute("fileName", fileName);
-        return "pdf";
+    @GetMapping("sftp-download")
+    public void sftpDownload(HttpServletResponse r, String fileName, String localFileName) {
+        SftpUtil.webDownload(r, fileName, localFileName);
     }
 
     /**
@@ -72,20 +90,14 @@ public class FileController {
     @ResponseBody
     @PostMapping("document")
     public String document(MultipartFile file) {
-        Map<String, String> uploadFile = FileUploadUtil.uploadFile(file);
-        return OpenOfficeUtil.documentConvert(filePath + uploadFile.get("fileName"));
+        String uploadFile = WebFileUtil.uploadFile(file);
+        return OpenOfficeUtil.documentConvert(filePath + uploadFile);
     }
 
-    @GetMapping("download")
-    public void download(HttpServletRequest request, HttpServletResponse response
-            , String fileName, String localFileName) {
-        FileUploadUtil.downloadFile(request, response, fileName, localFileName);
-    }
-
-    @GetMapping("sftp-download")
-    public void sftpDownload(HttpServletRequest request, HttpServletResponse response
-            , String fileName, String localFileName) {
-        SftpUtil.sftpDownloadFile(request, response, fileName, localFileName);
+    @PostMapping("pdf")
+    public String pdf(Model model, String fileName) {
+        model.addAttribute("fileName", fileName);
+        return "pdf";
     }
 
     @ResponseBody
@@ -171,7 +183,8 @@ public class FileController {
         // 按照文件的索引进行冒泡排序
         for (int i = 0; i < _files.length; i++) {
             for (int j = 0; j < _files.length - i - 1; j++) {
-                int varJ = Integer.parseInt(_files[j].substring(_files[j].lastIndexOf("-") + 1, _files[j].lastIndexOf(".")));
+                int varJ = Integer.parseInt(_files[j].substring(_files[j].lastIndexOf("-") + 1
+                        , _files[j].lastIndexOf(".")));
                 int varJ1 = Integer.parseInt(_files[j + 1].substring(_files[j + 1].lastIndexOf("-") + 1
                         , _files[j + 1].lastIndexOf(".")));
                 if (varJ > varJ1) { // 即这两个相邻的数是逆序的 交换
