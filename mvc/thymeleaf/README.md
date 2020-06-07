@@ -40,7 +40,7 @@ public class TestController {
 		List<User> userList = userService.findAll();
 		User user = userService.findOne();
 		model.addAttribute("user", userList);
-		return "admin/userList"
+		return "admin/userList";
 	}
 }
 ```

@@ -16,4 +16,4 @@ spring:
     # JsonInclude.Include.NON_DEFAULT 属性为默认值时         不序列化
     # JsonInclude.Include.CUSTOM 指定自定义筛选器            不序列化
     # JsonInclude.Include.USE_DEFAULTS 使用类或对象的默认值   序列化
-    default-property-inclusion: ALWAYS
+    # default-property-inclusion: ALWAYS

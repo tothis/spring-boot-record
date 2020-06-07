@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.example.mapper.UserMapper;
+import com.example.model.Inner;
 import com.example.model.Tree;
 import com.example.model.User;
 import com.example.service.UserService;
@@ -122,5 +123,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public State findEnum() {
         return userMapper.findEnum();
+    }
+
+    @Override
+    public String inner(Inner inner) {
+        return userMapper.inner(inner);
     }
 }

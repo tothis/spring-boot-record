@@ -47,8 +47,6 @@ spring:
     # 检查模板位置 默认true
     check-template-location: true
     encoding: UTF-8
-    # 解析非严格的html5 标签可不闭合
-    mode: LEGACYHTML5
     # 模板路径 默认templates/ 后斜杠不可省略
     prefix: classpath:templates/
     servlet:
@@ -62,12 +60,17 @@ spring:
     cache-duration: 3600
 # 自定义变量
 sftp-server:
-  address: 192.168.0.102
+  host: 192.168.92.128
   user-name: root
-  password: root
+  password: 123456
   port: 22
   timeout: 60000
-upload-file-path: D:/data/upload/file/
+ftp-server:
+  host: 192.168.92.128
+  user-name: root
+  password: 123456
+  port: 21
+upload-file-path: /data/upload/file/
 # 特殊字符使用 \ 转义或使用 '' 包围
 # open-office: /opt/openoffice4/program/soffice
 open-office-path: '"D:\OpenOffice 4\program\soffice" -headless -accept="socket,host=127.0.0.1,port=8100;urp;" -nofirststartwizard'

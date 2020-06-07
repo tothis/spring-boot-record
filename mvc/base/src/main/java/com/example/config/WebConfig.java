@@ -7,10 +7,23 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.mobile.device.DeviceHandlerMethodArgumentResolver;
+import org.springframework.mobile.device.DeviceResolverHandlerInterceptor;
+import org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor;
+import org.springframework.mobile.device.site.SitePreferenceHandlerMethodArgumentResolver;
+import org.springframework.mobile.device.view.LiteDeviceDelegatingViewResolver;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 李磊
@@ -71,5 +84,31 @@ public class WebConfig implements WebMvcConfigurer {
     // 注册自定义类型转化器
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverterFactory(new EnumConverterFactory());
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // 添加device和site拦截器
+        registry.addInterceptor(new DeviceResolverHandlerInterceptor());
+        registry.addInterceptor(new SitePreferenceHandlerInterceptor());
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        // controller入参自动注入device和site
+        argumentResolvers.add(new DeviceHandlerMethodArgumentResolver());
+        argumentResolvers.add(new SitePreferenceHandlerMethodArgumentResolver());
+    }
+
+    @Bean
+    public ContentNegotiatingViewResolver viewResolver(ThymeleafViewResolver thymeleafViewResolver) {
+        ContentNegotiatingViewResolver viewResolver = new ContentNegotiatingViewResolver();
+        List<ViewResolver> result = new ArrayList<>();
+        result.add(new LiteDeviceDelegatingViewResolver(thymeleafViewResolver) {{
+            setMobilePrefix("mobile/");
+            setTabletPrefix("tablet/");
+        }});
+        viewResolver.setViewResolvers(result);
+        return viewResolver;
     }
 }

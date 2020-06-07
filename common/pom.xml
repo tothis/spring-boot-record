@@ -10,10 +10,10 @@
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>util</artifactId>
+    <artifactId>common</artifactId>
     <version>${parent.version}</version>
-    <name>util</name>
-    <description>util</description>
+    <name>common</name>
+    <description>common</description>
 
     <build>
         <plugins>
@@ -23,5 +23,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

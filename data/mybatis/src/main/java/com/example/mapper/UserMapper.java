@@ -1,6 +1,7 @@
 package com.example.mapper;
 
 import com.example.mapper.provider.UserProvider;
+import com.example.model.Inner;
 import com.example.model.Tree;
 import com.example.model.User;
 import com.example.type.State;
@@ -78,7 +79,13 @@ public interface UserMapper {
     @Select("SELECT #{value}")
     boolean booleanInt(int value);
 
-    // 当foreach标签本次循环中无数据时 不会拼接separator
+    /**
+     * 当foreach标签本次循环中无数据时 不会拼接separator
+     * separator默认值为空字符串
+     * 数组或集合需要使用@Param标识 单个实体类参数不需要标识
+     * 数组可使用`array`作为变量名称
+     * list可使用`list`作为变量名称
+     */
     @Select("<script>" +
             "SELECT CONCAT(" +
             "<foreach collection='array' item='value' index='index' separator=','>" +
@@ -88,7 +95,6 @@ public interface UserMapper {
             "</foreach>" +
             ")" +
             "</script>")
-    // 数组需要使用@Param标识 或在sql中使用array作为变量名称 一般单个参数不需要标识
     String arrayTest(/*@Param("values") */String[] values);
 
     List<Tree> findAllTreeByParentId(Long parentId);
@@ -141,4 +147,19 @@ public interface UserMapper {
     // @Select("SELECT '${@com.example.util.DateUtil@FORMAT}'")
     @Select("SELECT '${'李磊'.hashCode()}'")
     String run();
+
+    @Select("<script>" +
+            "SELECT CONCAT(#{content} ," +
+            "<foreach collection='inner1s' item='item1' separator=','>" +
+            "   #{item1.content} ," +
+            "   <foreach collection='item1.inner2s' item='item2' separator=','>" +
+            "       #{item2.content}" +
+            "   </foreach>" +
+            "</foreach> ," +
+            "<foreach collection='inner2s' item='item2' separator=','>" +
+            "   #{item2.content}" +
+            "</foreach>" +
+            ")" +
+            "</script>")
+    String inner(Inner inner);
 }

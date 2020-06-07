@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.model.Inner;
 import com.example.model.Tree;
 import com.example.model.User;
 import com.example.type.State;
@@ -52,4 +53,6 @@ public interface UserService {
     int insertEnum(State state);
 
     State findEnum();
+
+    String inner(Inner inner);
 }

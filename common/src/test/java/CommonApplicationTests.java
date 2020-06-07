@@ -1,4 +1,4 @@
-import com.example.UtilApplication;
+import com.example.CommonApplication;
 import com.example.util.SpringUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +10,8 @@ import org.springframework.core.env.Environment;
  * @datetime 2020/3/20 14:07
  * @description
  */
-@SpringBootTest(classes = UtilApplication.class)
-class UtilApplicationTests {
+@SpringBootTest(classes = CommonApplication.class)
+class CommonApplicationTests {
 
     @Autowired
     private Environment e;

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -198,5 +199,19 @@ public class TestController extends BaseClass {
 
         ajaxJson("frank", 1);
         ajaxJson("李磊");
+    }
+
+    @ResponseBody
+    @GetMapping("find-map1")
+    // 使用@RequestParam把参数封装为Map required为true时参数也可不传
+    public Map findMap1(@RequestParam(required = false) Map params) {
+        return params;
+    }
+
+    @ResponseBody
+    @PostMapping("find-map2")
+    // 使用@RequestBody把json参数封装为Map
+    public Map findMap2(@RequestBody Map params) {
+        return params;
     }
 }

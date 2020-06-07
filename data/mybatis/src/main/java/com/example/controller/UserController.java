@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.model.Inner;
 import com.example.model.Tree;
 import com.example.model.User;
 import com.example.service.UserService;
@@ -7,10 +8,7 @@ import com.example.type.State;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -63,7 +61,6 @@ public class UserController {
 
     @ApiOperation("查询结果封装为map")
     @GetMapping("find-map")
-    // 使用@RequestParam把参数封装为Map required为true参数也可不传
     public Map<Long, User> findMap(@RequestParam(required = false) Map params) {
         return userService.findMap(params);
     }
@@ -102,5 +99,10 @@ public class UserController {
     @GetMapping("find-enum")
     public State findEnum() {
         return userService.findEnum();
+    }
+
+    @PostMapping("inner")
+    public String inner(@RequestBody Inner inner) {
+        return userService.inner(inner);
     }
 }
