@@ -1,3 +1,9 @@
 spring:
   profiles:
     active: test
+this:
+  profile:
+    # 驼峰和中横线共存时 中横线属性生效
+    user-name: lilei
+    userName: frank
+    age: 18

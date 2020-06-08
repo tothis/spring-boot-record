@@ -1,0 +1,6 @@
+# 指定自动装配类路径
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.example.configuration.ThisConfiguration
+# 多个类写法
+# com.example.configuration.OneConfiguration,\
+# com.example.configuration.TwoConfiguration

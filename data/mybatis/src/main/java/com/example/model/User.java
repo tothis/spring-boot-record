@@ -37,13 +37,23 @@ public class User extends BaseEntity {
     private LocalDateTime birthday;
 
     @ApiModelProperty("地址")
-    private List<Address> addressList;
+    private List<Address> addresses;
+
+    @ApiModelProperty("类型")
+    private Type type;
 
     @Data
     // 被mybatis映射结果集需声明为static
-    @ApiModel(value = "com.example.model.User$Address", description = "用户地址")
+    @ApiModel("地址")
     static class Address {
-        @ApiModelProperty(example = "1")
+        private Long id;
+        private Long userId;
+        private String detail;
+    }
+
+    @Data
+    @ApiModel("类型")
+    static class Type {
         private Long id;
         private String detail;
     }

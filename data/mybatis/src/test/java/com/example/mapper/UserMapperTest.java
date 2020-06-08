@@ -52,4 +52,9 @@ class UserMapperTest {
         System.out.println(StringUtil.uuid());
         System.out.println(mapper.run());
     }
+
+    @Test
+    void user() {
+        System.out.println(mapper.user());
+    }
 }

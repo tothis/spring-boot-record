@@ -162,4 +162,17 @@ public interface UserMapper {
             ")" +
             "</script>")
     String inner(Inner inner);
+
+    /**
+     * 一对一关系可以直接使用别名查询
+     * @return
+     */
+    @Select("SELECT " +
+            "a.user_name " +
+            ", b.detail `type.detail` " +
+            "FROM " +
+            "`user` a " +
+            "LEFT JOIN `type` b ON b.id = a.type_id " +
+            "WHERE a.id = 1")
+    User user();
 }
