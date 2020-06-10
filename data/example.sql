@@ -1,4 +1,4 @@
-DROP TABLE type, user, tree;
+DROP TABLE IF EXISTS type, user, tree;
 
 CREATE TABLE `type`
 (

@@ -55,6 +55,7 @@ class UserMapperTest {
 
     @Test
     void user() {
-        System.out.println(mapper.user());
+        System.out.println(mapper.user1());
+        System.out.println(mapper.user2());
     }
 }

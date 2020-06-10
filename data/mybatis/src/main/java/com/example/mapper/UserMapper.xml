@@ -47,4 +47,14 @@
         SELECT SQL_CALC_FOUND_ROWS * FROM user LIMIT 0, 2;
         SELECT FOUND_ROWS() `count`;
     </select>
+
+    <resultMap id="one-user" type="user">
+        <result column="detail" property="type.detail"/>
+    </resultMap>
+
+    <select id="user2" resultMap="one-user">
+        SELECT a.user_name userName, b.detail FROM `user` a
+        LEFT JOIN `type` b ON b.id = a.type_id
+        WHERE a.id = 1
+    </select>
 </mapper>

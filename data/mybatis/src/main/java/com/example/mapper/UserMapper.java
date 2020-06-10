@@ -168,11 +168,13 @@ public interface UserMapper {
      * @return
      */
     @Select("SELECT " +
-            "a.user_name " +
+            "a.user_name userName " +
             ", b.detail `type.detail` " +
             "FROM " +
             "`user` a " +
             "LEFT JOIN `type` b ON b.id = a.type_id " +
             "WHERE a.id = 1")
-    User user();
+    User user1();
+
+    User user2();
 }
