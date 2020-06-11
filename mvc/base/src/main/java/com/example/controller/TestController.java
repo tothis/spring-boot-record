@@ -214,4 +214,15 @@ public class TestController extends BaseClass {
     public Map findMap2(@RequestBody Map params) {
         return params;
     }
+
+    // 映射请求头信息
+    @GetMapping("header")
+    public void header(
+            @RequestHeader("user-agent") String userAgent
+            // 请求头name与参数名称一致会自动注入 自动转为集合
+            , @RequestHeader List<String> accept
+    ) {
+        System.out.println(userAgent);
+        accept.forEach(System.out::println);
+    }
 }
