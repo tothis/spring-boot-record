@@ -18,6 +18,7 @@
     <modules>
         <module>common</module>
         <module>mvc</module>
+        <module>drools</module>
         <module>docker</module>
         <module>swagger</module>
         <module>shiro</module>
@@ -45,6 +46,7 @@
 
         <spring-boot.version>2.2.2.RELEASE</spring-boot.version>
         <spring-boot-mobile.version>1.5.22.RELEASE</spring-boot-mobile.version>
+        <drools.version>7.38.0.Final</drools.version>
         <beetl.version>1.2.20.RELEASE</beetl.version>
         <hikariCP.version>3.4.2</hikariCP.version>
         <shiro.version>1.4.2</shiro.version>
@@ -429,6 +431,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-mobile</artifactId>
                 <version>${spring-boot-mobile.version}</version>
+            </dependency>
+
+            <!-- drools规则引擎 -->
+            <dependency>
+                <groupId>org.drools</groupId>
+                <artifactId>drools-templates</artifactId>
+                <version>${drools.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

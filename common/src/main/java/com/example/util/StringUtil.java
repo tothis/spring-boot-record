@@ -35,7 +35,7 @@ public class StringUtil {
     }
 
     public static boolean isNotBlank(final CharSequence cs) {
-        return !(isBlank(cs));
+        return !isBlank(cs);
     }
 
     /**
@@ -111,6 +111,44 @@ public class StringUtil {
             stringBuilder.append((char) index);
         }
         return stringBuilder.toString();
+    }
+
+    /**
+     * 1 -> A 27 -> AA
+     */
+    public static String numberToLetter(int num) {
+        if (num <= 0) {
+            return null;
+        }
+        // StringBuilder letter = new StringBuilder();
+        String letter = "";
+        num--;
+        do {
+            if (letter.length() > 0) {
+                num--;
+            }
+            letter = ((char) (num % 26 + (int) 'A')) + letter;
+            // letter.insert(0, ((char) (num % 26 + (int) 'A'))); // StringBuilder方式
+            num = (num - num % 26) / 26;
+        } while (num > 0);
+        return letter;
+    }
+
+    /**
+     * A -> 1 AA -> 27
+     */
+    public int letterToNumber(String letter) {
+        letter = letter.toUpperCase(); // 转换成大写
+        int length = letter.length();
+        int num;
+        int number = 0;
+        for (int i = 0; i < length; i++) {
+            char ch = letter.charAt(length - i - 1);
+            num = ch - 'A' + 1;
+            num *= Math.pow(26, i);
+            number += num;
+        }
+        return number;
     }
 
     public static void word(String word) {

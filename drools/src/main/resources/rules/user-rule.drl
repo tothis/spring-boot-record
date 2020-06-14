@@ -1,0 +1,19 @@
+package rulePack
+
+import com.example.entity.User;
+
+rule 未成年
+    when
+        $message:User(age == 0)
+    then
+        System.out.println("未成年");
+        $message.setUserName("james");
+end
+
+rule 已成年
+    when
+        $message:User(age == 18)
+    then
+        System.out.println("已成年");
+        $message.setUserName("frank");
+end
