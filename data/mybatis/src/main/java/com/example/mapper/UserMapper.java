@@ -16,7 +16,8 @@ import java.util.Optional;
  * @datatime 2020-01-16
  * @description mapper
  */
-public interface UserMapper {
+// 继承GlobalMapper 同时也继承了GlobalMapper对应xml的配置
+public interface UserMapper extends GlobalMapper {
 
     // 相当于mapper.xml中的useGeneratedKeys="true" keyColumn="id" keyProperty="id"
     // @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
@@ -97,10 +98,12 @@ public interface UserMapper {
             "</script>")
     String arrayTest(/*@Param("values") */String[] values);
 
-    List<Tree> findAllTreeByParentId(Long parentId);
+    List<Tree> dbTree1(Long parentId);
+
+    List<Tree> dbTree2(Long parentId);
 
     @Select("SELECT id, parent_id AS parentId, name FROM tree")
-    List<Tree> findAllTree();
+    List<Tree> tree();
 
     @Insert("INSERT INTO user (is_del) VALUES (#{state})")
     int insertEnum(State state);
@@ -165,6 +168,7 @@ public interface UserMapper {
 
     /**
      * 一对一关系可以直接使用别名查询
+     *
      * @return
      */
     @Select("SELECT " +

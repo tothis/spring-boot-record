@@ -14,13 +14,13 @@
     </resultMap-->
 
     <!-- sql递归查询 -->
-    <resultMap id="tree" type="tree">
+    <resultMap id="tree1" type="tree">
         <!-- 相同名称 可省略书写映射 但主键id映射不可省略 -->
         <!-- <id column="id" property="id"/> -->
         <!-- <result column="id" property="id"/> -->
         <result column="parent_id" property="parentId"/>
         <!-- <result column="name" property="name"/> -->
-        <collection property="trees" select="com.example.mapper.UserMapper.findAllTreeByParentId" column="id"/>
+        <collection property="trees" select="com.example.mapper.UserMapper.dbTree1" column="id"/>
     </resultMap>
     <!--JDBC Type           Java Type-->
     <!--CHAR                String-->

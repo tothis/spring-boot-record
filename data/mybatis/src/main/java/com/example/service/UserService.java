@@ -46,9 +46,11 @@ public interface UserService {
 
     String arrayTest(String[] values);
 
-    List<Tree> findAllTreeByParentId1(Long parentId);
+    List<Tree> tree(Long parentId);
 
-    List<Tree> findAllTreeByParentId2(Long parentId);
+    List<Tree> dbTree1(Long parentId);
+
+    List<Tree> dbTree2(Long parentId);
 
     int insertEnum(State state);
 

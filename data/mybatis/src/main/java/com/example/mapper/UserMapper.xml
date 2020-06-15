@@ -31,7 +31,11 @@
         </where>
     </select>
 
-    <select id="findAllTreeByParentId" resultMap="com.example.mapper.CoreMapper.tree">
+    <select id="dbTree1" resultMap="com.example.mapper.CoreMapper.tree1">
+        SELECT * FROM tree WHERE parent_id = #{parentId}
+    </select>
+
+    <select id="dbTree2" resultMap="com.example.mapper.GlobalMapper.tree2">
         SELECT * FROM tree WHERE parent_id = #{parentId}
     </select>
 

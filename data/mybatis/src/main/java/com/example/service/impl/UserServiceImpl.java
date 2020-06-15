@@ -82,13 +82,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Tree> findAllTreeByParentId1(Long parentId) {
-        return userMapper.findAllTreeByParentId(parentId);
+    public List<Tree> tree(Long parentId) {
+        return trees(parentId, userMapper.tree());
     }
 
     @Override
-    public List<Tree> findAllTreeByParentId2(Long parentId) {
-        return trees(parentId, userMapper.findAllTree());
+    public List<Tree> dbTree1(Long parentId) {
+        return userMapper.dbTree1(parentId);
+    }
+
+    @Override
+    public List<Tree> dbTree2(Long parentId) {
+        return userMapper.dbTree2(parentId);
     }
 
     // 获取顶层节点

@@ -80,14 +80,19 @@ public class UserController {
         return userService.arrayTest(values);
     }
 
-    @GetMapping("tree1")
-    public List<Tree> tree1(Long parentId) {
-        return userService.findAllTreeByParentId1(parentId);
+    @GetMapping("tree")
+    public List<Tree> tree(Long parentId) {
+        return userService.tree(parentId);
     }
 
-    @GetMapping("tree2")
-    public List<Tree> tree2(Long parentId) {
-        return userService.findAllTreeByParentId2(parentId);
+    @GetMapping("dbTree1")
+    public List<Tree> dbTree1(Long parentId) {
+        return userService.dbTree1(parentId);
+    }
+
+    @GetMapping("dbTree2")
+    public List<Tree> dbTree2(Long parentId) {
+        return userService.dbTree2(parentId);
     }
 
     @GetMapping("insert-enum")

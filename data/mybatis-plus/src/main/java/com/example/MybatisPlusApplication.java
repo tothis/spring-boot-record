@@ -8,10 +8,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan("com.example.mapper")
 @SpringBootApplication
-public class MyBatisPlusApplication {
+public class MybatisPlusApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MyBatisPlusApplication.class, args);
+        SpringApplication.run(MybatisPlusApplication.class, args);
     }
-
 }
