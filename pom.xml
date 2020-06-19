@@ -215,6 +215,13 @@
                 <version>${spring-boot.version}</version>
             </dependency>
 
+            <!-- elasticsearch -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
             <!-- cache -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>

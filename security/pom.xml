@@ -11,11 +11,21 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>security</artifactId>
-    <version>1.0</version>
+    <version>${parent.version}</version>
     <name>security</name>
     <description>security</description>
 
+    <modules>
+        <module>security-jpa</module>
+        <module>security-mybatis</module>
+    </modules>
+
     <dependencies>
+		<dependency>
+            <groupId>com.example</groupId>
+            <artifactId>jackson</artifactId>
+        </dependency>
+	
         <!-- spring security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -27,24 +37,8 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <!-- jpa -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <!-- jstl -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-        </dependency>
-        <!-- jsp引擎 springboot内置tomcat无此依赖 -->
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-        </dependency>
-
-        <!-- swagger2 -->
+		
+		<!-- swagger2 -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -53,42 +47,7 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
-
-        <!-- webjars开始 -->
-        <!-- 导入资源文件需要写版本号 加上此依赖可省略版本号书写 -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator</artifactId>
-        </dependency>
-        <!-- layui -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>layui</artifactId>
-        </dependency>
-        <!-- webjars结束 -->
-
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>jackson</artifactId>
-        </dependency>
     </dependencies>
 
-    <build>
-        <resources>
-            <!-- maven编译src目录时 打包webapp下文件 -->
-            <resource>
-                <directory>src/main/webapp</directory>
-                <targetPath>META-INF/resources</targetPath>
-                <includes>
-                    <include>**/**</include>
-                </includes>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+    <packaging>pom</packaging>
 </project>
