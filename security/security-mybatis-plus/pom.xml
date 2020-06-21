@@ -5,30 +5,34 @@
     <!-- 继承父工程 -->
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>data</artifactId>
+        <artifactId>security</artifactId>
         <version>1.0</version>
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>hibernate-jpa</artifactId>
-    <version>${parent.version}</version>
-    <name>hibernate-jpa</name>
-    <description>hibernate-jpa</description>
+    <artifactId>security-mybatis-plus</artifactId>
+    <version>1.0</version>
+    <name>security-mybatis-plus</name>
+    <description>security-mybatis-plus</description>
 
     <dependencies>
-        <!-- jpa-->
+        <!-- mybatis-plus -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <!-- validation -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
     </dependencies>
 
     <build>
+        <resources>
+            <!-- maven编译src目录时 打包webapp下文件 -->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

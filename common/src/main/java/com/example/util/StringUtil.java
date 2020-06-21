@@ -1,6 +1,6 @@
 package com.example.util;
 
-import java.io.UnsupportedEncodingException;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -135,10 +135,66 @@ public class StringUtil {
     }
 
     /**
+     * 指定产生字符串的长度length
+     *
+     * @param length
+     * @return
+     */
+    public static String randomStr(int length) {
+        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(62);
+            sb.append(str.charAt(number));
+        }
+        return sb.toString();
+
+        // org.apache.commons.lang
+        // RandomStringUtils的randomAlphanumeric(int length)
+        // 可随机生成一个长度为length的字符串
+        // return RandomStringUtils.randomAlphanumeric(10);
+    }
+
+    // 指定随机字符串类型 0(a-z) 1(A-Z) 2(0-9)
+    public static String randomStr(int length, int number) {
+        StringBuffer sb = new StringBuffer();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            switch (number) {
+                case 0:
+                    sb.append((char) (random.nextInt(25) + 65));
+                    break;
+                case 1:
+                    sb.append((char) (random.nextInt(25) + 97));
+                    break;
+                case 2:
+                    sb.append(random.nextInt(10));
+                    break;
+                default:
+                    break;
+            }
+        }
+        return sb.toString();
+    }
+
+    public static String uuid() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
+    public static void main(String[] args) {
+        System.out.println(randomStr(4));
+        System.out.println(randomStr(4, 0));
+        System.out.println(randomStr(4, 1));
+        System.out.println(randomStr(4, 2));
+    }
+
+    /**
      * A -> 1 AA -> 27
      */
     public int letterToNumber(String letter) {
-        letter = letter.toUpperCase(); // 转换成大写
+        // 转换成大写
+        letter = letter.toUpperCase();
         int length = letter.length();
         int num;
         int number = 0;
@@ -149,74 +205,5 @@ public class StringUtil {
             number += num;
         }
         return number;
-    }
-
-    public static void word(String word) {
-
-        int one = 0, two = 0, three = 0, four = 0;
-
-        String charsetName = "utf8";
-
-        byte[] bytes1 = new byte[0];
-        try {
-            bytes1 = word.getBytes(charsetName);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        for (int i = 0; i < bytes1.length; ) {
-            byte bytes2 = bytes1[i];
-            if (bytes2 >= 0 && bytes2 <= 127) {
-                byte[] bytes3 = new byte[1];
-                bytes3[0] = bytes2;
-                i++;
-                String result = new String(bytes3);
-                System.out.println("1字节字符 -> " + result);
-                one++;
-            }
-            if ((bytes2 & 0xE0) == 0xC0) {
-                byte[] bytes3 = new byte[2];
-                bytes3[0] = bytes2;
-                bytes3[1] = bytes1[i + 1];
-                i += 2;
-                String result = new String(bytes3);
-                System.out.println("2字节字符 -> " + result);
-                two++;
-            }
-            if ((bytes2 & 0xF0) == 0xE0) {
-                byte[] bytes3 = new byte[3];
-                bytes3[0] = bytes2;
-                bytes3[1] = bytes1[i + 1];
-                bytes3[2] = bytes1[i + 2];
-                i += 3;
-                String result = new String(bytes3);
-                System.out.println("3字节字符 -> " + result);
-                three++;
-            }
-            if ((bytes2 & 0xF8) == 0xF0) {
-                byte[] bytes3 = new byte[4];
-                bytes3[0] = bytes2;
-                bytes3[1] = bytes1[i + 1];
-                bytes3[2] = bytes1[i + 2];
-                bytes3[3] = bytes1[i + 3];
-                i += 4;
-                String result = new String(bytes3);
-                System.out.println("4字节字符 -> " + result);
-                four++;
-            }
-        }
-        System.out.printf("one   -> %-5d%ntwo   -> %-5d%nthree -> %-5d%nfour  -> %-5d%n", one, two, three, four);
-    }
-
-    public static String uuid() {
-        return UUID.randomUUID().toString().replace("-", "");
-    }
-
-    public static void main(String[] args) {
-        int a = (int) (4 * Math.pow(16, 3) + 14 * Math.pow(16, 2)); // 汉字ASCII码最小值
-        int b = (int) (9 * Math.pow(16, 3) + 15 * Math.pow(16, 2) + 10 * Math.pow(16, 1)) + 5; // 汉字ASCII
-        for (int i = a; i <= b; i++) {
-            word(String.valueOf((char) i));
-        }
-        word("🙃");
     }
 }

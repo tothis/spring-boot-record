@@ -17,7 +17,7 @@
 
     <modules>
         <module>security-jpa</module>
-        <module>security-mybatis</module>
+        <module>security-mybatis-plus</module>
     </modules>
 
     <dependencies>
