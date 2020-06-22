@@ -17,7 +17,10 @@ public class User extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "用户名称", dataType = "String")
+    @ApiModelProperty("类型")
+    private String typeId;
+
+    @ApiModelProperty("用户名称")
     private String userName;
 
     @ApiModelProperty("密码")
@@ -26,15 +29,12 @@ public class User extends BaseEntity {
     /**
      * 年龄 byte(127/-128)
      */
-    @ApiModelProperty(value = "年龄", dataType = "Byte")
+    @ApiModelProperty("年龄")
     private Byte age;
 
-    @ApiModelProperty(value = "邮箱", dataType = "String")
+    @ApiModelProperty("邮箱")
     private String mail;
 
-    @ApiModelProperty(value = "生日", dataType = "LocalDateTime")
+    @ApiModelProperty("生日")
     private LocalDateTime birthday;
-
-    @ApiModelProperty(value = "地址", dataType = "String")
-    private String address;
 }

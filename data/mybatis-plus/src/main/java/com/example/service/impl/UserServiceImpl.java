@@ -3,7 +3,7 @@ package com.example.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.mapper.UserMapper;
 import com.example.model.User;
-import com.example.service.IUserService;
+import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
  * @description 业务实现
  */
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Autowired
-    private UserMapper iUserMapper;
+    private UserMapper userMapper;
 
     /**
      * @param entity 实体对象
@@ -24,7 +24,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @description 插入一条记录
      */
     public int insert(User entity) {
-        return iUserMapper.insert(entity);
+        return userMapper.insert(entity);
     }
 
     /**
@@ -34,7 +34,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      * @description 根据id查询
      */
     public User selectById(Long id) {
-        return iUserMapper.selectById(id);
+        return userMapper.selectById(id);
     }
 
     /**
@@ -44,6 +44,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      */
     @Override
     public int deleteById(Long id) {
-        return iUserMapper.deleteById(id);
+        return userMapper.deleteById(id);
     }
 }

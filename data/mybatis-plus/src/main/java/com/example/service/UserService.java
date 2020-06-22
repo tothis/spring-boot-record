@@ -8,7 +8,7 @@ import com.example.model.User;
  * @datatime 2020-01-16
  * @description 业务
  */
-public interface IUserService extends IService<User> {
+public interface UserService extends IService<User> {
     /**
      * @param entity 实体对象
      * @return 插入成功记录数

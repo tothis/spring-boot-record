@@ -5,8 +5,8 @@ import com.example.model.User;
 
 /**
  * @author 李磊
- * @datatime 2020-01-16
- * @description mapper
+ * @datetime 2020/6/22 0:54
+ * @description
  */
 public interface UserMapper extends BaseMapper<User> {
 }

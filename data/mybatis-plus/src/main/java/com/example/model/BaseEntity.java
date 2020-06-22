@@ -14,9 +14,9 @@ import java.io.Serializable;
 @Data
 @ApiModel(value = "com.example.model.BaseEntity", description = "基本实体类")
 public class BaseEntity implements Serializable {
-    @ApiModelProperty(value = "主键", dataType = "Long")
+    @ApiModelProperty("主键")
     private Long id;
 
-    @ApiModelProperty(value = "删除标识 0正常(默认) 1删除", dataType = "Boolean")
-    private Boolean delFlag;
+    @ApiModelProperty("标识 0正常(默认) 1删除")
+    private Byte state;
 }

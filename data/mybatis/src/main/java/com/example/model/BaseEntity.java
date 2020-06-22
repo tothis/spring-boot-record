@@ -17,6 +17,6 @@ public class BaseEntity implements Serializable {
     @ApiModelProperty(value = "主键", example = "1")
     private Long id;
 
-    @ApiModelProperty("删除标识 0正常(默认) 1删除")
-    private Boolean delFlag;
+    @ApiModelProperty("标识 0正常(默认) 1删除")
+    private Byte state;
 }

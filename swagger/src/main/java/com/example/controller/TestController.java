@@ -29,7 +29,16 @@ public class TestController {
         return content;
     }
 
-    // 注释参数写法一 使用方法注解注释
+    /**
+     * 注释参数写法一 使用方法注解注释
+     * <p>
+     * name 参数名 对应方法中单独的参数名称
+     * value 参数中文说明
+     * required 是否必填
+     * paramType 参数类型 取值为path, query, body, header, form
+     * dataType 参数数据类型
+     * defaultValue 默认值
+     */
     @ApiImplicitParams({
             @ApiImplicitParam(name = "field1", value = "字段1"),
             @ApiImplicitParam(name = "field2", value = "字段2")

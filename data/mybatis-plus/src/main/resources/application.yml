@@ -1,29 +1,25 @@
 # 数据库配置
 spring:
   datasource:
-    url: jdbc:mysql://192.168.10.200:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://192.168.92.128:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false
     # 用户名
     username: root
     # 密码
     password: 123456
     # 数据库驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
-# mybatis-plus
+# mybatis-plus https://mp.baomidou.com/config
 mybatis-plus:
   global-config:
     db-config:
       id-type: auto
-      field-strategy: ignored
-      # 驼峰下划线转换
-      column-underline: true
+      field-strategy: IGNORED
       # 逻辑删除配置
       logic-delete-value: 1
       logic-not-delete-value: 0
-      db-type: mysql
-    refresh: false
   configuration:
+    # 开启自动驼峰命名规则映射 表字段名`A_B`映射为Java属性`aB`
     map-underscore-to-camel-case: true
-    cache-enabled: false
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:com/example/mapper/*.xml
   type-aliases-package: com.example.model
