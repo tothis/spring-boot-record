@@ -1,5 +1,7 @@
 # 数据库配置
 spring:
+  jackson:
+    default-property-inclusion: non_empty
   datasource:
     url: jdbc:mysql://192.168.92.128:3306/security-mybatis-plus?useUnicode=true&characterEncoding=utf8&useSSL=false
     # 用户名
@@ -13,7 +15,8 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
-      field-strategy: IGNORED
+      insert-strategy: not_null
+      update-strategy: not_null
       # 逻辑删除配置
       logic-delete-value: 1
       logic-not-delete-value: 0

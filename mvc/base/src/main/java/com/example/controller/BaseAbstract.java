@@ -126,7 +126,7 @@ public abstract class BaseAbstract {
      */
     protected final void ajaxJson(Object content, long status) {
         String json = "{\"status\" : \"" + status + "\", " +
-                "\"message\" : " + JsonUtil.objectToJson(content) + " }";
+                "\"message\" : " + JsonUtil.toJson(content) + " }";
         ajax(json, "application/json");
     }
 
@@ -136,7 +136,7 @@ public abstract class BaseAbstract {
      * @param content
      */
     protected final void ajaxJson(Object content) {
-        String json = JsonUtil.objectToJson(content);
+        String json = JsonUtil.toJson(content);
         ajax(json, "application/json");
     }
 

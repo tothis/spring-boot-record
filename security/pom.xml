@@ -25,11 +25,20 @@
             <groupId>com.example</groupId>
             <artifactId>jackson</artifactId>
         </dependency>
-	
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>redis</artifactId>
+        </dependency>
+
         <!-- spring security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!-- jwt -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
         </dependency>
 
         <!-- mysql connector -->
@@ -37,7 +46,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-		
+
 		<!-- swagger2 -->
         <dependency>
             <groupId>io.springfox</groupId>

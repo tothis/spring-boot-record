@@ -34,4 +34,12 @@ public class ServletUtil {
     public static <T> T sessionAttr(String name) {
         return (T) session().getAttribute(name);
     }
+
+    public static boolean isAjax() {
+        return isAjax(request());
+    }
+
+    public static boolean isAjax(HttpServletRequest request) {
+        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+    }
 }

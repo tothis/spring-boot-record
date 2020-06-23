@@ -12,6 +12,7 @@ import lombok.Data;
 @ApiModel("权限")
 @Data
 public class Permission extends BaseEntity {
+
     @ApiModelProperty("权限名称")
     private String permissionName;
 

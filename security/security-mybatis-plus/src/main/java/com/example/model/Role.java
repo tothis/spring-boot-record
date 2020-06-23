@@ -12,6 +12,7 @@ import lombok.Data;
 @ApiModel("角色")
 @Data
 public class Role extends BaseEntity {
+
     @ApiModelProperty("角色名称")
     private String roleName;
 }

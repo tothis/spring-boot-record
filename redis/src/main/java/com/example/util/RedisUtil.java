@@ -2,7 +2,6 @@ package com.example.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,13 +27,6 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtil {
 
     public static RedisTemplate redisTemplate;
-
-    // 指定名称否则注入的为默认装配实例
-    @Qualifier("template")
-    @Autowired
-    private void setRedisTemplate(RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
 
     /**
      * 读取缓存
@@ -429,5 +421,10 @@ public class RedisUtil {
 
     public static <K> long zSetRemoveRangeByScore(K key, double min, double max) {
         return redisTemplate.opsForZSet().removeRangeByScore(key, min, max);
+    }
+
+    @Autowired
+    private void setRedisTemplate(RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
     }
 }

@@ -1,9 +1,13 @@
 package com.example.service.impl;
 
 import com.example.mapper.UserMapper;
+import com.example.model.LoginUser;
 import com.example.model.User;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +19,7 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserMapper userMapper;
 
@@ -24,7 +29,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int insert(User user) {
-        return userMapper.insert(user);
+    public int save(User user) {
+        if (user.getId() == null) {
+            return userMapper.insert(user);
+        } else {
+            return userMapper.updateById(user);
+        }
+    }
+
+    @Override
+    public LoginUser loadUserByUsername(String userName) {
+        return userMapper.selectByUserName(userName);
+    }
+
+    @Override
+    public List<GrantedAuthority> selectAuthorities(String userToken) {
+        List<GrantedAuthority> authorities = AuthorityUtils
+                .commaSeparatedStringToAuthorityList("user:view,ROLE_user");
+        authorities.add(new SimpleGrantedAuthority("ROLE_root"));
+        authorities.add(new SimpleGrantedAuthority("user:edit"));
+        return authorities;
     }
 }

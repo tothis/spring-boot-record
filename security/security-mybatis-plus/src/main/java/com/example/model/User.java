@@ -12,6 +12,7 @@ import lombok.Data;
 @ApiModel("用户")
 @Data
 public class User extends BaseEntity {
+
     @ApiModelProperty("用户名称")
     private String userName;
 

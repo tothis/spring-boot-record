@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public final class JsonUtil {
         MAPPER.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
     }
 
-    public static <T> T jsonToObject(String content, Class<T> valueType) {
+    public static <T> T toObject(String content, Class<T> valueType) {
         try {
             return MAPPER.readValue(content, valueType);
         } catch (IOException e) {
@@ -43,7 +44,25 @@ public final class JsonUtil {
         return null;
     }
 
-    public static <T> String objectToJson(T value) {
+    public static <T> T toObject(String content, TypeReference<T> reference) {
+        try {
+            return MAPPER.readValue(content, reference);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static <T> T toObject(InputStream in, Class<T> valueType) {
+        try {
+            return MAPPER.readValue(in, valueType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static <T> String toJson(T value) {
         try {
             return MAPPER.writeValueAsString(value);
         } catch (JsonProcessingException e) {

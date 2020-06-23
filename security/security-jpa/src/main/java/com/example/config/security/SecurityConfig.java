@@ -27,16 +27,11 @@ import java.io.PrintWriter;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final String contentType = "application/json;charset=utf8";
     @Autowired
     private UserService userService;
-
     @Autowired
     private UserSecurityMetadataSource metadataSource;
-
-    @Autowired
-    private UserDecisionManager manager;
-
-    private final String contentType = "application/json;charset=utf8";
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -65,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <O extends FilterSecurityInterceptor> O postProcess(O o) {
-                        o.setAccessDecisionManager(manager);
+                        o.setAccessDecisionManager(new UserDecisionManager());
                         o.setSecurityMetadataSource(metadataSource);
                         return o;
                     }
@@ -83,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     PrintWriter out = response.getWriter();
                     User user = (User) authentication.getPrincipal();
                     user.setPassword(null);
-                    out.write(JsonUtil.objectToJson(new Result(HttpState.OK.code(), "登录成功", user)));
+                    out.write(JsonUtil.toJson(new Result(HttpState.OK.code(), "登录成功", user)));
                     out.flush();
                     out.close();
                 })
@@ -106,7 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     } else if (exception instanceof RememberMeAuthenticationException) {
                         result = "记住我认证错误";
                     }
-                    out.write(JsonUtil.objectToJson(new Result(HttpState.BAD_REQUEST.code(), result, null)));
+                    out.write(JsonUtil.toJson(new Result(HttpState.BAD_REQUEST.code(), result, null)));
                     out.flush();
                     out.close();
                 })
@@ -117,7 +112,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler((request, response, authentication) -> {
                     response.setContentType(contentType);
                     PrintWriter out = response.getWriter();
-                    out.write(JsonUtil.objectToJson(Result.success("注销成功")));
+                    out.write(JsonUtil.toJson(Result.success("注销成功")));
                     out.flush();
                     out.close();
                 })

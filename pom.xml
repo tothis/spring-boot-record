@@ -51,6 +51,7 @@
         <beetl.version>1.2.20.RELEASE</beetl.version>
         <hikariCP.version>3.4.2</hikariCP.version>
         <shiro.version>1.4.2</shiro.version>
+        <jwt.version>0.9.1</jwt.version>
         <jstl.version>1.2</jstl.version>
         <tomcat-embed-jasper.version>9.0.30</tomcat-embed-jasper.version>
         <mysql.version>8.0.18</mysql.version>
@@ -130,6 +131,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-security</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- jwt -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwt.version}</version>
             </dependency>
 
             <!-- jsp jstl标签 -->
