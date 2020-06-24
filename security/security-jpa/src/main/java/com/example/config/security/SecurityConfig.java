@@ -72,7 +72,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 // 只配置loginPage而不配置loginProcessingUrl值时 loginProcessingUrl值为loginPage值
                 .loginPage("/login.jsp")
-                .loginProcessingUrl("/login") // 自定义登录接口
+                // 自定义登录接口url
+                .loginProcessingUrl("/login")
                 .successHandler((request, response, authentication) -> {
                     response.setContentType(contentType);
                     PrintWriter out = response.getWriter();
@@ -95,9 +96,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     } else if (exception instanceof AccountExpiredException) {
                         result = "账户过期 请联系管理员";
                     } else if (exception instanceof UsernameNotFoundException) {
-                        result = "用户名或者密码输入错误 请重新输入";
+                        result = "用户名输入错误 请重新输入";
                     } else if (exception instanceof BadCredentialsException) {
-                        result = "用户名或者密码输入错误 请重新输入";
+                        result = "密码输入错误 请重新输入";
                     } else if (exception instanceof RememberMeAuthenticationException) {
                         result = "记住我认证错误";
                     }

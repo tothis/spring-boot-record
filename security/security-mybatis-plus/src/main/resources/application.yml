@@ -1,7 +1,7 @@
-# 数据库配置
 spring:
   jackson:
     default-property-inclusion: non_empty
+  # 数据库配置
   datasource:
     url: jdbc:mysql://192.168.92.128:3306/security-mybatis-plus?useUnicode=true&characterEncoding=utf8&useSSL=false
     # 用户名

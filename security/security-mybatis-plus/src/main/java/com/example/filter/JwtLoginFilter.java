@@ -10,7 +10,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -27,8 +26,6 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     public JwtLoginFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
-        // 修改接口地址 默认为'/login'
-        // super.setFilterProcessesUrl("/user/login");
     }
 
     /**
@@ -62,6 +59,8 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
             //         .collect(Collectors.toList());
             // 登录成功后 把token设置到header
             response.addHeader(JwtUtil.TOKEN_HEADER, JwtUtil.createToken(authResult, false));
+            response.setContentType("application/json;charset=utf8");
+            response.getWriter().write("验证成功");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,8 +70,9 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
      * 验证失败候调用
      */
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response
+            , AuthenticationException failed) throws IOException {
+        response.setContentType("application/json;charset=utf8");
         response.getWriter().write("验证失败 " + failed.getMessage());
-        super.unsuccessfulAuthentication(request, response, failed);
     }
 }

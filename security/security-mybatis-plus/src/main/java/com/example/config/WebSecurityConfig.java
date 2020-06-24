@@ -2,7 +2,9 @@ package com.example.config;
 
 import com.example.filter.JwtAuthenticationFilter;
 import com.example.filter.JwtLoginFilter;
-import com.example.handler.*;
+import com.example.handler.CustomAccessDeniedHandler;
+import com.example.handler.CustomAuthenticationEntryPoint;
+import com.example.handler.CustomLogoutSuccessHandler;
 import com.example.service.UserService;
 import com.example.service.impl.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,44 +56,61 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // 设置http验证规则
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors()
+        http
+                // 开启跨域
+                .cors()
 
+                // 防止iframe 造成跨域
+                .and().headers().frameOptions().disable()
+
+                // 记住我功能
+                .and().rememberMe()
+
+                // 禁用csrf
                 .and().csrf().disable()
                 // 不需要session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
                 .authorizeRequests()
+                // 放行
                 .antMatchers(AUTH_WHITELIST).permitAll()
-                .anyRequest().authenticated() // 所有请求需要身份认证
-
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(new Http401AuthenticationEntryPoint())
-                .and()
-
-                // 自定义访问失败处理器
-                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
-
-                .and()
-                .formLogin() // 登录配置
-                .usernameParameter("userName")
-                .passwordParameter("password")
-                // 只配置loginPage而不配置loginProcessingUrl值时 loginProcessingUrl值为loginPage值
-                .loginPage("/login.jsp")
-                .loginProcessingUrl("/login") // 自定义登录接口
-                .successHandler(new CustomAuthenticationSuccessHandler())
-                .failureHandler(new CustomAuthenticationFailureHandler())
-                .permitAll()
+                // 所有请求需要身份认证
+                .anyRequest().authenticated()
 
                 .and()
                 .addFilter(new JwtLoginFilter(super.authenticationManager()))
                 .addFilter(new JwtAuthenticationFilter(super.authenticationManager(), userService))
+                .cors()
+
+                .and()
+                // 登录配置
+                .formLogin()
+                .usernameParameter("userName")
+                .passwordParameter("password")
+                // 只配置loginPage而不配置loginProcessingUrl值时 loginProcessingUrl值为loginPage值
+                // .loginPage("/login.jsp")
+                // 自定义登录接口url
+                .loginProcessingUrl("/login")
+                // 配置jwt过滤器后 如下两个处理器失效
+                // .successHandler(new CustomAuthenticationSuccessHandler())
+                // .failureHandler(new CustomAuthenticationFailureHandler())
+                .permitAll()
+
+                .and()
                 .logout() // 默认注销行为logout 可通过如下方式修改
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login") // 设置注销成功后跳转url 默认跳转至登录页面
                 .logoutSuccessHandler(new CustomLogoutSuccessHandler())
-                .permitAll();
+                .permitAll()
+
+                .and()
+                // 异常处理器
+                .exceptionHandling()
+                // 已认证用户访问无权限资源时的异常
+                .accessDeniedHandler(new CustomAccessDeniedHandler())
+                // 匿名用户访问无权限资源时的异常
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
     }
 
     // 登录时会进入

@@ -29,15 +29,11 @@ public class UserController extends BaseController {
     /**
      * 获取用户列表
      */
-    @PreAuthorize("hasRole('root') or hasAuthority('user:view')")
-    @ApiOperation("查询用户列表")
     @GetMapping("list")
     public List<User> list() {
         return userService.list();
     }
 
-    @PreAuthorize("hasAuthority('ROLE_root') or hasAuthority('user:view')")
-    @ApiOperation("查询用户权限")
     @GetMapping("authorities1")
     public List<String> authorities1() {
         return super.authorities();
@@ -63,5 +59,23 @@ public class UserController extends BaseController {
         // user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()).getBytes()));
         user.setPassword(encoder.encode(user.getPassword()));
         return userService.save(user);
+    }
+
+    @PreAuthorize("hasRole('root') or hasAuthority('user:view')")
+    @GetMapping("test1")
+    public int test1() {
+        return 0;
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_root')")
+    @GetMapping("test2")
+    public int test2() {
+        return 0;
+    }
+
+    @PreAuthorize("hasRole('staff')")
+    @GetMapping("test3")
+    public int test3() {
+        return 0;
     }
 }

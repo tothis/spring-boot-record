@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author 李磊
  * @datetime 2020/6/22 0:08
- * @description 自定义登录失败处理器
+ * @description 自定义登录失败处理器 配置jwt过滤器后失效
  */
 @Slf4j
 public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
@@ -28,7 +28,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     @SneakyThrows
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response
-            , AuthenticationException exception) {
-        log.info("认证失败 url -> {}", defaultFailureUrl);
+            , AuthenticationException e) {
+        System.out.println("认证失败");
     }
 }

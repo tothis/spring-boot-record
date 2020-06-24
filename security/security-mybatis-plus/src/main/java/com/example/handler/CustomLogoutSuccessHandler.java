@@ -1,11 +1,12 @@
 package com.example.handler;
 
-import lombok.SneakyThrows;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author 李磊
@@ -13,11 +14,9 @@ import javax.servlet.http.HttpServletResponse;
  * @description 自定义注销成功后处理器
  */
 public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
-    @SneakyThrows
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response
-            , Authentication authentication) {
-        System.out.println(request.getHeader("referer"));
+            , Authentication authentication) throws IOException, ServletException {
         super.onLogoutSuccess(request, response, authentication);
     }
 }
