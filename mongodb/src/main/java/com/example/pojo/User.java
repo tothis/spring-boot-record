@@ -16,7 +16,7 @@ public class User implements Serializable {
 
     @Id // 文档编号 主键
     @AutoIncKey
-    private String id;
+    private Long id;
 
     @Field("accountName") // 文档中用userName字段存储
     private String userName;
@@ -24,7 +24,7 @@ public class User implements Serializable {
     @DBRef // 只保存引用 不保存具体角色信息
     private List<Role> roles;
 
-    public User(String id, String userName) {
+    public User(Long id, String userName) {
         this.id = id;
         this.userName = userName;
     }

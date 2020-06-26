@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" monitorInterval="1800">
+    <properties>
+        <!-- 控制台显示日志级别 -->
+        <property name="output-print-level">INFO</property>
+        <!-- idea vm中添加'-Dlog4j.skipJansi=false' 开启彩色日志 -->
+        <property name="console-print-pattern">
+            %highlight{[%p] [%-d{yyyy-MM-dd HH:mm:ss}] [%l] %m%n}{FATAL=white,
+            ERROR=red, WARN=yellow, INFO=cyan, DEBUG=magenta, TRACE=green}
+        </property>
+    </properties>
+
+    <Appenders>
+        <!-- 定义输出到控制台的配置 -->
+        <Console name="console" target="SYSTEM_OUT">
+            <!-- 设置输出格式 不设置默认为%m%n -->
+            <PatternLayout pattern="${console-print-pattern}"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="${output-print-level}">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>

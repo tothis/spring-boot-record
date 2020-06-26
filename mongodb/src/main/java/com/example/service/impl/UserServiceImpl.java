@@ -21,13 +21,13 @@ public class UserServiceImpl implements UserService {
 
     // 删除
     @Override
-    public DeleteResult deleteUser(Integer id) {
+    public DeleteResult deleteUser(Long id) {
         Criteria criteria = Criteria.where("id").is(id);
         return mongoTemplate.remove(Query.query(criteria), User.class);
     }
 
     @Override
-    public UpdateResult updateUser(Integer id, String userName) {
+    public UpdateResult updateUser(Long id, String userName) {
         // 先确定要更新的对象
         Criteria criteria = Criteria.where("id").is(id);
         // 定义更新对象
@@ -43,12 +43,12 @@ public class UserServiceImpl implements UserService {
      * mongoTemplate.findOne(Query.query(criteria),User.class);
      */
     @Override
-    public User selectUserById(Integer id) {
+    public User selectUserById(Long id) {
         return mongoTemplate.findById(id, User.class);
     }
 
     @Override
-    public List<User> listUser(String userName, Integer skip, Integer limit) {
+    public List<User> listUser(String userName, Long skip, Long limit) {
         // 查询准则
         // Criteria criteria = Criteria.where("userName").regex(userName); // 模糊匹配
         // 构建查询条件 最多返回多少条记录 以及跳过多少条记录

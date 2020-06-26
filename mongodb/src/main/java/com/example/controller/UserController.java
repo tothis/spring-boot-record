@@ -18,14 +18,14 @@ public class UserController {
 
     // 添加用户
     @GetMapping("insert")
-    public String insertUser(User user) {
+    public Long insertUser(User user) {
         userService.insertUser(user);
         return user.getId();
     }
 
     // 根据id获取用户
     @GetMapping("select/{id}")
-    public User getUserById(@PathVariable("id") Integer id) {
+    public User getUserById(@PathVariable("id") Long id) {
         return userService.selectUserById(id);
     }
 
@@ -33,20 +33,20 @@ public class UserController {
     @GetMapping("list")
     public List<User> listUser(
             @RequestParam(defaultValue = "null") String userName
-            , @RequestParam(defaultValue = "0") Integer skip
-            , @RequestParam(defaultValue = "10") Integer limit) {
+            , @RequestParam(defaultValue = "0") Long skip
+            , @RequestParam(defaultValue = "10") Long limit) {
         return userService.listUser(userName, skip, limit);
     }
 
     // 更新用户
     @GetMapping("update")
-    public UpdateResult updateUser(Integer id, String userName) {
+    public UpdateResult updateUser(Long id, String userName) {
         return userService.updateUser(id, userName);
     }
 
     // 删除用户
     @GetMapping("delete")
-    public DeleteResult deleteUser(Integer id) {
+    public DeleteResult deleteUser(Long id) {
         return userService.deleteUser(id);
     }
 }

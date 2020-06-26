@@ -15,8 +15,7 @@ public class UserRepositoryImpl {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public User findUserByIdOrUserName(Integer id, String userName) {
-        // 自定义查询逻辑
-        return null;
+    public User findUserTest(Long id) {
+        return mongoTemplate.findById(id, User.class);
     }
 }

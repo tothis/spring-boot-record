@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface UserService {
 
-    DeleteResult deleteUser(Integer id);
+    DeleteResult deleteUser(Long id);
 
-    UpdateResult updateUser(Integer id, String userName);
+    UpdateResult updateUser(Long id, String userName);
 
-    User selectUserById(Integer id);
+    User selectUserById(Long id);
 
     void insertUser(User user);
 
-    List<User> listUser(String userName, Integer skip, Integer limit);
+    List<User> listUser(String userName, Long skip, Long limit);
 }

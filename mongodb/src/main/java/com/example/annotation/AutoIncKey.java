@@ -6,16 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 自定义注解 标识主键字段需要自动增长
- * <p>
- * ClassName: AutoIncKey
- * </p>
- * <p>
- * Copyright: (c)2019 lilei,All rights reserved.
- * </p>
+ * 自定义注解 标识主键自增
  *
  * @author 李磊
- * @time 2019/11/10 17:52
+ * @datetime 2019/11/10 17:52
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

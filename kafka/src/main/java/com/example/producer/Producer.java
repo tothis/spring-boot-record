@@ -23,7 +23,6 @@ public class Producer {
     private KafkaTemplate kafkaTemplate;
 
     // 发送消息方法
-    // @SneakyThrows
     public void send() {
 
         ObjectMapper mapper = new ObjectMapper();

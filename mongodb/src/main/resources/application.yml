@@ -1,9 +1,12 @@
 spring:
   data:
     mongodb:
-      host: 192.168.1.87
+      host: 192.168.92.128
+      # 验证数据库
+      authentication-database: admin
+      # 数据库
       database: test
-      port: 27017
       username: test
       # 需加引号
       password: '123456'
+      port: 27017
