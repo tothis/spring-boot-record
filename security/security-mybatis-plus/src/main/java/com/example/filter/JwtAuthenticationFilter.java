@@ -41,7 +41,8 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String userToken = request.getHeader(JwtUtil.TOKEN_HEADER);
         if (StringUtil.isBlank(userToken)) {
-            throw new TokenException("token为空");
+            chain.doFilter(request, response);
+            return;
         }
         UsernamePasswordAuthenticationToken authentication = null;
         try {

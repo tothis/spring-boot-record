@@ -83,15 +83,6 @@ public enum HttpState {
         this.message = message;
     }
 
-    public long code() {
-        log.info("666");
-        return code;
-    }
-
-    public String message() {
-        return message;
-    }
-
     // long到enum的转换函数
     public static HttpState valueOf(long code) {
 //        // 枚举值较少时可以使用switch
@@ -109,6 +100,14 @@ public enum HttpState {
                 return httpState;
         }
         throw new RuntimeException("解析错误");
+    }
+
+    public long code() {
+        return code;
+    }
+
+    public String message() {
+        return message;
     }
 
     public String value() {

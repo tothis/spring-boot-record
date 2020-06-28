@@ -1,6 +1,7 @@
 package com.example.filter;
 
 import com.example.model.LoginUser;
+import com.example.type.Result;
 import com.example.util.JsonUtil;
 import com.example.util.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -60,7 +61,8 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
             // 登录成功后 把token设置到header
             response.addHeader(JwtUtil.TOKEN_HEADER, JwtUtil.createToken(authResult, false));
             response.setContentType("application/json;charset=utf8");
-            response.getWriter().write("验证成功");
+            // 登录成功
+            response.getWriter().write(JsonUtil.toJson(Result.success()));
         } catch (Exception e) {
             e.printStackTrace();
         }
