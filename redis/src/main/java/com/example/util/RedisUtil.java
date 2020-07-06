@@ -423,6 +423,30 @@ public class RedisUtil {
         return redisTemplate.opsForZSet().removeRangeByScore(key, min, max);
     }
 
+    /**
+     * 获取key的过期时间
+     *
+     * @param key
+     * @return
+     */
+    public static <K> long getExpire(K key) {
+        return redisTemplate.opsForValue().getOperations().getExpire(key);
+    }
+
+    /**
+     * 递增
+     */
+    public static long increment(String key, long number) {
+        return redisTemplate.opsForValue().increment(key, number);
+    }
+
+    /**
+     * 递增
+     */
+    public static long increment(String key) {
+        return redisTemplate.opsForValue().increment(key);
+    }
+
     @Autowired
     private void setRedisTemplate(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;

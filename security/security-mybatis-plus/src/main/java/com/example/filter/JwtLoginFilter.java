@@ -62,7 +62,7 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
             response.addHeader(JwtUtil.TOKEN_HEADER, JwtUtil.createToken(authResult, false));
             response.setContentType("application/json;charset=utf8");
             // 登录成功
-            response.getWriter().write(JsonUtil.toJson(Result.success()));
+            response.getWriter().write(JsonUtil.toJson(Result.success(authResult)));
         } catch (Exception e) {
             e.printStackTrace();
         }
