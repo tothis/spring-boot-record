@@ -3,7 +3,7 @@
   "userName": "李磊",
   "age": 18,
   "time": "2020年03月16日",
-  "localDateTime": "2020年03月16日 12时12分12",
+  "localDateTime": "2020年03月16日 12时12分12秒",
   "password": "密码",
   "remark": "备注",
   "state": false

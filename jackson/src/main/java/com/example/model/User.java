@@ -14,9 +14,9 @@ import java.util.Map;
  * @description
  */
 @Data
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
+// @JsonInclude(JsonInclude.Include.NON_EMPTY)
 // value可配置多个@JsonIgnore ignoreUnknown = true json属性多于实体时不报错
-@JsonIgnoreProperties(/*value = {"delFlag", "password"}, */ignoreUnknown = true)
+// @JsonIgnoreProperties(/*value = {"delFlag", "password"}, */ignoreUnknown = true)
 public class User {
 
     @JsonSetter("userId")
@@ -42,6 +42,18 @@ public class User {
      * get方法和set方法分开使用@JsonFormat配置 可分别控制序列化和反序列化
      */
     private Date birthday;
+    private String password;
+    /**
+     * 但@JsonIgnore放在set方法 并配合@JsonProperty使用却不生效
+     *
+     * @return
+     */
+    private String remark;
+    // 接收前端表单key为'state'的值
+    @JsonSetter("state")
+    private Boolean delFlag;
+    @JsonIgnore
+    private Map<String, Object> other = new HashMap<>();
 
     @JsonFormat(pattern = "yyyy年MM月dd日")
     public Date getBirthday() {
@@ -52,8 +64,6 @@ public class User {
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
-
-    private String password;
 
     /**
      * 不配合@JsonProperty使用 即时只放在get方法 反序列化时也会忽略此属性
@@ -71,13 +81,6 @@ public class User {
         this.password = password;
     }
 
-    /**
-     * 但@JsonIgnore放在set方法 并配合@JsonProperty使用却不生效
-     *
-     * @return
-     */
-    private String remark;
-
     @JsonProperty
     public String getRemark() {
         return remark;
@@ -88,17 +91,10 @@ public class User {
         this.remark = remark;
     }
 
-    // 接收前端表单key为'state'的值
-    @JsonSetter("state")
-    private Boolean delFlag;
-
     @JsonGetter("flag")
     public Boolean getDelFlag() {
         return delFlag;
     }
-
-    @JsonIgnore
-    private Map<String, Object> other = new HashMap<>();
 
     /**
      * 反序列化时未匹配属性 保存至此处
