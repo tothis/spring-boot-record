@@ -2,16 +2,12 @@ package com.example.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.BoundSetOperations;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import redis.clients.jedis.ScanParams;
-import redis.clients.jedis.ScanResult;
-import redis.clients.jedis.commands.JedisCommands;
-import redis.clients.jedis.commands.MultiKeyCommands;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,7 +22,20 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtil {
 
-    public static RedisTemplate redisTemplate;
+    private static RedisTemplate redisTemplate;
+
+    /**
+     * 切换db
+     */
+    public static void switchDB(int index) {
+        RedisConnectionFactory connectionFactory = redisTemplate.getConnectionFactory();
+        LettuceConnectionFactory factory = (LettuceConnectionFactory) connectionFactory;
+        factory.setDatabase(index);
+        // 重置共享连接 下次访问时重新初始化
+        factory.resetConnection();
+        // 按新的设置初始化
+        factory.afterPropertiesSet();
+    }
 
     /**
      * 读取缓存
@@ -172,63 +181,9 @@ public class RedisUtil {
     /**
      * @param pattern
      * @return
-     * @author 李磊
-     * @time 2019/09/29 11:40
      */
     public static Set<String> keys(String pattern) {
-
-        return (Set<String>) redisTemplate.execute((RedisCallback<Set<String>>) connection -> {
-            Set<String> keys = new HashSet<>();
-
-            JedisCommands commands = (JedisCommands) connection.getNativeConnection();
-            MultiKeyCommands multiKeyCommands = (MultiKeyCommands) commands;
-
-            ScanParams scanParams = new ScanParams();
-            scanParams.match(pattern);
-            scanParams.count(1000);
-            ScanResult<String> scan = multiKeyCommands.scan("0", scanParams);
-            while (scan.getCursor() != null) {
-                keys.addAll(scan.getResult());
-                if (!"0".equals(scan.getCursor())) {
-                    scan = multiKeyCommands.scan(scan.getCursor(), scanParams);
-                    continue;
-                } else {
-                    break;
-                }
-            }
-            return keys;
-        });
-        // redis是单线程服务 此命令 可能导致redis锁住
-        // return redisTemplate.keys(pattern);
-    }
-
-    /**
-     * 查询key数量
-     *
-     * @param pattern
-     * @return
-     */
-    public static long size(String pattern) {
-        return (long) redisTemplate.execute((RedisCallback) connection -> {
-            long count = 0L;
-            JedisCommands commands = (JedisCommands) connection.getNativeConnection();
-            MultiKeyCommands multiKeyCommands = (MultiKeyCommands) commands;
-
-            ScanParams scanParams = new ScanParams();
-            scanParams.match(pattern);
-            scanParams.count(1000);
-            ScanResult<String> scan = multiKeyCommands.scan("0", scanParams);
-            while (scan.getCursor() != null) {
-                count++;
-                if (!"0".equals(scan.getCursor())) {
-                    scan = multiKeyCommands.scan(scan.getCursor(), scanParams);
-                    continue;
-                } else {
-                    break;
-                }
-            }
-            return count;
-        });
+        return redisTemplate.keys(pattern);
     }
 
     /**

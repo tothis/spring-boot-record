@@ -31,15 +31,6 @@ public class TestController extends BaseClass {
     @Autowired
     private MapConfig config;
 
-    @Getter // 将类对象转化成json需要get方法
-    @Setter // 将json转化成类对象需要set方法
-    @Builder
-    static class User implements Serializable {
-        private Long id;
-        private String name;
-        private Byte age;
-    }
-
     @ModelAttribute("staff")
     /**
      * key为staff 未设置注解value值则key为user 相当于把类名转驼峰作为键名
@@ -224,5 +215,14 @@ public class TestController extends BaseClass {
     ) {
         System.out.println(userAgent);
         accept.forEach(System.out::println);
+    }
+
+    @Getter // 将类对象转化成json需要get方法
+    @Setter // 将json转化成类对象需要set方法
+    @Builder
+    static class User implements Serializable {
+        private Long id;
+        private String name;
+        private Byte age;
     }
 }

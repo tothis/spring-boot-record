@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author 李磊
@@ -51,5 +53,11 @@ public class DateUtil {
         System.out.println(currentDateTime());
         System.out.println(currentDate());
         System.out.println(currentTime());
+
+        Calendar c = Calendar.getInstance();
+        // 获取三天后的日期
+        c.add(Calendar.DATE, 3);
+        System.out.println(new Date());
+        System.out.println(c.getTime());
     }
 }
