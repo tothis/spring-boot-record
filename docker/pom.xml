@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!-- 继承父工程 -->
@@ -17,6 +17,11 @@
 
     <build>
         <plugins>
+            <!-- 无此插件 无法运行 且提示xx.jar中没有主清单属性 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
@@ -26,7 +31,9 @@
                         <id>default</id>
                         <!-- mvn package时让docker打包 -->
                         <goals>
+                            <!-- 构建镜像 -->
                             <goal>build</goal>
+                            <!-- 推动镜像 -->
                             <goal>push</goal>
                         </goals>
                     </execution>
@@ -34,10 +41,10 @@
                 <configuration>
                     <!-- docker仓库名 -->
                     <repository>${project.artifactId}</repository>
-                    <!-- docker镜像标签名 -->
+                    <!-- docker镜像标签名 默认为latest -->
                     <tag>${project.version}</tag>
                     <buildArgs>
-                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
                     </buildArgs>
                 </configuration>
             </plugin>
