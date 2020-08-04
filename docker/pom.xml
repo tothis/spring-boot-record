@@ -36,8 +36,6 @@
                     <repository>${project.artifactId}</repository>
                     <!-- docker镜像标签名 -->
                     <tag>${project.version}</tag>
-                    <!-- Dockerfile所在目录 默认为${project.basedir} -->
-                    <contextDirectory>${project.basedir}/src/main/docker</contextDirectory>
                     <buildArgs>
                         <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                     </buildArgs>
