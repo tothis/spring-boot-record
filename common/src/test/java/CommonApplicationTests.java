@@ -44,9 +44,9 @@ class CommonApplicationTests {
     void testPath() {
         // junit测试和源码中获取相对目录不一致 junit会包含模块名称 源码不会包含模块名称
         FileUtil.testPath("pom.xml");
+
         File file1 = ResourceUtils.getFile("classpath:test.json");
         byte[] result1 = new byte[1];
-        // junit测试获取不到源码下的文件
         FileInputStream in1 = new FileInputStream(file1);
         in1.read(result1);
         in1.close();
@@ -54,7 +54,6 @@ class CommonApplicationTests {
 
         File file2 = ResourceUtils.getFile("classpath:application.yml");
         byte[] result2 = new byte[1];
-        // junit测试获取不到源码下的'application.yml'
         FileInputStream in2 = new FileInputStream(file2);
         in2.read(result2);
         in2.close();

@@ -1,12 +1,12 @@
 spring:
   datasource:
     user:
-      url: jdbc:mysql://192.168.10.200:3306/quartz?useUnicode=true&characterEncoding=utf8&useSSL=false
+      url: jdbc:mysql://192.168.92.134:3306/quartz?useUnicode=true&characterEncoding=utf8&useSSL=false
       username: root
       password: 123456
       driver-class-name: com.mysql.cj.jdbc.Driver
     quartz:
-      url: jdbc:mysql://192.168.10.200:3306/quartz?useUnicode=true&characterEncoding=utf8&useSSL=false
+      url: jdbc:mysql://192.168.92.134:3306/quartz?useUnicode=true&characterEncoding=utf8&useSSL=false
       username: root
       password: 123456
       driver-class-name: com.mysql.cj.jdbc.Driver

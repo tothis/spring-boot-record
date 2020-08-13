@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.UserMapper">
+    <select id="findMap" resultMap="user">
+        SELECT id, user_name, password, age, mail, birthday, address FROM `user`
+        <where>
+            <if test="userName != null and userName != ''">
+                AND user_name LIKE "%"#{userName}"%"
+            </if>
+            <if test="age != null and age != ''">
+                AND age = #{age}
+            </if>
+        </where>
+    </select>
+
+    <select id="dbTree" resultMap="com.example.mapper.CoreMapper.tree">
+        SELECT * FROM `tree` WHERE parent_id = #{parentId}
+    </select>
+
+    <resultMap id="page-data" type="map"/>
+    <resultMap id="page-count" type="long"/>
+    <!--
+        SQL_CALC_FOUND_ROWS 记录分页前数据数量
+        FOUND_ROWS() 获取SQL_CALC_FOUND_ROWS记录的数据数量
+        两个语句 但只执行一次主查询 有WHERE条件时FOUND_ROWS效率高 无WHERE条件时COUNT效率高
+        需开启allowMultiQueries多语句执行 sql语句可携带分号
+    -->
+    <select id="findPage" resultMap="page-data,page-count">
+        SELECT SQL_CALC_FOUND_ROWS * FROM `user` LIMIT 0, 2;
+        SELECT FOUND_ROWS() `count`;
+    </select>
+</mapper>

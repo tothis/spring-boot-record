@@ -16,8 +16,6 @@
     <description>data</description>
 
     <modules>
-        <module>multi-data-source</module>
-        <module>dynamic-data-source</module>
         <module>jdbc</module>
         <module>mybatis</module>
         <module>mybatis-plus</module>

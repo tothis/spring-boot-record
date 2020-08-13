@@ -21,7 +21,7 @@
         <java.version>1.8</java.version>
 
         <spring-boot.version>2.3.1.RELEASE</spring-boot.version>
-        <jackson.version>2.11.0</jackson.version>
+        <jackson.version>2.11.2</jackson.version>
         <lombok.version>1.18.10</lombok.version>
     </properties>
 
@@ -135,6 +135,10 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
+        <!--dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+        </dependency-->
     </dependencies>
 
     <build>

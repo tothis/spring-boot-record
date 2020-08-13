@@ -19,7 +19,7 @@ public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
     @Override
     public RestHighLevelClient elasticsearchClient() {
         ClientConfiguration config = ClientConfiguration.builder()
-                .connectedTo("192.168.92.128:9200")
+                .connectedTo("192.168.92.134:9200")
                 // .withConnectTimeout(Duration.ofSeconds(5))
                 // .withSocketTimeout(Duration.ofSeconds(3))
                 // .usingSsl()

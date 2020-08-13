@@ -4,7 +4,7 @@ spring:
       prefix: WEB-INF/
       suffix: .jsp
   datasource:
-    url: jdbc:mysql://192.168.92.128:3306/security-jpa?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true&serverTimezone=GMT&useSSL=false&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://192.168.92.134:3306/security-jpa?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true&serverTimezone=GMT&useSSL=false&zeroDateTimeBehavior=convertToNull
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver

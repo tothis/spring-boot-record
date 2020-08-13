@@ -60,13 +60,13 @@ spring:
     cache-duration: 3600
 # 自定义变量
 sftp-server:
-  host: 192.168.92.128
+  host: 192.168.92.134
   user-name: root
   password: 123456
   port: 22
   timeout: 60000
 ftp-server:
-  host: 192.168.92.128
+  host: 192.168.92.134
   user-name: root
   password: 123456
   port: 21

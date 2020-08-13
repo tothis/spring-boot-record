@@ -32,7 +32,7 @@ public class Generator {
         String author = "李磊";
 
         // 数据库连接信息
-        String url = "jdbc:mysql://192.168.10.200:3306/test?useUnicode=true" +
+        String url = "jdbc:mysql://192.168.92.134:3306/test?useUnicode=true" +
                 "&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false" +
                 "&useAffectedRows=true&serverTimezone=GMT&useSSL=false";
         String driverName = "com.mysql.cj.jdbc.Driver";

@@ -4,8 +4,6 @@ import lombok.SneakyThrows;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 /**
  * @author 李磊
@@ -107,60 +105,25 @@ public final class FileUtil {
         return _files;
     }
 
-    /**
-     * 文件打包的方法
-     *
-     * @param target  打包目录
-     * @param zipPath 打包文件名称
-     * @author 李磊
-     * @datetime 2019/12/17 14:12
-     */
-    public static void packFile(String zipPath, String target) {
-
-        if (new File(zipPath).exists()) {
-            throw new RuntimeException("压缩包已存在");
-        }
-
-        File[] files = new File(target).listFiles();
-        if (files == null || files.length == 0) {
-            return;
-        }
-
-        // 定义字节流
-        byte[] buffer = new byte[1024];
-        try (
-                // 定义zip流 定义打包文件名和存放的路径
-                ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipPath))
-        ) {
-            for (int i = 0; i < files.length; i++) {
-                File file = files[i];
-                // 判断文件是否为空
-                if (file.exists()) {
-                    // 创建输入流
-                    FileInputStream inputStream = new FileInputStream(file);
-                    // 获取文件名
-                    String name = file.getName();
-                    // 创建zip对象
-                    ZipEntry zipEntry = new ZipEntry(name);
-                    out.putNextEntry(zipEntry);
-                    int len;
-                    // 读入需要下载的文件的内容 打包到zip文件
-                    while ((len = inputStream.read(buffer)) > 0) {
-                        out.write(buffer, 0, len);
-                    }
-                    out.closeEntry();
-                    inputStream.close();
-                }
+    public static String readString(File file) {
+        try (InputStream in = new FileInputStream(file);
+             ByteArrayOutputStream output = new ByteArrayOutputStream()) {
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = in.read(bytes)) != -1) {
+                output.write(bytes, 0, length);
             }
-        } catch (Exception e) {
+            return new String(output.toByteArray());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @SneakyThrows
     public static void main(String[] args) {
-        String path = "D:/data/file/";
-        packFile(path + StringUtil.uuid() + ".zip", path);
         testPath("common/pom.xml");
         System.out.println("----- -----");
 
