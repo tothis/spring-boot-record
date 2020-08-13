@@ -37,7 +37,7 @@ public final class MyBatisUtil {
             switch (type) {
                 case file:
                     runner.runScript(new FileReader(ResourceUtils
-                            .getFile("classpath:data.sql")));
+                            .getFile("classpath:" + content)));
                     break;
                 case sql:
                     runner.runScript(new CharArrayReader(content.toCharArray()));
