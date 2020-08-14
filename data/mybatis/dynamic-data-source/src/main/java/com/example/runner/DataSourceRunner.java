@@ -27,13 +27,11 @@ import java.util.stream.Collectors;
 // springboot启动后会执行CommandLineRunner实现类的run方法
 public class DataSourceRunner implements CommandLineRunner {
 
+    private static ExecutorService executor = Executors.newFixedThreadPool(4);
     @Autowired
     private DynamicDataSource dynamicDataSource;
-
     @Autowired
     private TableMapper tableMapper;
-
-    private static ExecutorService executor = Executors.newFixedThreadPool(4);
 
     public boolean dataSourceTask() {
         List<Table> tables = tableMapper.findAll();
@@ -62,7 +60,7 @@ public class DataSourceRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        MyBatisUtil.exec("data.sql", MyBatisUtil.ExecType.file);
+        MyBatisUtil.exec("data.sql", MyBatisUtil.ExecType.FILE);
         executor.submit(this::dataSourceTask).get();
     }
 }

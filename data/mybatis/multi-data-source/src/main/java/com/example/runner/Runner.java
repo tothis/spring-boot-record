@@ -14,6 +14,6 @@ public class Runner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        MyBatisUtil.exec("data.sql", MyBatisUtil.ExecType.file);
+        MyBatisUtil.exec("data.sql", MyBatisUtil.ExecType.FILE);
     }
 }

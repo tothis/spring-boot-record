@@ -35,11 +35,11 @@ public final class MyBatisUtil {
         runner.setStopOnError(true);
         try {
             switch (type) {
-                case file:
+                case FILE:
                     runner.runScript(new FileReader(ResourceUtils
                             .getFile("classpath:" + content)));
                     break;
-                case sql:
+                case SQL:
                     runner.runScript(new CharArrayReader(content.toCharArray()));
                     break;
                 default:
@@ -72,6 +72,6 @@ public final class MyBatisUtil {
     }
 
     public enum ExecType {
-        file, sql
+        FILE, SQL
     }
 }
