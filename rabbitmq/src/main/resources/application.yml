@@ -1,19 +1,49 @@
-# RabbitMQ
 spring:
   rabbitmq:
-    host: 192.168.1.87
-    port: 5672
     username: guest
     password: guest
-    #消费端配置
+    addresses: 192.168.92.134:5672
+    # 开启发送失败退回
+    publisher-returns: true
+    # 交互类型 消息投递到exchange
+    publisher-confirm-type: correlated
+    # 虚拟主机 默认'/'
+    # virtual-host: test-virtual-host
+    # RabbitTemplate生产者配置
+    template:
+      # 失败后重试配置
+      retry:
+        enabled: true # 开启重试
+        initial-interval: 10000ms
+        max-interval: 30000ms
+        multiplier: 2
+      # 默认交换机名称
+      exchange: test-exchange
+    cache:
+      connection:
+        # 缓存连接模式 默认channel 即一个连接 多个channel
+        mode: channel
+    # 消费端配置
     listener:
-      direct:
-        acknowledge-mode: manual
       simple:
+        retry:
+          # 开启消费端重试
+          enabled: true
+        # 手动确认manual 消息投递到队列
+        acknowledge-mode: manual
+        # 最小消费端数
         concurrency: 5
         # 最大消费端数
         max-concurrency: 10
         # 限流 多数据量同时只能过来一条
         prefetch: 1
-        # 自动签收auto 手动确认manual
+        # 启动时自动启动容器
+        auto-startup: true
+        # 投递失败时是否重新排队
+        default-requeue-rejected: true
+      direct:
+        # 手动确认manual
         acknowledge-mode: manual
+        retry:
+          # 开启消费端重试
+          enabled: true

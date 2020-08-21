@@ -22,7 +22,7 @@ public class JwtUtil {
     private static final String SECRET = "secret";
     private static final String ISS = "李磊";
 
-    // 过期时间是3600秒 既1个小时
+    // 过期时间是3600秒 即1个小时
     private static final long EXPIRE_TIME = 3600L;
 
     // '记住我'过期时间为7天

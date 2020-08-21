@@ -7,8 +7,10 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 /**
+ * 处理队列C消息
+ *
  * @author 李磊
- * 处理队列C当中的消息
+ * @since 1.0
  */
 @Slf4j
 @Component
@@ -17,6 +19,6 @@ public class ReceiverC {
 
     @RabbitHandler
     public void process(String content) {
-        log.info("接收处理队列C当中的消息 : " + content);
+        log.info("C接收消息 : " + content);
     }
 }

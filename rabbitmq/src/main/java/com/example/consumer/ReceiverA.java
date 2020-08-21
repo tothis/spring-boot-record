@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
+ * 处理队列A消息
+ *
  * @author 李磊
- * @datetime 2019/12/25 10:11
- * @description
+ * @since 1.0
  */
 @Slf4j
 @Component
@@ -28,21 +29,17 @@ public class ReceiverA {
      * @param message
      */
     @RabbitHandler
-    public void process(String content, Channel channel, Message message) {
-        log.info("接收处理队列A当中的消息 : " + content);
-        // 告诉服务器收到这条消息 已经被我消费了 可以在队列删掉 这样以后就不会再发了 否则消息服务器以为这条消息没处理掉 后续还会在发
-        try {
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-        } catch (IOException e) {
-            // 丢弃这条消息
-            // channel.basicNack(message.getMessageProperties().getDeliveryTag(), false,false);
-            e.printStackTrace();
-        }
+    public void process(String content, Channel channel, Message message) throws IOException {
+        log.info("A接收消息 : " + content);
+        // 发送ACK
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        // 参数3 为true 会把消费失败消息重新添加到队列尾端 为false 则删除此信息
+        // channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);
     }
 
     // 最简单的消息消费功能
     // @RabbitHandler
     // public void process(String content) {
-    //     log.info("接收处理队列A当中的消息 : " + content);
+    //     log.info("A接收消息 : " + content);
     // }
 }

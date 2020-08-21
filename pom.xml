@@ -45,7 +45,7 @@
         <java.version>1.8</java.version>
 
         <spring-boot.version>2.3.1.RELEASE</spring-boot.version>
-        <spring-boot-mobile.version>1.5.22.RELEASE</spring-boot-mobile.version>
+        <mobile.version>1.5.22.RELEASE</mobile.version>
         <drools.version>7.38.0.Final</drools.version>
         <beetl.version>1.2.20.RELEASE</beetl.version>
         <hikariCP.version>3.4.2</hikariCP.version>
@@ -401,7 +401,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-mobile</artifactId>
-                <version>${spring-boot-mobile.version}</version>
+                <version>${mobile.version}</version>
             </dependency>
 
             <!-- drools规则引擎 -->
