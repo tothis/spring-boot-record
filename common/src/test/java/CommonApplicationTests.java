@@ -1,5 +1,5 @@
 import com.example.CommonApplication;
-import com.example.component.ThisTemplate;
+// import com.example.component.ThisTemplate;
 import com.example.util.FileUtil;
 import com.example.util.SpringUtil;
 import lombok.SneakyThrows;
@@ -23,8 +23,8 @@ class CommonApplicationTests {
     @Autowired
     private Environment e;
 
-    @Autowired
-    private ThisTemplate template;
+    // @Autowired
+    // private ThisTemplate template;
 
     @Test
     void contextLoads() {
@@ -33,11 +33,11 @@ class CommonApplicationTests {
         System.out.println(e.getProperty("name") + e.getProperty("age"));
     }
 
-    @Test
-    void testStarter() {
-        System.out.println(template.one());
-        System.out.println(template.two());
-    }
+    // @Test
+    // void testStarter() {
+    //     System.out.println(template.one());
+    //     System.out.println(template.two());
+    // }
 
     @SneakyThrows
     @Test
