@@ -6,7 +6,6 @@
         <groupId>com.example</groupId>
         <artifactId>spring-boot-record</artifactId>
         <version>1.0</version>
-        <relativePath/>
     </parent>
     <groupId>com.example</groupId>
     <artifactId>rabbitmq</artifactId>

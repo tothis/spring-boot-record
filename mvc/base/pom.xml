@@ -7,7 +7,6 @@
         <groupId>com.example</groupId>
         <artifactId>mvc</artifactId>
         <version>1.0</version>
-        <relativePath/>
     </parent>
     <groupId>com.example</groupId>
     <artifactId>mvc-base</artifactId>

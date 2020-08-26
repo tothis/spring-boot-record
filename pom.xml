@@ -78,6 +78,28 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- 当前项目模块版本 -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>jackson</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>dozer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- shiro -->
             <dependency>
                 <groupId>org.apache.shiro</groupId>
@@ -297,6 +319,17 @@
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

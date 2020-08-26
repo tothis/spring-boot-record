@@ -7,7 +7,6 @@
         <groupId>com.example</groupId>
         <artifactId>data</artifactId>
         <version>1.0</version>
-        <relativePath/>
     </parent>
     <groupId>com.example</groupId>
     <artifactId>hibernate-jpa</artifactId>
