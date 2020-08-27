@@ -1,6 +1,5 @@
 package com.example.producer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,6 @@ public class Producer {
 
     // 发送消息方法
     public void send() {
-
-        ObjectMapper mapper = new ObjectMapper();
-
         for (int i = 0; i < 5; i++) {
             Message message = new Message();
             message.setId(System.currentTimeMillis());

@@ -3,7 +3,6 @@ package com.example.controller;
 import com.example.producer.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -14,12 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Controller {
 
+    private final String SUCCESS = "success";
     @Autowired
     private Producer producer;
 
-    private final String SUCCESS="success";
-
-    @GetMapping("send")
+    @GetMapping
     public String send() {
         producer.send();
         return SUCCESS;
