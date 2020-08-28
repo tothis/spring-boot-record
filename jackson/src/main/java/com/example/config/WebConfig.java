@@ -1,6 +1,7 @@
 package com.example.config;
 
 import com.example.converter.DateConverter;
+import com.example.converter.DefaultHttpMessageConverter;
 import com.example.converter.LocalDateTimeConverter;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -61,7 +62,7 @@ public class WebConfig implements WebMvcConfigurer {
                 g.writeString("");
             }
         });
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        MappingJackson2HttpMessageConverter converter = new DefaultHttpMessageConverter();
         converter.setObjectMapper(mapper);
         return converter;
     }
