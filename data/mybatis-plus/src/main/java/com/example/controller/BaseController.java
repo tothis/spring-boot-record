@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -8,5 +9,7 @@ import org.springframework.stereotype.Controller;
  * @description
  */
 @Controller
-public class BaseController {
+public class BaseController<M> {
+    @Autowired
+    protected M baseService;
 }

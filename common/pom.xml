@@ -17,6 +17,7 @@
 
         <jackson.version>2.11.2</jackson.version>
         <lombok.version>1.18.10</lombok.version>
+        <hutool.version>5.4.0</hutool.version>
     </properties>
 
     <dependencyManagement>
@@ -121,6 +122,13 @@
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
         </dependency-->
+
+        <!-- hutool工具类 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

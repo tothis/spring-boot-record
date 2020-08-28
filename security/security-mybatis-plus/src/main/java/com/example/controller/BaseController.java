@@ -15,10 +15,13 @@ import java.util.stream.Collectors;
  * @description
  */
 @Slf4j
-public abstract class BaseController {
+public abstract class BaseController<M> {
 
     @Autowired
     protected BCryptPasswordEncoder encoder;
+
+    @Autowired
+    protected M baseService;
 
     /**
      * 获取用户所拥有权限列表

@@ -5,7 +5,6 @@ import com.example.service.UserService;
 import com.example.util.JwtUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,17 +20,14 @@ import java.util.List;
 @Slf4j
 @RequestMapping("user")
 @RestController
-public class UserController extends BaseController {
-
-    @Autowired
-    private UserService userService;
+public class UserController extends BaseController<UserService> {
 
     /**
      * 获取用户列表
      */
     @GetMapping("list")
     public List<User> list() {
-        return userService.list();
+        return super.baseService.list();
     }
 
     @GetMapping("authorities1")
@@ -52,13 +48,13 @@ public class UserController extends BaseController {
     @ApiOperation("保存用户")
     @PostMapping("save")
     public int save(@RequestBody User user) {
-        UserDetails userDetails = userService.loadUserByUsername(user.getUserName());
+        UserDetails userDetails = super.baseService.loadUserByUsername(user.getUserName());
         if (userDetails != null) {
             throw new RuntimeException("用户已经存在");
         }
         // user.setPassword(DigestUtils.md5DigestAsHex((user.getPassword()).getBytes()));
         user.setPassword(encoder.encode(user.getPassword()));
-        return userService.save(user);
+        return super.baseService.save(user);
     }
 
     @PreAuthorize("hasRole('root') or hasAuthority('user:view')")

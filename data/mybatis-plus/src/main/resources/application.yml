@@ -13,7 +13,11 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+      # 条件字段为空 则不使用此条件
+      select-strategy: not_empty
       field-strategy: IGNORED
+      # 逻辑删除实体字段名 或在实体属性添加@TableLogic
+      logic-delete-field: state
       # 逻辑删除配置
       logic-delete-value: 1
       logic-not-delete-value: 0

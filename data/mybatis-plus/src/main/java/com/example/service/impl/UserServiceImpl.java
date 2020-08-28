@@ -1,10 +1,14 @@
 package com.example.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.mapper.UserMapper;
 import com.example.model.User;
 import com.example.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,35 +19,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    @Autowired
-    private UserMapper userMapper;
-
-    /**
-     * @param entity 实体对象
-     * @return 插入成功记录数
-     * @description 插入一条记录
-     */
-    public int insert(User entity) {
-        return userMapper.insert(entity);
-    }
-
-    /**
-     * @param id 主键id
-     * @param id 主键id
-     * @return 实体
-     * @description 根据id查询
-     */
-    public User selectById(Long id) {
-        return userMapper.selectById(id);
-    }
-
-    /**
-     * @param id 主键id
-     * @return 删除成功记录数
-     * @description 根据id删除
-     */
     @Override
-    public int deleteById(Long id) {
-        return userMapper.deleteById(id);
+    public Page<User> page(User entity) {
+        Page<User> page = new Page<>(entity.getPageNum(), entity.getPageSize());
+        // 排序
+        page.addOrder(OrderItem.asc("id"));
+        // 构建查询条件
+        LambdaQueryWrapper<User> queryWrapper = Wrappers.<User>lambdaQuery()
+                .like(StrUtil.isNotBlank(entity.getUserName()), User::getUserName, entity.getUserName())
+                .eq(User::getState, 0);
+        Page<User> result = super.baseMapper.selectPage(page, queryWrapper);
+        return result;
     }
 }

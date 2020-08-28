@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,4 +20,12 @@ public class BaseEntity implements Serializable {
 
     @ApiModelProperty("标识 0正常(默认) 1删除")
     private Byte state;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "起始页", example = "1")
+    private Long pageNum;
+
+    @TableField(exist = false)
+    @ApiModelProperty(value = "页显示数量", example = "10")
+    private Long pageSize;
 }
