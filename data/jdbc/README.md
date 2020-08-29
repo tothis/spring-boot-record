@@ -18,6 +18,7 @@ failOverReadOnly|自动重连成功后连接是否设置为只读|true
 maxReconnects|autoReconnect设置为true时重试连接的次数|3
 connectTimeout|和数据库服务器建立socket连接时的超时(单位毫秒)|0(永不超时)
 socketTimeout|socket操作读写超时(单位毫秒) 0表示永不超时|0
-zeroDateTimeBehavior|java连接mysql操作值为0的DATETIME值 可选值 EXCEPTION 抛出异常(默认) ROUND替换为最近日期 CONVERT_TO_NULL 将日期转换成NULL值
+zeroDateTimeBehavior|java连接mysql操作值为0的DATETIME值 可选值 默认EXCEPTION抛出异常 ROUND替换为最近日期 CONVERT_TO_NULL将日期转换成NULL值
 allowMultiQueries|sql语句可携带分号 多语句执行|false
 treatTinyAsBoolean|是否将TINYINT(1)视为布尔型|true
+allowPublicKeyRetrieval|是否允许客户端从服务器获取公钥|false

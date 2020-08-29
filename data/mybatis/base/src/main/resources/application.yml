@@ -13,7 +13,7 @@ spring:
       connection-timeout: 30000
       auto-commit: true
       max-lifetime: 1800000
-      pool-name: DatebookHikariCP
+      pool-name: hikari-mybatis
       connection-test-query: SELECT 1
       idle-timeout: 30000
       minimum-idle: 5
