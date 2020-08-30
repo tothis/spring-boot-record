@@ -49,14 +49,10 @@
             <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
 
-        <!-- swagger2 -->
+        <!-- swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
+            <artifactId>springfox-boot-starter</artifactId>
         </dependency>
 
         <!-- webjars开始 -->

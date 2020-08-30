@@ -15,15 +15,10 @@
     <description>swagger</description>
 
     <dependencies>
-        <!-- swagger2 -->
+        <!-- swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-        </dependency>
-        <!-- swagger2-ui -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
+            <artifactId>springfox-boot-starter</artifactId>
         </dependency>
         <!-- swagger2markup -->
         <dependency>

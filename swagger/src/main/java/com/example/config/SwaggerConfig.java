@@ -12,22 +12,21 @@ import springfox.documentation.service.ParameterType;
 import springfox.documentation.service.RequestParameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * swagger配置 https://github.com/springfox/springfox
+ *
  * @author 李磊
- * @datetime 2019/12/24 23:43
- * @description
+ * @since 1.0
  */
-@EnableSwagger2
 @Configuration
 public class SwaggerConfig {
 
     @Bean
-    public Docket createApi() {
+    public Docket test() {
         // 当每个接口都需token参数时 可通过如下配置
         // swagger添加head参数 保留用户token
         RequestParameterBuilder parameterBuilder = new RequestParameterBuilder();
@@ -52,9 +51,11 @@ public class SwaggerConfig {
                 .license("Apache License 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .build();
-        // Predicate<RequestHandler> selector1 = RequestHandlerSelectors.basePackage("com.example.mobile.controller");
-        // Predicate<RequestHandler> selector2 = RequestHandlerSelectors.basePackage("com.example.admin.controller");
-        return new Docket(DocumentationType.SWAGGER_2)
+        /*Predicate<RequestHandler> selector1 = RequestHandlerSelectors
+                .basePackage("com.example.mobile.controller");
+        Predicate<RequestHandler> selector2 = RequestHandlerSelectors
+                .basePackage("com.example.admin.controller");*/
+        return new Docket(DocumentationType.OAS_30)
                 // 存在多个Docket实例时 每个实例需具有唯一groupName 默认为'default'
                 .groupName("mobile")
                 // apiInfo() 增加API相关信息
@@ -75,9 +76,9 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public Docket createAdminApi() {
+    public Docket admin() {
         ApiInfo apiInfo = new ApiInfoBuilder().title("后台管理").build();
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(DocumentationType.OAS_30)
                 .groupName("admin")
                 .apiInfo(apiInfo)
                 .select()

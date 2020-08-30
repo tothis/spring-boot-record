@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: dev
+springfox:
+  documentation:
+    swagger-ui:
+      # 默认空
+      # http://localhost:8080/doc/swagger-ui/index.html
+      # base-url: doc
+      base-url:
+---
+spring:
+  profiles: prod
+springfox:
+  documentation:
+    # 关闭ui
+    swagger-ui:
+      enabled: false
+    # 关闭自动启动扫描注解
+    auto-startup: false
