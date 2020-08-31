@@ -12,6 +12,9 @@
 
     <!-- 声明子模块 -->
     <modules>
+        <module>common</module>
+        <module>starter</module>
+
         <module>mvc</module>
         <module>drools</module>
         <module>docker</module>
