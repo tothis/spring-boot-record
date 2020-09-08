@@ -1,6 +1,5 @@
 package com.example.consumer;
 
-import com.example.config.RabbitMQConfig;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -10,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+import static com.example.config.RabbitMQConfig.QUEUE_A;
+
 /**
  * 处理队列A消息
  *
@@ -18,7 +19,7 @@ import java.io.IOException;
  */
 @Slf4j
 @Component
-@RabbitListener(queues = RabbitMQConfig.QUEUE_A)
+@RabbitListener(queues = QUEUE_A)
 public class ReceiverA {
 
     /**

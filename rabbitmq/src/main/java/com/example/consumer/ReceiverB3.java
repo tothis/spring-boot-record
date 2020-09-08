@@ -1,10 +1,11 @@
 package com.example.consumer;
 
-import com.example.config.RabbitMQConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
+
+import static com.example.config.RabbitMQConfig.QUEUE_B;
 
 /**
  * 处理队列B消息
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@RabbitListener(queues = RabbitMQConfig.QUEUE_B)
+@RabbitListener(queues = QUEUE_B)
 public class ReceiverB3 {
 
     @RabbitHandler

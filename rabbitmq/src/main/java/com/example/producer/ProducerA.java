@@ -1,12 +1,13 @@
 package com.example.producer;
 
-import com.example.config.RabbitMQConfig;
 import com.example.util.RabbitMQUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import static com.example.config.RabbitMQConfig.FANOUT_EXCHANGE;
 
 /**
  * @author 李磊
@@ -26,7 +27,7 @@ public class ProducerA implements RabbitTemplate.ConfirmCallback {
     }
 
     public void sendAll(String content) {
-        rabbitTemplate.convertAndSend(RabbitMQConfig.FANOUT_EXCHANGE, null
+        rabbitTemplate.convertAndSend(FANOUT_EXCHANGE, null
                 , content, RabbitMQUtil.id());
     }
 

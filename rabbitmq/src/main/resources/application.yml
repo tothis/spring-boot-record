@@ -2,7 +2,7 @@ spring:
   rabbitmq:
     username: guest
     password: guest
-    addresses: 192.168.92.134:5672
+    addresses: 192.168.164.128:5672
     # 开启发送失败退回
     publisher-returns: true
     # 交互类型 消息投递到exchange

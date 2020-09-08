@@ -16,12 +16,12 @@ import org.springframework.context.annotation.Scope;
 public class RabbitMQConfig {
     public static final String EXCHANGE_A = "exchange-a";
     public static final String EXCHANGE_B = "exchange-b";
-    public static final String FANOUT_EXCHANGE = "fanoutExchange";
     public static final String QUEUE_A = "queue-a";
     public static final String QUEUE_B = "queue-b";
     public static final String QUEUE_C = "queue-c";
     public static final String ROUTING_KEY_A = "routing-key-A";
     public static final String ROUTING_KEY_B = "routing-key-B";
+    public static final String FANOUT_EXCHANGE = "fanoutExchange";
 
     /**
      * 底层实际为一个信道 如每个生产者都配置不同的回调函数 只有第一个生产者生效
