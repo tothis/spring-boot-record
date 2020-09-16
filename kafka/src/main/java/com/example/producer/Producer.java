@@ -2,7 +2,6 @@ package com.example.producer;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +17,11 @@ import java.util.UUID;
 @Component
 public class Producer {
 
-    @Autowired
-    private KafkaTemplate kafkaTemplate;
+    private final KafkaTemplate kafkaTemplate;
+
+    public Producer(KafkaTemplate kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     // 发送消息方法
     public void send() {

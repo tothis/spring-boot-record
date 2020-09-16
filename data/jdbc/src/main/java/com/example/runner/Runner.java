@@ -1,7 +1,6 @@
 package com.example.runner;
 
 import com.example.util.FileUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -17,8 +16,11 @@ import java.io.FileNotFoundException;
 @Component
 public class Runner implements CommandLineRunner {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public Runner(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public void run(String... args) throws FileNotFoundException {

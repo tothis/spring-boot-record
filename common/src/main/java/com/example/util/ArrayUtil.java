@@ -97,19 +97,19 @@ public class ArrayUtil {
      */
     public static Object[] delete(Object array[], int index) {
         // 创建新的数组 长度是原来-1
-        Object[] newarray = new Object[array.length - 1];
+        Object[] newArray = new Object[array.length - 1];
         // 将除了要删除的元素的其他 元素复制到新的数组
-        for (int i = 0; i < newarray.length; i++) {
+        for (int i = 0; i < newArray.length; i++) {
             // 需要删除下标之前的元素
             if (i < index) {
-                newarray[i] = array[i];
+                newArray[i] = array[i];
             }
             // 之后的元素
             else {
-                newarray[i] = array[i + 1];
+                newArray[i] = array[i + 1];
             }
         }
-        return newarray;
+        return newArray;
     }
 
     /**
@@ -121,17 +121,17 @@ public class ArrayUtil {
      */
     public static Object[] insert(Object array[], int index, Object element) {
         // 创建一个新的数组 长度是原来长度+1
-        Object[] newarray = new Object[array.length + 1];
+        Object[] newArray = new Object[array.length + 1];
         // 把原数组中的数据赋值到新的数组
         for (int i = 0; i < array.length; i++) {
-            newarray[i] = array[i];
+            newArray[i] = array[i];
         }
 
-        for (int i = newarray.length - 1; i > index; i--) {
-            newarray[i] = newarray[i - 1];
+        for (int i = newArray.length - 1; i > index; i--) {
+            newArray[i] = newArray[i - 1];
         }
-        newarray[index] = element;
-        return newarray;
+        newArray[index] = element;
+        return newArray;
     }
 
     /**
@@ -182,5 +182,4 @@ public class ArrayUtil {
     public static <T> void print(T[] array) {
         Arrays.stream(array).forEach(System.out::println);
     }
-
 }

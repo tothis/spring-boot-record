@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.example.producer.Producer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
 
     private final String SUCCESS = "success";
-    @Autowired
-    private Producer producer;
+    private final Producer producer;
+
+    public Controller(Producer producer) {
+        this.producer = producer;
+    }
 
     @GetMapping
     public String send() {

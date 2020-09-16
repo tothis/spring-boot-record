@@ -6,7 +6,6 @@ import com.example.util.ArrayUtil;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +27,11 @@ import java.util.Random;
 @Controller
 public class TestController extends BaseClass {
 
-    @Autowired
-    private MapConfig config;
+    private final MapConfig config;
+
+    public TestController(MapConfig config) {
+        this.config = config;
+    }
 
     @ModelAttribute("staff")
     /**

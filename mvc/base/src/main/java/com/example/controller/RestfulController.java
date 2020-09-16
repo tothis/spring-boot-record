@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +19,11 @@ import java.util.List;
 @Controller
 public class RestfulController {
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+
+    public RestfulController(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     private static List<User> users = new ArrayList();
 

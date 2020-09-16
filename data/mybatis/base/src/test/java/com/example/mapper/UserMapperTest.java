@@ -11,8 +11,12 @@ import java.util.Arrays;
 @SpringBootTest(classes = MyBatisBaseApplication.class)
 class UserMapperTest {
 
-    @Autowired
     private UserMapper mapper;
+
+    @Autowired
+    public void setMapper(UserMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Test
     void inserts() {

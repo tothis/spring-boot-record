@@ -2,7 +2,6 @@ package com.example.listener;
 
 import com.example.annotation.AutoIncKey;
 import com.example.pojo.Sequence;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
@@ -23,8 +22,11 @@ import org.springframework.util.ReflectionUtils;
 @Component
 public class SaveEventListener extends AbstractMongoEventListener<Object> {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
+
+    public SaveEventListener(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     @Override
     public void onBeforeConvert(BeforeConvertEvent<Object> event) {

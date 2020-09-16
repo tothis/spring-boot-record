@@ -6,7 +6,6 @@ import com.example.model.Tree;
 import com.example.model.User;
 import com.example.service.UserService;
 import com.example.type.State;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,8 +21,11 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
+
+    public UserServiceImpl(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     /**
      * @param entity 实体对象

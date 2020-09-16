@@ -18,11 +18,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(classes = HibernateJpaApplication.class)
 class DepartmentRepositoryTest {
 
-    @Autowired
     private DepartmentRepository departmentRepository;
 
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    public void setDepartmentRepository(DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
+    }
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @BeforeEach
     void before() {

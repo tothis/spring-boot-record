@@ -18,11 +18,19 @@ import java.util.List;
 @Slf4j
 public abstract class BaseController {
 
-    @Autowired
     protected UserRepository userRepository;
 
-    @Autowired
     protected PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     /**
      * 获取用户所拥有的权限列表

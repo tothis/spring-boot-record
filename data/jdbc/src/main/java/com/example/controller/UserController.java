@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.example.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +20,11 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public UserController(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     private final String select = "SELECT id, user_name FROM user";
     private final String insert = "INSERT INTO user (user_name) VALUES (?)";

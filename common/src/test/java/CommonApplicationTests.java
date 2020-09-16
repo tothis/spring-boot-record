@@ -1,5 +1,4 @@
 import com.example.CommonApplication;
-// import com.example.component.ThisTemplate;
 import com.example.util.FileUtil;
 import com.example.util.SpringUtil;
 import lombok.SneakyThrows;
@@ -20,11 +19,19 @@ import java.io.FileInputStream;
 @SpringBootTest(classes = CommonApplication.class)
 class CommonApplicationTests {
 
-    @Autowired
     private Environment e;
 
-    // @Autowired
-    // private ThisTemplate template;
+    @Autowired
+    public void setE(Environment e) {
+        this.e = e;
+    }
+
+    /*private ThisTemplate template;
+
+    @Autowired
+    public void setTemplate(ThisTemplate template) {
+        this.template = template;
+    }*/
 
     @Test
     void contextLoads() {

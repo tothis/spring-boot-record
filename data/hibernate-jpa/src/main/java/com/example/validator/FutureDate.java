@@ -1,6 +1,6 @@
 package com.example.validator;
 
-import com.example.util.DateUtil;
+import cn.hutool.core.date.DateUtil;
 
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
@@ -9,21 +9,22 @@ import javax.validation.Payload;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * 校验日期不小于指定天后的当前时间
+ *
  * @author 李磊
- * @datetime 2020/1/17 12:26
- * @description
+ * @since 1.0
  */
 @Target(FIELD)
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = Date.DateValidatorInner.class)
-public @interface Date {
+@Constraint(validatedBy = FutureDate.DateValidatorInner.class)
+public @interface FutureDate {
 
     /**
      * 必有属性 显示校验信息
@@ -31,7 +32,7 @@ public @interface Date {
      *
      * @see org.hibernate.validator
      */
-    String message() default "日期格式不匹配[{value}]";
+    String message() default "日期最早为{value}天后的当前时间";
 
     /**
      * 必有属性 用于分组校验
@@ -43,17 +44,17 @@ public @interface Date {
     /**
      * 接收参收
      */
-    String value() default "yyyy-MM-dd HH:mm:ss";
+    int value() default 0;
 
     /**
      * 必须实现ConstraintValidator接口
      */
-    class DateValidatorInner implements ConstraintValidator<Date, String> {
-        private String dateFormat;
+    class DateValidatorInner implements ConstraintValidator<FutureDate, Date> {
+        private int range;
 
         @Override
-        public void initialize(Date constraintAnnotation) {
-            this.dateFormat = constraintAnnotation.value();
+        public void initialize(FutureDate constraintAnnotation) {
+            this.range = constraintAnnotation.value();
         }
 
         /**
@@ -63,15 +64,14 @@ public @interface Date {
          * @return 布尔值结果
          */
         @Override
-        public boolean isValid(String value, ConstraintValidatorContext context) {
-            if (value == null || value.isEmpty()) {
+        public boolean isValid(Date value, ConstraintValidatorContext context) {
+            if (range == 0) {
                 return true;
             }
-            try {
-                return DateUtil.dateTime(value, dateFormat) != null;
-            } catch (DateTimeParseException e) {
-                return false;
-            }
+
+            // 指定天后的当前时间是否小于value
+            return DateUtil.offsetDay(DateUtil.date(), range)
+                    .toJdkDate().before(value);
         }
     }
 }

@@ -17,11 +17,19 @@ import java.util.stream.Collectors;
 @Slf4j
 public abstract class BaseController<M> {
 
-    @Autowired
     protected BCryptPasswordEncoder encoder;
 
-    @Autowired
     protected M baseService;
+
+    @Autowired
+    public void setEncoder(BCryptPasswordEncoder encoder) {
+        this.encoder = encoder;
+    }
+
+    @Autowired
+    public void setBaseService(M baseService) {
+        this.baseService = baseService;
+    }
 
     /**
      * 获取用户所拥有权限列表

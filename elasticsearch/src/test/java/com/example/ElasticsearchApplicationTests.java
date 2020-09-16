@@ -10,8 +10,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(classes = ElasticsearchApplication.class)
 class ElasticsearchApplicationTests {
 
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Test
     void contextLoads() {

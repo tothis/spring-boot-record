@@ -2,7 +2,6 @@ package com.example.repository;
 
 import com.example.model.User;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -19,12 +18,16 @@ import java.util.Optional;
 @Repository
 public class EhcacheRepository {
 
-    @Autowired
-    private CacheManager cacheManager;
+    private final CacheManager cacheManager;
 
-    @Autowired
-    private UserRepository userRepository;
-//    name指定缓存名称 key用来指定Spring缓存返回结果
+    private final UserRepository userRepository;
+
+    public EhcacheRepository(CacheManager cacheManager, UserRepository userRepository) {
+        this.cacheManager = cacheManager;
+        this.userRepository = userRepository;
+    }
+
+    //    name指定缓存名称 key用来指定Spring缓存返回结果
 //    @Cacheable(key="'user'")中user要加''单引号 表示这是一个字符串
 //
 //    @Cacheable 用于select操作

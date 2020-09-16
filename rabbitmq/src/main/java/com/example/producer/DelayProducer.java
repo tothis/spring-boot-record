@@ -3,7 +3,6 @@ package com.example.producer;
 import com.example.util.RabbitMQUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static com.example.config.DelayConfig.EXCHANGE;
@@ -19,8 +18,11 @@ import static com.example.config.DelayConfig.ROUTING_KEY;
 @Component
 public class DelayProducer {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    private final RabbitTemplate rabbitTemplate;
+
+    public DelayProducer(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
     public void send(String content, long time) {
         rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY

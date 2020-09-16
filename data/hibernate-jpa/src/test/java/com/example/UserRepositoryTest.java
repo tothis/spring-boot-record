@@ -23,8 +23,12 @@ class UserRepositoryTest {
      * 无论单向还是双向关联 保存都由关系维护端进行操作
      * 一对一映射 其实为关系维护端的映射 关系维护端只关联一个被维护端 被维护端关联数据不受影响
      */
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @BeforeEach
     void before() {

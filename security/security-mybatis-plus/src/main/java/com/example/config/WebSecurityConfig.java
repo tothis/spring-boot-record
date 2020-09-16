@@ -7,7 +7,6 @@ import com.example.handler.CustomAuthenticationEntryPoint;
 import com.example.handler.CustomLogoutSuccessHandler;
 import com.example.service.UserService;
 import com.example.service.impl.CustomAuthenticationProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -47,11 +46,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/user/save"
     };
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public WebSecurityConfig(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userService = userService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     // 设置http验证规则
     @Override

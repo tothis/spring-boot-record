@@ -6,7 +6,6 @@ import com.example.type.HttpState;
 import com.example.type.Result;
 import com.example.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
@@ -28,10 +27,14 @@ import java.io.PrintWriter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final String contentType = "application/json;charset=utf8";
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private UserSecurityMetadataSource metadataSource;
+    private final UserService userService;
+    private final UserSecurityMetadataSource metadataSource;
+
+    public SecurityConfig(UserService userService
+            , UserSecurityMetadataSource metadataSource) {
+        this.userService = userService;
+        this.metadataSource = metadataSource;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

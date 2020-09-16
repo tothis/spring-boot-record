@@ -21,11 +21,19 @@ import java.util.List;
 @SpringBootTest(classes = HibernateJpaApplication.class)
 class LabelRepositoryTest {
 
-    @Autowired
     private LabelRepository labelRepository;
 
-    @Autowired
     private SongRepository songRepository;
+
+    @Autowired
+    public void setLabelRepository(LabelRepository labelRepository) {
+        this.labelRepository = labelRepository;
+    }
+
+    @Autowired
+    public void setSongRepository(SongRepository songRepository) {
+        this.songRepository = songRepository;
+    }
 
     @BeforeEach
     void before() {

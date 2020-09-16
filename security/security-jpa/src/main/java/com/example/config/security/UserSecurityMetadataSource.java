@@ -5,7 +5,6 @@ import com.example.model.Role;
 import com.example.repository.PermissionRepository;
 import com.example.util.StringUtil;
 import com.example.util.UserUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -22,8 +21,11 @@ import java.util.List;
 @Component
 public class UserSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
-    @Autowired
-    private PermissionRepository permissionRepository;
+    private final PermissionRepository permissionRepository;
+
+    public UserSecurityMetadataSource(PermissionRepository permissionRepository) {
+        this.permissionRepository = permissionRepository;
+    }
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 

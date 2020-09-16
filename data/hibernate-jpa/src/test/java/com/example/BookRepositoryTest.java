@@ -24,14 +24,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(classes = HibernateJpaApplication.class)
 class BookRepositoryTest {
 
-    @Autowired
     private BookRepository bookRepository;
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private BookUserRepository bookUserRepository;
+
+    @Autowired
+    public void setBookRepository(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setBookUserRepository(BookUserRepository bookUserRepository) {
+        this.bookUserRepository = bookUserRepository;
+    }
 
     @BeforeEach
     void before() {

@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.example.util.HttpUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerMethod;
@@ -23,8 +22,11 @@ import java.util.Map;
 @RestController
 public class PathController {
 
-    @Autowired
-    private RequestMappingHandlerMapping mapping;
+    private final RequestMappingHandlerMapping mapping;
+
+    public PathController(RequestMappingHandlerMapping mapping) {
+        this.mapping = mapping;
+    }
 
     /*@GetMapping("test")
     public String test() {

@@ -10,6 +10,11 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class BaseController<M> {
-    @Autowired
+
     protected M baseService;
+
+    @Autowired
+    public void setBaseService(M baseService) {
+        this.baseService = baseService;
+    }
 }

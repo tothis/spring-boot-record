@@ -7,7 +7,6 @@ import com.example.model.Table;
 import com.example.util.MyBatisUtil;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -28,10 +27,13 @@ import java.util.stream.Collectors;
 public class DataSourceRunner implements CommandLineRunner {
 
     private static ExecutorService executor = Executors.newFixedThreadPool(4);
-    @Autowired
-    private DynamicDataSource dynamicDataSource;
-    @Autowired
-    private TableMapper tableMapper;
+    private final DynamicDataSource dynamicDataSource;
+    private final TableMapper tableMapper;
+
+    public DataSourceRunner(DynamicDataSource dynamicDataSource, TableMapper tableMapper) {
+        this.dynamicDataSource = dynamicDataSource;
+        this.tableMapper = tableMapper;
+    }
 
     public boolean dataSourceTask() {
         List<Table> tables = tableMapper.findAll();

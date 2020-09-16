@@ -16,11 +16,19 @@ import java.util.HashMap;
 @SpringBootTest(classes = RabbitMQApplication.class)
 public class RabbitAdminTest {
 
-    @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    @Autowired
     private RabbitAdmin rabbitAdmin;
+
+    @Autowired
+    public void setRabbitTemplate(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
+
+    @Autowired
+    public void setRabbitAdmin(RabbitAdmin rabbitAdmin) {
+        this.rabbitAdmin = rabbitAdmin;
+    }
 
     private String testDirect = "test.direct";
     private String testDirectQueue = "test.direct.queue";

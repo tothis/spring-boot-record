@@ -70,8 +70,8 @@ public class BaseEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updateTime;
 
-    // @Date("yyyy-MM-dd")
-    // private String date;
+    // @FutureDate(1)
+    // private Date date;
 
     // @AssertFalse
     // @AssertTrue

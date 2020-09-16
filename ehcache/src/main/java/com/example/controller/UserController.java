@@ -2,7 +2,6 @@ package com.example.controller;
 
 import com.example.model.User;
 import com.example.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +16,12 @@ import java.util.List;
 @RequestMapping("user")
 @RestController
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+
+    private final UserRepository userRepository;
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("save")
     public User save(User user) {

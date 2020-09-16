@@ -5,7 +5,6 @@ import com.example.model.User;
 import com.example.repository.RoleRepository;
 import com.example.repository.UserRepository;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -29,11 +28,14 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserController(RoleRepository roleRepository, UserRepository userRepository) {
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("valid1")
     /**

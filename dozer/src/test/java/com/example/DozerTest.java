@@ -41,8 +41,12 @@ public class DozerTest {
         System.out.println(mapper.map(productDTO, Product.class));
     }
 
-    @Autowired
     private Mapper mapper;
+
+    @Autowired
+    public void setMapper(Mapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Test
     public void test2() {

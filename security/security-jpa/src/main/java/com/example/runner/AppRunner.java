@@ -7,7 +7,6 @@ import com.example.repository.PermissionRepository;
 import com.example.repository.RoleRepository;
 import com.example.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,17 +24,21 @@ import java.util.List;
 @Component
 public class AppRunner implements ApplicationRunner {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
-    @Autowired
-    private PermissionRepository permissionRepository;
+    private final PermissionRepository permissionRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    public AppRunner(UserRepository userRepository, RoleRepository roleRepository
+            , PermissionRepository permissionRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.permissionRepository = permissionRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public void run(ApplicationArguments args) {

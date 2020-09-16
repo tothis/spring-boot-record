@@ -11,7 +11,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,8 +21,11 @@ import java.util.Set;
  */
 public class UserRealm extends AuthorizingRealm {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserRealm(UserService userService) {
+        this.userService = userService;
+    }
 
     // 定义如何获取用户的角色和权限的逻辑 给shiro做权限判断
     @Override

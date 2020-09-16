@@ -1,5 +1,6 @@
 package com.example.config.shiro;
 
+import com.example.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -23,8 +24,8 @@ public class ShiroConfig {
 
     // 注入自定义realm
     @Bean
-    public Realm realm() {
-        UserRealm realm = new UserRealm();
+    public Realm realm(UserService userService) {
+        UserRealm realm = new UserRealm(userService);
         // 设置用于匹配密码的CredentialsMatcher
         realm.setCredentialsMatcher(new CredentialsMatcher());
         return realm;

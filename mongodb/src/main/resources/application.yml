@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      host: 192.168.92.134
+      host: 192.168.164.128
       # 验证数据库
       authentication-database: admin
       # 数据库

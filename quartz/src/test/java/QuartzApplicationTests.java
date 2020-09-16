@@ -15,8 +15,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(classes = QuartzApplication.class)
 public class QuartzApplicationTests {
 
-    @Autowired
     private Scheduler scheduler;
+
+    @Autowired
+    public void setScheduler(Scheduler scheduler) {
+        this.scheduler = scheduler;
+    }
 
     @Test
     public void addJob1() throws SchedulerException {

@@ -23,14 +23,26 @@ import java.util.List;
 @SpringBootTest(classes = HibernateJpaApplication.class)
 class RoleRepositoryTest {
 
-    @Autowired
     private RoleRepository roleRepository;
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private PermissionRepository permissionRepository;
+
+    @Autowired
+    public void setRoleRepository(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setPermissionRepository(PermissionRepository permissionRepository) {
+        this.permissionRepository = permissionRepository;
+    }
 
     @BeforeEach
     void before() {

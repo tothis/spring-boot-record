@@ -1,7 +1,6 @@
 package com.example.repository.impl;
 
 import com.example.pojo.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,8 +11,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserRepositoryImpl {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+    private final MongoTemplate mongoTemplate;
+
+    public UserRepositoryImpl(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 
     public User findUserTest(Long id) {
         return mongoTemplate.findById(id, User.class);

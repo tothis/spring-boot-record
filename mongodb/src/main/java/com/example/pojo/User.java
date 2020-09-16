@@ -10,22 +10,31 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author 李磊
+ * @since 1.0
+ */
 @Data
-@Document // 标识为mongodb文档实体
+// 标识为mongodb文档实体
+@Document
 public class User implements Serializable {
 
-    @Id // 文档编号 主键
+    /**
+     * 文档编号 主键
+     */
+    @Id
     @AutoIncKey
     private Long id;
 
-    @Field("accountName") // 文档中用userName字段存储
+    /**
+     * 文档中用userName字段存储
+     */
+    @Field("accountName")
     private String userName;
 
-    @DBRef // 只保存引用 不保存具体角色信息
+    /**
+     * 只保存引用 不保存具体角色信息
+     */
+    @DBRef
     private List<Role> roles;
-
-    public User(Long id, String userName) {
-        this.id = id;
-        this.userName = userName;
-    }
 }

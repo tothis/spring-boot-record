@@ -15,14 +15,18 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author 李磊
- * @datetime 2019/12/24 23:42
- * @description
+ * @since 1.0
  */
 @Slf4j
 @Component
 public class RedisUtil {
 
     private static RedisTemplate redisTemplate;
+
+    @Autowired
+    private void setRedisTemplate(RedisTemplate redisTemplate) {
+        RedisUtil.redisTemplate = redisTemplate;
+    }
 
     /**
      * 切换db
@@ -66,11 +70,9 @@ public class RedisUtil {
      * @return
      */
     public static <K, V> void set(K key, V value, long expireTime, TimeUnit timeUnit) {
-        try {
-            redisTemplate.opsForValue().set(key, value);
-            if (expireTime > 0) redisTemplate.expire(key, expireTime, timeUnit);
-        } catch (Exception e) {
-            log.error("redis单key写入错误", e);
+        redisTemplate.opsForValue().set(key, value);
+        if (expireTime > 0) {
+            redisTemplate.expire(key, expireTime, timeUnit);
         }
     }
 
@@ -92,8 +94,9 @@ public class RedisUtil {
      */
     public static void deletePattern(String pattern) {
         Set<String> keys = keys(pattern);
-        if (keys.size() > 0)
+        if (keys.size() > 0) {
             redisTemplate.delete(keys);
+        }
     }
 
     /**
@@ -400,10 +403,5 @@ public class RedisUtil {
      */
     public static long increment(String key) {
         return redisTemplate.opsForValue().increment(key);
-    }
-
-    @Autowired
-    private void setRedisTemplate(RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
     }
 }

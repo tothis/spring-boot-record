@@ -4,7 +4,6 @@ import com.example.producer.DelayProducer;
 import com.example.producer.ProducerA;
 import com.example.producer.ProducerB;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,12 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @Autowired
-    private ProducerA producerA;
-    @Autowired
-    private ProducerB producerB;
-    @Autowired
-    private DelayProducer delayProducer;
+    private final ProducerA producerA;
+    private final ProducerB producerB;
+    private final DelayProducer delayProducer;
+
+    public TestController(ProducerA producerA, ProducerB producerB
+            , DelayProducer delayProducer) {
+        this.producerA = producerA;
+        this.producerB = producerB;
+        this.delayProducer = delayProducer;
+    }
 
     @GetMapping
     public ResponseEntity send() {
