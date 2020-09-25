@@ -1,5 +1,6 @@
 package com.example.consumer;
 
+import com.example.User;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -25,7 +26,8 @@ import static com.example.config.DelayConfig.QUEUE_DEAD;
 public class DelayReceiver {
 
     @RabbitHandler
-    public void process(String content, @Headers Map headers, Channel channel) throws IOException {
+    public void process(User content, @Headers Map headers
+            , Channel channel) throws IOException {
         log.info("接收死信队列消息 : " + content);
         // 手动ack
         long deliveryTag = (long) headers.get(AmqpHeaders.DELIVERY_TAG);

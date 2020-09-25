@@ -1,5 +1,6 @@
 package com.example.producer;
 
+import com.example.User;
 import com.example.util.RabbitMQUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -24,7 +25,7 @@ public class DelayProducer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void send(String content, long time) {
+    public void send(User content, long time) {
         rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY
                 , content, message -> {
                     // 单位毫秒

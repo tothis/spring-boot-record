@@ -25,6 +25,11 @@ import java.util.List;
 @Configuration
 public class SwaggerConfig {
 
+    /**
+     * 访问路径
+     * http://localhost:8080/swagger-ui/
+     * http://localhost:8080/swagger-ui/index.html
+     */
     @Bean
     public Docket test() {
         // 当每个接口都需token参数时 可通过如下配置
@@ -40,7 +45,7 @@ public class SwaggerConfig {
         List<RequestParameter> parameters = new ArrayList<>();
         parameters.add(build);
 
-        // 创建该api的基本信息 http://localhost:8080/swagger-ui.html
+        // 创建该api的基本信息
         ApiInfo apiInfo = new ApiInfoBuilder()
                 // 页面标题
                 .title("页面标题")

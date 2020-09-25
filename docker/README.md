@@ -1,4 +1,4 @@
-spring-boot使用[docker](https://tothis.gitee.io/docker/docker)部署
+Spring Boot使用[Docker](https://tothis.gitee.io/categories/Docker)部署
 ***
 文档 https://tothis.gitee.io/docker/docker/dockerfile-maven-plugin
 ***

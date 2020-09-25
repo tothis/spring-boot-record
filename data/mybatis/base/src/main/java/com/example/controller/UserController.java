@@ -76,7 +76,7 @@ public class UserController {
     }
 
     @GetMapping("insert-enum")
-    // controller转化枚举参考 https://gitee.com/tothis/spring-boot-record/blob/master/mvc/base/src/main/java/com/example/controller/BaseController.java
+    // controller转化枚举参考 https://github.com/tothis/spring-boot-record/blob/master/mvc/base/src/main/java/com/example/controller/BaseController.java
     public int insertEnum() {
         return userService.insertEnum(State.DELETE);
     }

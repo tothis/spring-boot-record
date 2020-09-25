@@ -66,7 +66,7 @@ public class User {
     }
 
     /**
-     * 不配合@JsonProperty使用 即时只放在get方法 反序列化时也会忽略此属性
+     * 不配合@JsonProperty使用 即使只放在get方法 反序列化时也会忽略此属性
      * 如下为只接收密码但不返回密码
      *
      * @return

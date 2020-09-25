@@ -21,7 +21,7 @@
             <artifactId>dozer-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- jdk9及其以后不再包含javaEE相关jar包 jaxb -->
+        <!-- JDK9及其以后不再包含JavaEE相关jar包 jaxb -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>

@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.User;
 import com.example.producer.DelayProducer;
 import com.example.producer.ProducerA;
 import com.example.producer.ProducerB;
@@ -38,7 +39,7 @@ public class TestController {
             // producerA.sendAll("A生产者消息" + i);
             // producerB.sendAll("B生产者消息" + i);
             // 发送消息到延时队列
-            delayProducer.send("延时队列信息" + i, 5);
+            delayProducer.send(new User(0L, "李磊" + i), 5);
         }
         return ResponseEntity.ok(null);
     }

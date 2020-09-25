@@ -14,8 +14,8 @@ import lombok.ToString;
 @AllArgsConstructor
 public enum State {
     NORMAL(0, "正常"), DELETE(1, "删除");
-    private int code;
-    private String text;
+    private final int code;
+    private final String text;
 
     public static State type(int code) {
         for (State state : State.values()) {

@@ -28,7 +28,7 @@ public class RedisConfig {
 
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         // 设置value的序列化规则和 key的序列化规则
-        // 使用Jackson2JsonRedisSerialize 替换默认序列化(默认使用jdk序列化)
+        // 使用Jackson2JsonRedisSerialize 替换默认序列化(默认使用JDK序列化)
         redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer(Object.class) {{
             setObjectMapper(new ObjectMapper() {{
                 setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
