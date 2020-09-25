@@ -31,7 +31,7 @@ public class DelayConfig {
 
     @Bean
     public DirectExchange exchangeDead() {
-        return (DirectExchange) ExchangeBuilder
+        return ExchangeBuilder
                 .directExchange(EXCHANGE_DEAD)
                 .durable(true)
                 .build();

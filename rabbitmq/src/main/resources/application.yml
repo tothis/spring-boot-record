@@ -3,10 +3,10 @@ spring:
     username: guest
     password: guest
     addresses: localhost:5672
-    # 开启发送失败退回
-    publisher-returns: true
-    # 交互类型 消息投递到exchange
+    # 开启 消息从exchange投递到queue失败时回调
     publisher-confirm-type: correlated
+    # 开启 消息发送到exchange回调
+    publisher-returns: true
     # 虚拟主机 默认'/'
     # virtual-host: test-virtual-host
     # RabbitTemplate生产者配置
@@ -29,7 +29,7 @@ spring:
         retry:
           # 开启消费端重试
           enabled: true
-        # 手动确认manual 消息投递到队列
+        # 手动确认ack
         acknowledge-mode: manual
         # 最小消费端数
         concurrency: 5
@@ -41,9 +41,3 @@ spring:
         auto-startup: true
         # 投递失败时是否重新排队
         default-requeue-rejected: true
-      direct:
-        # 手动确认manual
-        acknowledge-mode: manual
-        retry:
-          # 开启消费端重试
-          enabled: true

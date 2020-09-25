@@ -32,10 +32,15 @@ public class ReceiverA {
     @RabbitHandler
     public void process(String content, Channel channel, Message message) throws IOException {
         log.info("A接收消息 : " + content);
-        // 发送ACK
-        channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-        // 参数3 为true 会把消费失败消息重新添加到队列尾端 为false 则删除此信息
-        // channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);
+        try {
+            // 防止重复消费 可根据传过来的唯一id进行区分
+            // 发送成功确认ACK 告诉服务器当前消息已经消费 发送成功当前消费消息会被清除
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // 发送失败确认ACK 消息删除或重放至队列 参数3 为true 会把消费失败消息重新添加到队列尾端 为false 则删除此信息
+            channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, false);
+        }
     }
 
     // 最简单的消息消费功能

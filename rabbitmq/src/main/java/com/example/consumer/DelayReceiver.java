@@ -30,8 +30,6 @@ public class DelayReceiver {
             , Channel channel) throws IOException {
         log.info("接收死信队列消息 : " + content);
         // 手动ack
-        long deliveryTag = (long) headers.get(AmqpHeaders.DELIVERY_TAG);
-        // 手动签收
-        channel.basicAck(deliveryTag, false);
+        channel.basicAck((long) headers.get(AmqpHeaders.DELIVERY_TAG), false);
     }
 }

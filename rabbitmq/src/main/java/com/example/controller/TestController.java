@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.example.User;
 import com.example.producer.DelayProducer;
 import com.example.producer.ProducerA;
 import com.example.producer.ProducerB;
@@ -32,14 +31,14 @@ public class TestController {
     public ResponseEntity send() {
         for (int i = 0; i < 10; i++) {
             // 发送消息到队列A
-            // producerB.sendMessageA("A生产者-a队列消息" + i);
+            producerB.sendMessageA("A生产者-a队列消息" + i);
             // 发送消息到队列B
             // producerB.sendMessageB("A生产者-b队列消息" + i);
             // 发送消息到所有队列
             // producerA.sendAll("A生产者消息" + i);
             // producerB.sendAll("B生产者消息" + i);
             // 发送消息到延时队列
-            delayProducer.send(new User(0L, "李磊" + i), 5);
+            // delayProducer.send(new User(0L, "李磊" + i), 5);
         }
         return ResponseEntity.ok(null);
     }
