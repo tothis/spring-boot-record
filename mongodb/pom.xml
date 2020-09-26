@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>mongodb</artifactId>
-    <version>${parent.version}</version>
+    <version>1.0</version>
     <name>mongodb</name>
     <description>mongodb</description>
 

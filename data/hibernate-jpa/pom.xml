@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>hibernate-jpa</artifactId>
-    <version>${parent.version}</version>
+    <version>1.0</version>
     <name>hibernate-jpa</name>
     <description>hibernate-jpa</description>
 

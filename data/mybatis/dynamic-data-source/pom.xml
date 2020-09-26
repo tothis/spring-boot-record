@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>dynamic-data-source</artifactId>
-    <version>${parent.version}</version>
+    <version>1.0</version>
     <name>dynamic-data-source</name>
     <description>dynamic-data-source</description>
 

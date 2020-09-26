@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>ehcache</artifactId>
-    <version>${parent.version}</version>
+    <version>1.0</version>
     <name>ehcache</name>
     <description>ehcache</description>
 

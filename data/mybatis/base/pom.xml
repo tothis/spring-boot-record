@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>mybatis-base</artifactId>
-    <version>${parent.version}</version>
+    <version>1.0</version>
     <name>mybatis-base</name>
     <description>mybatis-base</description>
 
