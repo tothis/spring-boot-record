@@ -82,6 +82,10 @@ public class SignFilter extends OncePerRequestFilter {
         }
         String contentType = request.getContentType();
         String content = new String(outputStream.toByteArray());
+        // 接口无参数 不进行接口校验
+        if (StrUtil.isBlank(content)) {
+            return true;
+        }
         String param = null;
         switch (contentType) {
             case MediaType.APPLICATION_FORM_URLENCODED_VALUE:
@@ -93,7 +97,7 @@ public class SignFilter extends OncePerRequestFilter {
             default:
                 break;
         }
-        // 无法解析参数 为上传文件 上传文件不进行接口校验
+        // 接口有参数但无法解析出参数 可能为上传文件 不进行接口校验
         if (StrUtil.isBlank(param)) {
             return true;
         }

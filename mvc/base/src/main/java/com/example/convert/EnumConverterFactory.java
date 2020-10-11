@@ -1,8 +1,8 @@
 package com.example.convert;
 
-import com.example.type.HttpState;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
+import org.springframework.http.HttpStatus;
 
 /**
  * 枚举转化类
@@ -32,16 +32,12 @@ public class EnumConverterFactory implements ConverterFactory<String, Enum> {
 
     public static <T extends Enum> T getEnum(Class<T> targetType, String source) {
         for (T t : targetType.getEnumConstants()) {
-            if (t instanceof HttpState) {
-                HttpState httpState = (HttpState) t;
+            if (t instanceof HttpStatus) {
+                HttpStatus httpState = (HttpStatus) t;
                 // 虽然此处配置转化器 但如果抛出异常 controller依然可以通过枚举字面量匹对
-//                try {
-                if (httpState.code() == Long.valueOf(source)) {
+                if (httpState.value() == Long.valueOf(source)) {
                     return (T) httpState;
                 }
-//                } catch (NumberFormatException e) {
-//                    return null;
-//                }
             }
         }
         return null;

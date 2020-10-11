@@ -1,6 +1,6 @@
 package com.example.entity;
 
-import com.example.exception.MessageType;
+import com.example.type.MessageType;
 import lombok.Getter;
 import lombok.Setter;
 

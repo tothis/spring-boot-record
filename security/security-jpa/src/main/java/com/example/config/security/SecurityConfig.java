@@ -1,9 +1,9 @@
 package com.example.config.security;
 
+import com.example.entity.ResultEntity;
 import com.example.model.User;
 import com.example.service.UserService;
-import com.example.type.HttpState;
-import com.example.type.Result;
+import com.example.type.MessageType;
 import com.example.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     PrintWriter out = response.getWriter();
                     User user = (User) authentication.getPrincipal();
                     user.setPassword(null);
-                    out.write(JsonUtil.toJson(new Result(HttpState.OK.code(), "登录成功", user)));
+                    out.write(JsonUtil.toJson(ResultEntity.ok(user)));
                     out.flush();
                     out.close();
                 })
@@ -105,7 +105,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     } else if (exception instanceof RememberMeAuthenticationException) {
                         result = "记住我认证错误";
                     }
-                    out.write(JsonUtil.toJson(new Result(HttpState.BAD_REQUEST.code(), result, null)));
+
+                    ResultEntity r = new ResultEntity();
+                    r.setCode(MessageType.SYSTEM_ERROR.getCode());
+                    r.setMessage(result);
+                    out.write(JsonUtil.toJson(r));
                     out.flush();
                     out.close();
                 })
@@ -116,7 +120,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler((request, response, authentication) -> {
                     response.setContentType(contentType);
                     PrintWriter out = response.getWriter();
-                    out.write(JsonUtil.toJson(Result.success("注销成功")));
+                    out.write(JsonUtil.toJson(ResultEntity.ok(null)));
                     out.flush();
                     out.close();
                 })

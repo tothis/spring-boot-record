@@ -1,8 +1,8 @@
 package com.example.controller;
 
+import com.example.entity.ResultEntity;
 import com.example.model.User;
-import com.example.type.HttpState;
-import com.example.type.Result;
+import com.example.type.MessageType;
 import com.example.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
@@ -22,14 +22,20 @@ public class LoginController {
      */
     @ResponseBody
     @PostMapping("sign-in")
-    public Result signIn(User user) {
+    public ResultEntity signIn(User user) {
         String userName = user.getUserName();
         String password = user.getPassword();
         if (StringUtil.isBlank(userName)) {
-            return Result.fail("用户名不能为空");
+            return new ResultEntity() {{
+                setCode(MessageType.SYSTEM_ERROR.getCode());
+                setMessage("用户名不能为空");
+            }};
         }
         if (StringUtil.isBlank(password)) {
-            return Result.fail("密码不能为空");
+            return new ResultEntity() {{
+                setCode(MessageType.SYSTEM_ERROR.getCode());
+                setMessage("密码不能为空");
+            }};
         }
         Subject subject = SecurityUtils.getSubject();
         String result;
@@ -39,7 +45,7 @@ public class LoginController {
             // 从session取出用户信息
             User loginUser = (User) subject.getPrincipal();
             // 返回登录用户的信息给前台 含用户的所有角色和权限
-            return Result.success(loginUser);
+            return ResultEntity.ok(loginUser);
         } catch (UnknownAccountException uae) {
             log.warn("用户帐号不存在");
             result = "用户帐号或密码不正确";
@@ -52,7 +58,10 @@ public class LoginController {
         } catch (AuthenticationException e) {
             result = "登录出错";
         }
-        return new Result(HttpState.BAD_REQUEST.code(), result, null);
+        return new ResultEntity() {{
+            setCode(MessageType.SYSTEM_ERROR.getCode());
+            setMessage(result);
+        }};
     }
 
     /**

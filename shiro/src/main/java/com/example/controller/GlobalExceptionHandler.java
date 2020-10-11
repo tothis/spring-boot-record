@@ -1,7 +1,7 @@
 package com.example.controller;
 
-import com.example.type.HttpState;
-import com.example.type.Result;
+import com.example.entity.ResultEntity;
+import com.example.type.MessageType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authz.UnauthenticatedException;
@@ -15,18 +15,27 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ShiroException.class)
-    public Result handleShiroException(ShiroException e) {
+    public ResultEntity handleShiroException(ShiroException e) {
         log.error("shiro执行出错 {}", e.getClass().getSimpleName());
-        return Result.fail("鉴权或授权过程出错");
+        return new ResultEntity() {{
+            setCode(MessageType.SYSTEM_ERROR.getCode());
+            setMessage("鉴权或授权过程出错");
+        }};
     }
 
     @ExceptionHandler(UnauthenticatedException.class)
-    public Result page401() {
-        return new Result(HttpState.UNAUTHORIZED.code(), "用户未登录", null);
+    public ResultEntity page401() {
+        return new ResultEntity() {{
+            setCode(MessageType.SYSTEM_ERROR.getCode());
+            setMessage("用户未登录");
+        }};
     }
 
     @ExceptionHandler(UnauthorizedException.class)
-    public Result page403() {
-        return new Result(HttpState.FORBIDDEN.code(), "用户没有访问权限", null);
+    public ResultEntity page403() {
+        return new ResultEntity() {{
+            setCode(MessageType.SYSTEM_ERROR.getCode());
+            setMessage("用户没有访问权限");
+        }};
     }
 }

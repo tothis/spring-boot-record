@@ -1,11 +1,11 @@
 package com.example.controller;
 
 import com.example.config.MapConfig;
-import com.example.type.HttpState;
 import com.example.util.ArrayUtil;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -151,14 +151,14 @@ public class TestController extends BaseClass {
 
     @ResponseBody
     @GetMapping("enum1")
-    public HttpState enum1() {
-        return HttpState.OK;
+    public HttpStatus enum1() {
+        return HttpStatus.OK;
     }
 
-    // http://localhost:8080/base/enum1?state=OK
+    // http://localhost:8080/test/enum2?state=404
     @ResponseBody
     @GetMapping("enum2")
-    public HttpState enum2(HttpState state) {
+    public HttpStatus enum2(HttpStatus state) {
         return state;
     }
 
