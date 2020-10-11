@@ -23,10 +23,10 @@ public class ResultEntity<T> {
     private T data;
 
     public static <T> ResultEntity<T> ok(T data) {
-        return new ResultEntity<T>() {{
-            setCode(MessageType.OK.getCode());
-            setMessage(MessageType.OK.getMessage());
-            setData(data);
-        }};
+        ResultEntity<T> r = new ResultEntity<>();
+        r.setCode(MessageType.OK.getCode());
+        r.setMessage(MessageType.OK.getMessage());
+        r.setData(data);
+        return r;
     }
 }
