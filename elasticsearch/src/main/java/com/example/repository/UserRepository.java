@@ -5,8 +5,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 
 /**
  * @author 李磊
- * @datetime 2020/6/21 12:52
- * @description
+ * @since 1.0
  */
 public interface UserRepository extends ElasticsearchRepository<User, Long> {
 }

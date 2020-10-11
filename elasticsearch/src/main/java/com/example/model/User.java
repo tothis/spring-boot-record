@@ -5,10 +5,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 
-@Data
 /**
+ * @author 李磊
+ * @since 1.0
+ * <p>
  * indexName 索引库名称
  */
+@Data
 @Document(indexName = "user")
 public class User {
     @Id

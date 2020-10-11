@@ -1,0 +1,8 @@
+POST localhost:8080
+Content-Type: application/json
+sign: 5964385f1c6ab569d98c134cf7c0975b
+
+{
+  "name": "lilei",
+  "age": 18
+}

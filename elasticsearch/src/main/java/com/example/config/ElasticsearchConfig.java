@@ -9,17 +9,18 @@ import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfig
 
 /**
  * @author 李磊
- * @datetime 2020/6/21 15:07
- * @description
+ * @since 1.0
  */
 @Configuration
 public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
-    // https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html
+    /**
+     * 版本对应 https://docs.spring.io/spring-data/elasticsearch/docs/current/reference/html/#preface.versions
+     */
     @Bean
     @Override
     public RestHighLevelClient elasticsearchClient() {
         ClientConfiguration config = ClientConfiguration.builder()
-                .connectedTo("192.168.92.134:9200")
+                .connectedTo("localhost:9200")
                 // .withConnectTimeout(Duration.ofSeconds(5))
                 // .withSocketTimeout(Duration.ofSeconds(3))
                 // .usingSsl()
