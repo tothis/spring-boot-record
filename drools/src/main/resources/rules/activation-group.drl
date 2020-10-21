@@ -1,0 +1,19 @@
+package base_package
+
+function void out(String str) {
+    System.out.println(str);
+}
+
+rule activation_group_1
+    activation-group "activation-group"
+    when
+        eval(false)
+    then
+        out("activation_group_1启动");
+end
+
+rule activation_group_2
+    activation-group "activation-group"
+    then
+        out("activation_group_2启动");
+end

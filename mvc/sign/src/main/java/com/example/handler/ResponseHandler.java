@@ -40,6 +40,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
      */
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+        // 防止嵌套GlobalExceptionHandler处理后的数据
         return o instanceof ResultEntity ? o : ResultEntity.ok(o);
     }
 }

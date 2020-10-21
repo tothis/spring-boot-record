@@ -1,6 +1,6 @@
 package com.example.consumer;
 
-import com.example.User;
+import com.example.entity.User;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;

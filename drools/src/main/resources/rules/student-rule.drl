@@ -1,0 +1,43 @@
+package base_package
+
+import com.example.entity.Student
+
+/*
+ * 执行顺序默认按照规则文件编写顺序执行
+ */
+rule 年龄等于5岁
+    when
+        $e:Student($age:age == 5)
+    then
+        Student student = new Student();
+        student.setAge(10);
+        // 插入fact对象 会重新匹配规则 注意防止死循环 insert后需加分号
+        insert(student);
+        System.out.println("年龄等于5岁");
+end
+
+rule 年龄等于10岁
+    when
+        $e:Student($age:age == 10)
+    then
+        $e.setAge(15);
+        // 更新fact对象 会重新匹配规则 注意防止死循环
+        update($e)
+        System.out.println("年龄等于10岁");
+end
+
+rule 年龄等于15岁
+    when
+        $e:Student(age == 15)
+    then
+        // 删除fact对象 会重新匹配规则 注意防止死循环
+        retract($e)
+        System.out.println("年龄等于15岁");
+end
+
+rule 年龄大于或等于15岁
+    when
+        $e:Student(age >= 15)
+    then
+        System.out.println("年龄大于或等于15岁");
+end

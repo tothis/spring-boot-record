@@ -1,0 +1,17 @@
+package base_package
+
+global java.io.PrintStream out
+
+import cn.hutool.core.date.DateUtil
+
+rule timer_1
+    timer(4s 3s) // 5秒后启动 每隔3秒执行一次
+    then
+        out.println("rule_timer_1启动 " + DateUtil.now());
+end
+
+rule timer_2
+    timer(cron: 0/2 * * * * ?) // 每2秒执行一次
+    then
+        out.println("rule_timer_2启动 " + DateUtil.now());
+end

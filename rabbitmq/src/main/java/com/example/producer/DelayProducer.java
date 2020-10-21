@@ -1,6 +1,6 @@
 package com.example.producer;
 
-import com.example.User;
+import com.example.entity.User;
 import com.example.util.RabbitMQUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

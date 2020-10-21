@@ -15,10 +15,9 @@
     <description>drools</description>
 
     <dependencies>
-        <!-- drools规则引擎 -->
         <dependency>
-            <groupId>org.drools</groupId>
-            <artifactId>drools-templates</artifactId>
+            <groupId>org.kie</groupId>
+            <artifactId>kie-spring</artifactId>
         </dependency>
     </dependencies>
 

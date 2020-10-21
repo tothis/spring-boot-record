@@ -1,0 +1,22 @@
+package base_package
+
+rule agenda_group_1
+    agenda-group "agenda-group"
+    auto-focus true // 获取焦点
+    then
+        System.out.println("agenda_group_1启动");
+end
+
+rule agenda_group_2
+    agenda-group "agenda-group"
+    then
+        System.out.println("agenda_group_2启动");
+end
+
+rule agenda_group_3
+    agenda-group "agenda-group"
+    when
+        eval(false)
+    then
+        System.out.println("agenda_group_3启动");
+end

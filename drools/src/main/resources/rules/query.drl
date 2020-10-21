@@ -1,0 +1,16 @@
+package base_package
+
+import cn.hutool.core.date.DateUtil
+import java.io.PrintStream
+
+import com.example.entity.User
+
+global PrintStream out
+
+query query_user_age
+    $user:User(age < 10)
+end
+
+query query_user_name(String userName)
+    $user:User(name == userName)
+end

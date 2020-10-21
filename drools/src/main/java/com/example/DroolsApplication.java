@@ -5,12 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author 李磊
- * @datetime 2020/6/14 20:31
- * @description
+ * @since 1.0
  */
 @SpringBootApplication
 public class DroolsApplication {
     public static void main(String[] args) {
+        System.setProperty("drools.dateformat", "yyyy-MM-dd HH:mm:ss");
         SpringApplication.run(DroolsApplication.class, args);
     }
 }

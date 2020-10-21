@@ -1,0 +1,22 @@
+package base_package
+
+rule salience_1
+    // salience默认为0
+    when
+        eval(true)
+    then
+        System.out.println("salience_1启动");
+end
+
+rule salience_2
+    salience 1
+    when
+    then
+        System.out.println("salience_2启动");
+end
+
+rule salience_3
+    salience 2
+    then
+        System.out.println("salience_3启动");
+end

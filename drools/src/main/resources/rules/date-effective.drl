@@ -1,0 +1,17 @@
+package base_package
+
+global java.io.PrintStream out
+
+import cn.hutool.core.date.DateUtil
+
+rule date_effective_1
+    date-effective "2020-01-01 00:00:00"
+    then
+        out.println("date_effective_1启动 "+ DateUtil.now());
+end
+
+rule date_effective_2
+    date-effective "2022-01-01 00:00:00"
+    then
+        out.println("date_effective_2启动 "+ DateUtil.now());
+end
