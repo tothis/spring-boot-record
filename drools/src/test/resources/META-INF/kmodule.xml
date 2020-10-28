@@ -3,12 +3,10 @@
     <!--
         name kbase名称 需唯一
         packages 对应规则文件中的package
-        default 当前kbase是否默认
     -->
-    <kbase name="rule-base" packages="base_package" default="true">
+    <kbase packages="base_package">
         <!--
             name ksession名称 需唯一
-            packages 规则文件目录
             default 当前ksession是否默认
         -->
         <ksession name="base-session" default="true"/>

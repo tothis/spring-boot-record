@@ -22,8 +22,9 @@ class DroolsTest {
     void before() {
         // date-effective和date-expires使用
         System.setProperty("drools.dateformat", "yyyy-MM-dd HH:mm:ss");
-        kieSession = KieServices.Factory.get()
-                .getKieClasspathContainer().newKieSession();
+        kieSession = KieServices.Factory.get().getKieClasspathContainer()
+                // ksession为默认则此处可省略ksession名称
+                .newKieSession();
         kieSession.setGlobal("out", System.out);
     }
 
@@ -99,8 +100,8 @@ class DroolsTest {
         KieSession kieSession = DroolsUtil.createKieSessionByDrlContent(drlContent);
 
         User user = new User();
-        user.setName("frank");
-        user.setAge(19);
+        user.setName("lilei");
+        user.setAge(20);
 
         // 将user作为参数传入drools执行
         kieSession.insert(user);
