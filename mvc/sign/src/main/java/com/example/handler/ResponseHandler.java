@@ -19,7 +19,8 @@ import java.lang.annotation.Annotation;
  * @author 李磊
  * @since 1.0
  */
-@RestControllerAdvice
+// 配置basePackages 防止修改第三方jar返回值 如swagger
+@RestControllerAdvice(basePackages = "com.example")
 public class ResponseHandler implements ResponseBodyAdvice<Object> {
 
     private static final Class<? extends Annotation> ANNOTATION_TYPE
