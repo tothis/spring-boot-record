@@ -1,0 +1,12 @@
+# 自定义变量
+lilei:
+  # 令牌验证
+  token:
+    enabled: false
+  # 参数去除前后空格
+  trim:
+    enabled: false
+  # 参数签名验证
+  sign:
+    enabled: true
+    salt: LILEI

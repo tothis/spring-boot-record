@@ -3,6 +3,7 @@ package com.example.filter;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
+import com.example.constant.CommonConstant;
 import com.example.entity.ResultEntity;
 import com.example.exception.MessageType;
 import com.example.util.JsonUtil;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -34,10 +36,10 @@ import java.util.TreeMap;
  * @author 李磊
  * @since 1.0
  */
-@ConditionalOnProperty(value = "sign.enabled", havingValue = "true")
+@ConditionalOnProperty(value = "lilei.sign.enabled", havingValue = "true")
 @Slf4j
 @Component
-public class SignFilter extends OncePerRequestFilter {
+public class SignFilter extends OncePerRequestFilter implements Ordered {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response
@@ -65,14 +67,14 @@ public class SignFilter extends OncePerRequestFilter {
         }
     }
 
-    @Value("${sign.salt}")
+    @Value("${lilei.sign.salt}")
     private String salt;
 
     /**
      * 签名校验
      */
     private boolean sign(HttpServletRequest request) throws IOException {
-        String sign = request.getHeader("sign");
+        String sign = request.getHeader(CommonConstant.SING_HEADER);
         byte[] bytes = new byte[1024];
         int length;
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -144,6 +146,12 @@ public class SignFilter extends OncePerRequestFilter {
         }
         // 删除最后一个'&'字符
         return builder.deleteCharAt(builder.length() - 1).toString();
+    }
+
+    @Override
+    public int getOrder() {
+        log.info("sign启动");
+        return 1;
     }
 
     /**

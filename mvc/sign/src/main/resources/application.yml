@@ -1,5 +1,0 @@
-# 自定义变量
-# 参数签名验证
-sign:
-  enabled: true
-  salt: LILEI

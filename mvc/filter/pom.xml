@@ -9,10 +9,10 @@
         <version>1.0</version>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>sign</artifactId>
+    <artifactId>filter</artifactId>
     <version>1.0</version>
-    <name>sign</name>
-    <description>sign</description>
+    <name>filter</name>
+    <description>filter</description>
 
     <dependencies>
         <dependency>

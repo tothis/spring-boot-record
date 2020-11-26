@@ -7,7 +7,7 @@
             <if test="userName != null and userName != ''">
                 AND user_name LIKE "%"#{userName}"%"
             </if>
-            <if test="age != null and age != ''">
+            <if test="age != null">
                 AND age = #{age}
             </if>
         </where>
