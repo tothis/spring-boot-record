@@ -25,8 +25,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-;
-
 /**
  * 参数去除前后空格
  *
@@ -138,25 +136,31 @@ public class TrimFilter extends OncePerRequestFilter implements Ordered {
     private static Map<String, Object> trimBody(String body) {
         JSONObject jsonObject = JSONUtil.parseObj(body);
         Map<String, Object> map = new HashMap<>(jsonObject.size());
-        for (Object k : jsonObject.keySet()) {
+        for (String k : jsonObject.keySet()) {
             Object o = jsonObject.get(k);
             if (o instanceof JSONArray) {
-                List<Map<String, Object>> list = new ArrayList<>();
+                List list = new ArrayList<>();
                 Iterator<Object> iterator = ((JSONArray) o).iterator();
                 while (iterator.hasNext()) {
                     Object obj = iterator.next();
-                    list.add(trimBody(obj.toString()));
+                    String objStr = obj.toString();
+                    // 数组元素为对象继续处理
+                    if (JSONUtil.isJsonObj(objStr)) {
+                        list.add(trimBody(objStr));
+                    } else {
+                        list.add(obj);
+                    }
                 }
-                map.put(k.toString(), list);
+                map.put(k, list);
             } else if (o instanceof JSONObject) {
                 // 为json对象则继续解析
-                map.put(k.toString(), trimBody(o.toString()));
+                map.put(k, trimBody(o.toString()));
             } else {
                 // 不为json对象则放入map
                 if (o instanceof String) {
-                    map.put(k.toString(), o.toString().trim());
+                    map.put(k, ((String) o).trim());
                 } else {
-                    map.put(k.toString(), o);
+                    map.put(k, o);
                 }
             }
         }
