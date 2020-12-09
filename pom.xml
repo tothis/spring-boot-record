@@ -69,8 +69,6 @@
         <poi.version>4.1.2</poi.version>
         <easypoi.version>4.1.3</easypoi.version>
         <commons-net.version>3.6</commons-net.version>
-
-        <spring-boot-maven-plugin.version>2.3.3.RELEASE</spring-boot-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -358,7 +356,6 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring-boot-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

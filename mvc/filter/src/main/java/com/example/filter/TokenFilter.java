@@ -1,9 +1,7 @@
 package com.example.filter;
 
-import cn.hutool.core.util.StrUtil;
-import com.example.constant.CommonConstant;
 import com.example.entity.ResultEntity;
-import com.example.exception.MessageType;
+import com.example.exception.GlobalException;
 import com.example.util.ServletUtil;
 import com.example.util.UserUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -46,21 +44,17 @@ public class TokenFilter extends OncePerRequestFilter implements Ordered {
             chain.doFilter(request, response);
             return;
         }
-
-        String token = request.getHeader(CommonConstant.TOKEN_HEADER);
-        // @ControllerAdvice无法捕获Filter中的异常 此处手动返回前端异常数据
-        if (StrUtil.isBlank(token)) {
+        try {
+            /*String token = request.getHeader(CommonConstant.TOKEN_HEADER);
+            Long userId = */
+            UserUtil.getUserId();
+            // 刷新token过期时间 30分钟后失效
+            // RedisUtil.set(RedisKeyConstant.TOKEN + token, userId, 30, TimeUnit.MINUTES);
+        } catch (GlobalException e) {
+            // @ControllerAdvice无法捕获Filter中的异常 此处手动返回前端异常数据
             ResultEntity entity = new ResultEntity();
-            entity.setCode(MessageType.USER_TOKEN_BLANK.getCode());
-            entity.setMessage(MessageType.USER_TOKEN_BLANK.getMessage());
-            ServletUtil.write(entity);
-            return;
-        }
-        Long userId = UserUtil.getUserId();
-        if (userId == null) {
-            ResultEntity entity = new ResultEntity();
-            entity.setCode(MessageType.USER_TOKEN_INVALID.getCode());
-            entity.setMessage(MessageType.USER_TOKEN_INVALID.getMessage());
+            entity.setCode(e.getCode());
+            entity.setMessage(e.getMessage());
             ServletUtil.write(entity);
             return;
         }

@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.model.Order;
 import com.example.model.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,5 +37,12 @@ public class TestController {
         System.out.println(user);
         user.setRemark("remark");
         return user;
+    }
+
+    @GetMapping("order")
+    public Order order() {
+        Order order = new Order();
+        order.setOrderState(0);
+        return order;
     }
 }
