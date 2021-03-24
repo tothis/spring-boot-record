@@ -14,10 +14,34 @@
     <name>drools</name>
     <description>drools</description>
 
+    <properties>
+        <drools.version>7.45.0.Final</drools.version>
+    </properties>
+
     <dependencies>
+        <!-- drools规则引擎 -->
+        <!--<dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-compiler</artifactId>
+            <version>${drools.version}</version>
+        </dependency>-->
+        <!-- templates包含compiler -->
+        <!--<dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-templates</artifactId>
+            <version>${drools.version}</version>
+        </dependency>-->
+        <!-- 决策表包含templates -->
+        <!--<dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-decisiontables</artifactId>
+            <version>${drools.version}</version>
+        </dependency>-->
+        <!-- drools规则引擎 kie包含decisiontables -->
         <dependency>
             <groupId>org.kie</groupId>
             <artifactId>kie-spring</artifactId>
+            <version>${drools.version}</version>
         </dependency>
     </dependencies>
 

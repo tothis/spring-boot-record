@@ -14,12 +14,17 @@
     <name>jackson</name>
     <description>jackson</description>
 
+    <properties>
+        <jackson.version>2.11.2</jackson.version>
+    </properties>
+
     <dependencies>
-        <!-- jackson xml -->
-        <!--<dependency>-->
-        <!--    <groupId>com.fasterxml.jackson.dataformat</groupId>-->
-        <!--    <artifactId>jackson-dataformat-xml</artifactId>-->
-        <!--</dependency>-->
+        <!-- jackson xml功能 -->
+        <!--<dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>-->
     </dependencies>
 
     <build>
@@ -30,5 +35,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

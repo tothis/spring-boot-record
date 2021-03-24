@@ -19,25 +19,33 @@
         <module>security-mybatis-plus</module>
     </modules>
 
+    <properties>
+        <jwt.version>0.9.1</jwt.version>
+    </properties>
+
     <dependencies>
-		<dependency>
+        <dependency>
             <groupId>com.example</groupId>
             <artifactId>jackson</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>redis</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- jwt -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jwt.version}</version>
         </dependency>
 
         <!-- spring security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <!-- jwt -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
         </dependency>
 
         <!-- mysql connector -->

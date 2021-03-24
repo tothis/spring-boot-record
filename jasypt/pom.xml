@@ -14,10 +14,16 @@
     <name>jasypt</name>
     <description>jasypt</description>
 
+    <properties>
+        <jasypt.version>2.1.2</jasypt.version>
+    </properties>
+
     <dependencies>
+        <!-- jasypt加密配置文件 -->
         <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
             <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>${jasypt.version}</version>
         </dependency>
     </dependencies>
 
@@ -29,5 +35,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -14,38 +14,50 @@
     <name>mvc-base</name>
     <description>mvc-base</description>
 
+    <properties>
+        <commons-net.version>3.6</commons-net.version>
+        <jsch.version>0.1.55</jsch.version>
+        <jodconverter.version>2.2.1</jodconverter.version>
+        <mobile.version>1.5.22.RELEASE</mobile.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>jackson</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mobile</artifactId>
+            <version>1.0</version>
         </dependency>
 
         <!-- ftp工具 -->
         <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
+            <version>${commons-net.version}</version>
         </dependency>
 
         <!-- sftp工具 -->
         <dependency>
             <groupId>com.jcraft</groupId>
             <artifactId>jsch</artifactId>
+            <version>${jsch.version}</version>
         </dependency>
 
-        <!-- openoffice文档转化 -->
+        <!-- openoffice文档转化 https://sourceforge.net/projects/jodconverter/files -->
         <dependency>
             <groupId>com.artofsolving</groupId>
             <artifactId>jodconverter</artifactId>
+            <version>${jodconverter.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mobile</artifactId>
+            <version>${mobile.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
         <!-- webjars开始 -->
@@ -58,16 +70,19 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>pdf-js</artifactId>
+            <version>2.3.200</version>
         </dependency>
         <!-- jquery -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
+            <version>3.4.1</version>
         </dependency>
         <!-- semantic -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>Semantic-UI</artifactId>
+            <version>2.4.1</version>
         </dependency>
         <!-- webjars结束 -->
     </dependencies>

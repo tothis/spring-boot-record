@@ -14,16 +14,21 @@
     <name>swagger</name>
     <description>swagger</description>
 
+    <properties>
+        <swagger2markup.version>1.3.3</swagger2markup.version>
+    </properties>
+
     <dependencies>
-        <!-- swagger -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-        </dependency>
         <!-- swagger2markup -->
         <dependency>
             <groupId>io.github.swagger2markup</groupId>
             <artifactId>swagger2markup</artifactId>
+            <version>${swagger2markup.version}</version>
+        </dependency>
+        <!-- swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

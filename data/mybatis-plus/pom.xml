@@ -14,17 +14,22 @@
     <name>mybatis-plus</name>
     <description>mybatis-plus</description>
 
-    <dependencies>
-        <!-- mybatis-plus -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
+    <properties>
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
+    </properties>
 
+    <dependencies>
         <!-- mybatis-plus-generator -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+
+        <!-- mybatis-plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
 
         <!-- beetl -->

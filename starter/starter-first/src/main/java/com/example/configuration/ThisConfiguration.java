@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * 自动装配类
  *
  * @author lilei
- * @time 2019/11/10 17:52
+ * @since 1.0
  **/
 @Slf4j
 @AllArgsConstructor

@@ -1,7 +1,6 @@
 package com.example.util;
 
-import lombok.SneakyThrows;
-import org.springframework.util.ResourceUtils;
+import cn.hutool.core.io.IORuntimeException;
 
 import java.io.*;
 
@@ -115,77 +114,9 @@ public final class FileUtil {
             }
             return new String(output.toByteArray());
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new IORuntimeException("文件不存在");
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @SneakyThrows
-    public static void main(String[] args) {
-        testPath("common/pom.xml");
-        System.out.println("----- -----");
-
-        // classpath下的文件
-        InputStream resource = Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("application.yml");
-        byte[] result1 = new byte[4];
-        resource.read(result1);
-        resource.close();
-        System.out.println("成功 -> " + new String(result1));
-
-        File file = ResourceUtils.getFile("classpath:test.json");
-        byte[] result2 = new byte[4];
-        FileInputStream inputStream = new FileInputStream(file);
-        inputStream.read(result2);
-        inputStream.close();
-        System.out.println("成功 -> " + new String(result2));
-    }
-
-    /**
-     * 测试文件路径
-     */
-    public static void testPath(String filePath) {
-        String suffix = "/" + filePath;
-
-        testRead(suffix); // 失败
-        testRead(filePath);
-        testRead(System.getProperty("user.dir") + suffix);
-
-        // 相对路径
-        // read(new File("../").getPath() + suffix);
-        testRead(new File("./").getPath() + suffix);
-        testRead(new File(".").getPath() + suffix);
-        testRead(new File("").getPath() + suffix); // 失败
-        testRead(new File("").getPath() + filePath);
-
-        // 绝对路径
-        // read(new File("../").getAbsolutePath() + suffix);
-        testRead(new File("./").getAbsolutePath() + suffix);
-        testRead(new File(".").getAbsolutePath() + suffix);
-        testRead(new File("").getAbsolutePath() + suffix);
-
-        try {
-            // getCanonicalPath()+suffix '.'表示当前目录 '..'表示当前目录的上一级目录
-            // read(new File("../").getCanonicalPath() + suffix);
-            testRead(new File("./").getCanonicalPath() + suffix);
-            testRead(new File(".").getCanonicalPath() + suffix);
-            testRead(new File("").getCanonicalPath() + suffix);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void testRead(String path) {
-        byte[] result = new byte[12];
-        try (InputStream in = new FileInputStream(new File(path))) {
-            in.read(result);
-            System.out.println("成功 -> " + new String(result));
-        } catch (FileNotFoundException e) {
-            System.out.println("失败 -> " + path);
-        } catch (IOException e) {
-            e.printStackTrace();
+            throw new IORuntimeException("文件读取失败");
         }
     }
 }

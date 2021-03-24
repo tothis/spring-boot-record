@@ -14,11 +14,16 @@
     <name>dozer</name>
     <description>dozer</description>
 
+    <properties>
+        <dozer.version>6.5.0</dozer.version>
+    </properties>
+
     <dependencies>
         <!-- dozer -->
         <dependency>
             <groupId>com.github.dozermapper</groupId>
             <artifactId>dozer-spring-boot-starter</artifactId>
+            <version>${dozer.version}</version>
         </dependency>
 
         <!-- JDK9及其以后不再包含JavaEE相关jar包 jaxb -->

@@ -14,6 +14,10 @@
     <name>redis</name>
     <description>redis</description>
 
+    <properties>
+        <commons-pool2.version>2.8.1</commons-pool2.version>
+    </properties>
+
     <dependencies>
         <!-- redis -->
         <dependency>
@@ -24,6 +28,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
+            <version>${commons-pool2.version}</version>
         </dependency>
     </dependencies>
 

@@ -14,21 +14,29 @@
     <name>graphql</name>
     <description>graphql</description>
 
+    <properties>
+        <graphql.version>5.0.2</graphql.version>
+        <graphql-tool.version>5.2.4</graphql-tool.version>
+    </properties>
+
     <dependencies>
         <!-- graphql -->
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-spring-boot-starter</artifactId>
+            <version>${graphql.version}</version>
         </dependency>
         <!-- graphql图形工具 -->
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphiql-spring-boot-starter</artifactId>
+            <version>${graphql.version}</version>
         </dependency>
         <!-- graphql工具 -->
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java-tools</artifactId>
+            <version>${graphql-tool.version}</version>
         </dependency>
     </dependencies>
 
@@ -40,5 +48,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

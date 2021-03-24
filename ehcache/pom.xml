@@ -14,7 +14,18 @@
     <name>ehcache</name>
     <description>ehcache</description>
 
+    <properties>
+        <ehcache.version>3.8.1</ehcache.version>
+    </properties>
+
     <dependencies>
+        <!-- ehcache -->
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>${ehcache.version}</version>
+        </dependency>
+
         <!-- mysql connector -->
         <dependency>
             <groupId>mysql</groupId>
@@ -54,5 +65,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

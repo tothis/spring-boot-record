@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * 配置类 用于加载配置文件对应的前缀配置项
  *
  * @author lilei
- * @time 2019/11/10 17:52
+ * @since 1.0
  **/
 @ToString
 @Setter
