@@ -7,9 +7,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author 李磊
@@ -21,8 +21,8 @@ public class BeanCopierUtil {
     /**
      * 使用Map存储BeanCopier实例 避免不需要的实例创建
      */
-    private static final Map<String, BeanCopier> beanCopierMap = new HashMap<>();
-    private static final Map<String, String[]> methodMap = new HashMap<>();
+    private static final Map<String, BeanCopier> BEAN_COPIER_CACHE = new ConcurrentHashMap<>();
+    private static final Map<String, String[]> METHOD_CACHE = new ConcurrentHashMap<>();
 
     /**
      * @param source 资源类
@@ -36,11 +36,11 @@ public class BeanCopierUtil {
         Class<?> targetClass = target.getClass();
         String beanKey = key(sourceClass, targetClass);
         BeanCopier copier;
-        if (beanCopierMap.containsKey(beanKey)) {
-            copier = beanCopierMap.get(beanKey);
+        if (BEAN_COPIER_CACHE.containsKey(beanKey)) {
+            copier = BEAN_COPIER_CACHE.get(beanKey);
         } else {
             copier = BeanCopier.create(sourceClass, targetClass, false);
-            beanCopierMap.put(beanKey, copier);
+            BEAN_COPIER_CACHE.put(beanKey, copier);
         }
         copier.copy(source, target, null);
     }
@@ -113,8 +113,8 @@ public class BeanCopierUtil {
     public static boolean isExistMethod(Class clazz, String methodName) {
         String clazzName = clazz.getName();
         String[] methods;
-        if (methodMap.containsKey(clazzName)) {
-            methods = methodMap.get(clazzName);
+        if (METHOD_CACHE.containsKey(clazzName)) {
+            methods = METHOD_CACHE.get(clazzName);
         } else {
             Method[] clazzMethods = clazz.getMethods();
             if (clazzMethods == null && clazzMethods.length == 0) return false;
@@ -122,7 +122,7 @@ public class BeanCopierUtil {
             for (int i = 0; i < clazzMethods.length; i++) {
                 methods[i] = clazzMethods[i].getName();
             }
-            methodMap.put(clazzName, methods);
+            METHOD_CACHE.put(clazzName, methods);
         }
         for (String method : methods)
             if (method.equals(methodName))

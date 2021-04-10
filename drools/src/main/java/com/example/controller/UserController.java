@@ -38,7 +38,7 @@ public class UserController {
         String drlContent = compiler.compile(resource, InputType.XLS);
         System.out.println(drlContent);
 
-        KieSession kieSession = DroolsUtil.createKieSessionByDrlContent(drlContent);
+        KieSession kieSession = DroolsUtil.createKieSessionByDrlContent(drlContent, false);
 
         User user = new User();
         user.setName("lilei");
