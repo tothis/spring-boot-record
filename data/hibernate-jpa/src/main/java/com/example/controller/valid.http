@@ -1,0 +1,31 @@
+POST http://localhost:8080/valid/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "text": "text",
+  "items": [
+    {
+      "text": "item"
+    }
+  ]
+}
+
+###
+POST http://localhost:8080/valid/2
+Content-Type: application/json
+
+[
+  {
+    "id": 1,
+    "text": "text",
+    "items": [
+      {
+        "text": "item"
+      }
+    ]
+  }
+]
+
+###
+GET http://localhost:8080/valid/3?age=18&sort=111
