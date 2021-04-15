@@ -22,7 +22,7 @@
     </modules>
 
     <dependencies>
-        <!-- mysql connector -->
+        <!-- MySQL connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

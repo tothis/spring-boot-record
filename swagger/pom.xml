@@ -25,7 +25,7 @@
             <artifactId>swagger2markup</artifactId>
             <version>${swagger2markup.version}</version>
         </dependency>
-        <!-- swagger -->
+        <!-- Swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>

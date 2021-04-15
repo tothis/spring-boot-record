@@ -26,19 +26,19 @@
             <version>${mybatis-plus.version}</version>
         </dependency>
 
-        <!-- mybatis-plus -->
+        <!-- MyBatis-Plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
 
-        <!-- beetl -->
+        <!-- Beetl -->
         <dependency>
             <groupId>com.ibeetl</groupId>
             <artifactId>beetl-framework-starter</artifactId>
         </dependency>
 
-        <!-- swagger -->
+        <!-- Swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
@@ -47,7 +47,7 @@
 
     <build>
         <resources>
-            <!-- maven编译src目录时 打包xml文件 -->
+            <!-- Maven编译src目录时 打包XML文件 -->
             <resource>
                 <directory>src/main/java</directory>
                 <includes>

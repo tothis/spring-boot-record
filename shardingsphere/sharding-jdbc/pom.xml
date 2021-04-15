@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!-- 继承父工程 -->
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>spring-boot-record</artifactId>
+        <artifactId>shardingsphere</artifactId>
         <version>1.0</version>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>quartz</artifactId>
+    <artifactId>sharding-jdbc</artifactId>
     <version>1.0</version>
-    <name>quartz</name>
-    <description>quartz</description>
+    <name>sharding-jdbc</name>
+    <description>sharding-jdbc</description>
+
+    <properties>
+        <sharding-jdbc.version>4.1.1</sharding-jdbc.version>
+    </properties>
 
     <dependencies>
-        <!-- quartz -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-quartz</artifactId>
-        </dependency>
         <!-- MySQL connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <!-- jdbc -->
+        <!-- MyBatis-Plus -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+            <version>${sharding-jdbc.version}</version>
         </dependency>
     </dependencies>
 

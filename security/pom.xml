@@ -48,13 +48,13 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- mysql connector -->
+        <!-- MySQL connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-        <!-- swagger -->
+        <!-- Swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>

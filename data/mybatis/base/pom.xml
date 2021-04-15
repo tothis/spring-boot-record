@@ -21,7 +21,7 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
-        <!-- swagger -->
+        <!-- Swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
@@ -30,7 +30,7 @@
 
     <build>
         <resources>
-            <!-- maven编译src目录时 打包xml文件 -->
+            <!-- Maven编译src目录时 打包XML文件 -->
             <resource>
                 <directory>src/main/java</directory>
                 <includes>

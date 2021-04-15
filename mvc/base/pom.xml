@@ -60,7 +60,7 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-        <!-- webjars开始 -->
+        <!-- WebJars开始 -->
         <!-- 导入资源文件需要写版本号 加上此依赖可省略版本号书写 -->
         <dependency>
             <groupId>org.webjars</groupId>
@@ -84,7 +84,7 @@
             <artifactId>Semantic-UI</artifactId>
             <version>2.4.1</version>
         </dependency>
-        <!-- webjars结束 -->
+        <!-- WebJars结束 -->
     </dependencies>
 
     <build>

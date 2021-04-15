@@ -13,10 +13,14 @@ import javax.validation.constraints.*;
 @Data
 public class ValidTest {
 
+    public interface Update {
+    }
+
     // @Range(min = 1, max = 120, message = "ID不合法")
 
     @Max(value = 120, message = "ID最大为120")
     @Min(value = 1, message = "ID最小为1")
+    @NotNull(groups = Update.class, message = "ID不可为空")
     private Long id;
 
     private Byte age;

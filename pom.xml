@@ -35,6 +35,7 @@
         <module>quartz</module>
         <module>poi</module>
         <module>websocket</module>
+        <module>shardingsphere</module>
     </modules>
 
     <!-- properties可被子类继承 -->
@@ -69,35 +70,35 @@
                 <version>${jstl.version}</version>
             </dependency>
 
-            <!-- jsp引擎 springboot内置tomcat无此依赖 -->
+            <!-- JSP引擎 Spring Boot内置Tomcat无此依赖 -->
             <dependency>
                 <groupId>org.apache.tomcat.embed</groupId>
                 <artifactId>tomcat-embed-jasper</artifactId>
                 <version>${tomcat-embed-jasper.version}</version>
             </dependency>
 
-            <!-- beetl -->
+            <!-- Beetl -->
             <dependency>
                 <groupId>com.ibeetl</groupId>
                 <artifactId>beetl-framework-starter</artifactId>
                 <version>${beetl.version}</version>
             </dependency>
 
-            <!-- mysql connector -->
+            <!-- MySQL connector -->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector.version}</version>
             </dependency>
 
-            <!-- mybatis-plus -->
+            <!-- MyBatis-Plus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
 
-            <!-- swagger -->
+            <!-- Swagger -->
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-boot-starter</artifactId>
@@ -111,7 +112,7 @@
                 <artifactId>webjars-locator</artifactId>
                 <version>0.38</version>
             </dependency>
-            <!-- layui -->
+            <!-- Layui -->
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>layui</artifactId>

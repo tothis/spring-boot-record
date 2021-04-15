@@ -79,7 +79,7 @@ public class RabbitClientTest {
     @SneakyThrows
     private static Connection connection() {
         ConnectionFactory connectionFactory = new ConnectionFactory();
-        connectionFactory.setHost("192.168.92.134");
+        connectionFactory.setHost("192.168.1.128");
         // 创建连接
         return connectionFactory.newConnection();
     }

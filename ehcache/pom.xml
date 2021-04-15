@@ -26,7 +26,7 @@
             <version>${ehcache.version}</version>
         </dependency>
 
-        <!-- mysql connector -->
+        <!-- MySQL connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -50,7 +50,7 @@
             <artifactId>ehcache</artifactId>
         </dependency>
 
-        <!-- swagger -->
+        <!-- Swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>

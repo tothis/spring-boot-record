@@ -1,0 +1,29 @@
+spring:
+  shardingsphere:
+    datasource:
+      names: db
+      db:
+        type: com.zaxxer.hikari.HikariDataSource
+        jdbc-url: jdbc:mysql://192.168.1.128:3306/db?useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true
+        username: root
+        password: 123456
+    sharding:
+      tables:
+        user:
+          actual-data-nodes: db.user$->{0..4}
+          key-generator:
+            column: id
+            type: snowflake
+          table-strategy:
+            inline:
+              sharding-column: id
+              algorithm-expression: user$->{id % 5}
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+  configuration:
+    # 开启自动驼峰命名规则映射 表字段名`A_B`映射为Java属性`aB`
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-aliases-package: com.example.model

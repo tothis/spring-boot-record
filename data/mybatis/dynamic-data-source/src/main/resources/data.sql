@@ -12,10 +12,10 @@ CREATE TABLE center.`table`
 );
 
 INSERT INTO `center`.`table`(`id`, `url`, `user_name`, `password`)
-VALUES ('db1', 'jdbc:mysql://192.168.92.134:3306/one?useUnicode=true&characterEncoding=utf8&useSSL=false', 'root',
+VALUES ('db1', 'jdbc:mysql://192.168.1.128:3306/one?useUnicode=true&characterEncoding=utf8&useSSL=false', 'root',
         '123456');
 INSERT INTO `center`.`table`(`id`, `url`, `user_name`, `password`)
-VALUES ('db2', 'jdbc:mysql://192.168.92.134:3306/two?useUnicode=true&characterEncoding=utf8&useSSL=false', 'root',
+VALUES ('db2', 'jdbc:mysql://192.168.1.128:3306/two?useUnicode=true&characterEncoding=utf8&useSSL=false', 'root',
         '123456');
 
 CREATE TABLE center.`user`

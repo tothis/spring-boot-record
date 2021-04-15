@@ -19,14 +19,14 @@
     </properties>
 
     <dependencies>
-        <!-- shiro -->
+        <!-- Shiro -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-web-starter</artifactId>
             <version>${shiro.version}</version>
         </dependency>
 
-        <!-- mysql connector -->
+        <!-- MySQL connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -54,24 +54,24 @@
             <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
 
-        <!-- swagger -->
+        <!-- Swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
         </dependency>
 
-        <!-- webjars开始 -->
+        <!-- WebJars开始 -->
         <!-- 导入资源文件需要写版本号 加上此依赖可省略版本号书写 -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator</artifactId>
         </dependency>
-        <!-- layui -->
+        <!-- Layui -->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>layui</artifactId>
         </dependency>
-        <!-- webjars结束 -->
+        <!-- WebJars结束 -->
     </dependencies>
 
     <build>

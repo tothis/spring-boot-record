@@ -16,7 +16,7 @@ public class JasyptApplicationTests {
 
     @Test
     public void testEncrypt() {
-        // jar包路径和password包含空格或其它特殊字符时需使用双引号包括
+        // JAR包路径和password包含空格或其它特殊字符时需使用双引号包括
         // java -cp  D:\apache-maven\repository\org\jasypt\jasypt\1.9.3\jasypt-1.9.3.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input=123456 password=salt algorithm=PBEWithMD5AndDES
         StandardPBEStringEncryptor standardPBEStringEncryptor = new StandardPBEStringEncryptor();
         EnvironmentPBEConfig config = new EnvironmentPBEConfig();
