@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author 李磊
- * @datetime 2020/03/18 22:16
- * @description
  */
 @RestController
 public class UserController {

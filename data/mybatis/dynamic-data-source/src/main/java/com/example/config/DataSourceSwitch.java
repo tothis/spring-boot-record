@@ -3,13 +3,13 @@ package com.example.config;
 import java.util.List;
 
 /**
+ * 线程安全的DataSourceEnum容器 并提供设置和获取DataSourceEnum函数
+ *
  * @author 李磊
- * @datetime 2020/03/18 22:20
- * @description 线程安全的DataSourceEnum容器 并提供设置和获取DataSourceEnum函数
  */
 public class DataSourceSwitch {
 
-    private static final ThreadLocal<String> DATA_SOURCE = ThreadLocal.withInitial(() -> DynamicDataSource.base);
+    private static final ThreadLocal<String> DATA_SOURCE = ThreadLocal.withInitial(() -> DynamicDataSource.BASE);
 
     private static List<String> dataSourceIds;
 

@@ -15,7 +15,6 @@ import static com.example.config.RabbitMQConfig.QUEUE_A;
  * 处理队列A消息
  *
  * @author 李磊
- * @since 1.0
  */
 @Slf4j
 @Component

@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 @SpringBootTest(classes = ShardingJdbcApplication.class)
 public class ShardingJdbcApplicationTests {

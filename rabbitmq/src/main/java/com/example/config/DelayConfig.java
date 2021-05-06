@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
  * 死信队列配置
  *
  * @author 李磊
- * @since 1.0
  */
 @Configuration
 public class DelayConfig {

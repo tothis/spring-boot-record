@@ -20,7 +20,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * Drools工具
  *
  * @author 李磊
- * @since 1.0
  */
 @Slf4j
 @UtilityClass

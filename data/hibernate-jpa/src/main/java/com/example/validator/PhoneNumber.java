@@ -17,7 +17,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 校验手机号
  *
  * @author 李磊
- * @since 1.0
  */
 @Target(FIELD)
 @Retention(RUNTIME)

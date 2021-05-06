@@ -17,13 +17,12 @@ import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 /**
+ * Spring Boot 启动后会执行CommandLineRunner实现类的run方法
+ *
  * @author 李磊
- * @datetime 2020/03/18 22:20
- * @description
  */
 @Slf4j
 @Component
-// springboot启动后会执行CommandLineRunner实现类的run方法
 public class DataSourceRunner implements CommandLineRunner {
 
     private static ExecutorService executor = Executors.newFixedThreadPool(4);

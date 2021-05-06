@@ -8,7 +8,6 @@ import javax.validation.constraints.*;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 @Data
 public class ValidTest {

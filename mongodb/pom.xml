@@ -8,7 +8,6 @@
         <artifactId>spring-boot-record</artifactId>
         <version>1.0</version>
     </parent>
-    <groupId>com.example</groupId>
     <artifactId>mongodb</artifactId>
     <version>1.0</version>
     <name>mongodb</name>

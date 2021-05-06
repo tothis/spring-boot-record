@@ -10,10 +10,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 import java.util.function.Predicate;
 
 /**
- * swagger配置
+ * Swagger配置
  *
  * @author 李磊
- * @since 1.0
  */
 @Configuration
 public class SwaggerConfig {

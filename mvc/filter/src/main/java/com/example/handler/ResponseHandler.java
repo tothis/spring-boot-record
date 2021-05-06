@@ -17,7 +17,6 @@ import java.lang.annotation.Annotation;
  * 统一返回数据
  *
  * @author 李磊
- * @since 1.0
  */
 // 配置basePackages 防止修改第三方jar返回值 如swagger
 @RestControllerAdvice(basePackages = "com.example")

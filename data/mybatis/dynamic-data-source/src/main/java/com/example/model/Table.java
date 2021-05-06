@@ -3,9 +3,9 @@ package com.example.model;
 import lombok.Data;
 
 /**
+ * 数据库名称
+ *
  * @author 李磊
- * @datetime 2020/3/19 9:37
- * @description 数据库名称
  */
 @Data
 public class Table {

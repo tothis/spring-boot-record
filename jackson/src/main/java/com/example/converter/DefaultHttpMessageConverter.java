@@ -18,7 +18,6 @@ import java.lang.reflect.Type;
  * writeInternal对基础类型 基础类型包装类和String不生效
  *
  * @author 李磊
- * @since 1.0
  */
 @Slf4j
 public class DefaultHttpMessageConverter extends MappingJackson2HttpMessageConverter {

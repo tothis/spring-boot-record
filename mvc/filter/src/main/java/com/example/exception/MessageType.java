@@ -6,7 +6,6 @@ import lombok.Getter;
  * 消息类型
  *
  * @author 李磊
- * @since 1.0
  */
 @Getter
 public enum MessageType {

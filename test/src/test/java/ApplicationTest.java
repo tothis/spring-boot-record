@@ -7,7 +7,6 @@ import org.springframework.core.env.Environment;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 @SpringBootTest(classes = CommonApplication.class)
 class ApplicationTest {

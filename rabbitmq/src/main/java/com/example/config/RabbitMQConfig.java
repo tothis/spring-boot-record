@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Scope;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 @Configuration
 public class RabbitMQConfig {

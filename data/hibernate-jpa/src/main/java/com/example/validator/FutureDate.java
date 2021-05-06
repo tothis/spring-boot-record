@@ -18,7 +18,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 校验日期不小于指定天后的当前时间
  *
  * @author 李磊
- * @since 1.0
  */
 @Target(FIELD)
 @Retention(RUNTIME)

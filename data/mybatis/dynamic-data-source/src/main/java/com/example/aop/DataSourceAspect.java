@@ -11,8 +11,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author 李磊
- * @datetime 2020/03/18 22:14
- * @description
  */
 @Component
 @Aspect
@@ -32,6 +30,6 @@ public class DataSourceAspect {
     @After("@annotation(type)")
     public void reset(JoinPoint point, DataSourceType type) {
         DataSourceSwitch.reset();
-        System.out.println("\033[34m数据源已还原[" + DynamicDataSource.base + "] - " + point.getSignature() + "\033[m");
+        System.out.println("\033[34m数据源已还原[" + DynamicDataSource.BASE + "] - " + point.getSignature() + "\033[m");
     }
 }

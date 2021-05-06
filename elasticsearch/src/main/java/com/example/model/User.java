@@ -6,10 +6,9 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 
 /**
- * @author 李磊
- * @since 1.0
- * <p>
  * indexName 索引库名称
+ *
+ * @author 李磊
  */
 @Data
 @Document(indexName = "user")

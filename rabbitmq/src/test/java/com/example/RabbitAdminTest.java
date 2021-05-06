@@ -11,7 +11,6 @@ import java.util.HashMap;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 @SpringBootTest(classes = RabbitMQApplication.class)
 public class RabbitAdminTest {

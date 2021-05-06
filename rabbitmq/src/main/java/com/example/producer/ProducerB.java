@@ -10,7 +10,6 @@ import static com.example.config.RabbitMQConfig.*;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 @Slf4j
 @Component

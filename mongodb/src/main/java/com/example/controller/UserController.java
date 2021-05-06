@@ -12,7 +12,6 @@ import java.util.List;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 @RequestMapping("user")
 @RestController

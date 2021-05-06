@@ -4,7 +4,6 @@ import lombok.experimental.UtilityClass;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 @UtilityClass
 public class UserUtil {

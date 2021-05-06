@@ -34,7 +34,6 @@ import java.util.TreeMap;
  * 签名过滤器
  *
  * @author 李磊
- * @since 1.0
  */
 @ConditionalOnProperty(value = "lilei.sign.enabled", havingValue = "true")
 @Slf4j

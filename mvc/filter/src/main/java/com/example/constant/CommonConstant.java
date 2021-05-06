@@ -4,7 +4,6 @@ package com.example.constant;
  * 通用常量
  *
  * @author 李磊
- * @since 1.0
  */
 public class CommonConstant {
     /**

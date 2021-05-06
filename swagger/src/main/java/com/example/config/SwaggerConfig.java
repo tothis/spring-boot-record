@@ -17,10 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * swagger配置 https://github.com/springfox/springfox
+ * Swagger配置 https://github.com/springfox/springfox
  *
  * @author 李磊
- * @since 1.0
  */
 @Configuration
 public class SwaggerConfig {

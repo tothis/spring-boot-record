@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Jackson JSON 工具类
+ *
  * @author 李磊
- * @datetime 2019/8/15 23:15:35
- * @description jackson json工具类
  */
 public final class JsonUtil {
 

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * 异常捕获
  *
  * @author 李磊
- * @since 1.0
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {

@@ -23,7 +23,6 @@ import java.util.List;
  * token过滤器
  *
  * @author 李磊
- * @since 1.0
  */
 @Slf4j
 @Component

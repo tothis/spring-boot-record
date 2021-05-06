@@ -8,7 +8,6 @@
         <artifactId>mybatis</artifactId>
         <version>1.0</version>
     </parent>
-    <groupId>com.example</groupId>
     <artifactId>dynamic-data-source</artifactId>
     <version>1.0</version>
     <name>dynamic-data-source</name>

@@ -18,7 +18,6 @@ import static com.example.config.DelayConfig.QUEUE_DEAD;
  * 处理死信队列消息
  *
  * @author 李磊
- * @since 1.0
  */
 @Slf4j
 @Component

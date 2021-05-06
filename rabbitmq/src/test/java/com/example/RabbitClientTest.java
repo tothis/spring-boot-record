@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 public class RabbitClientTest {
 

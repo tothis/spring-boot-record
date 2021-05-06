@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Insert;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 public interface UserMapper extends BaseMapper<User> {
     /**

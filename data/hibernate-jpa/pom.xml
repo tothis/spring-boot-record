@@ -8,7 +8,6 @@
         <artifactId>data</artifactId>
         <version>1.0</version>
     </parent>
-    <groupId>com.example</groupId>
     <artifactId>hibernate-jpa</artifactId>
     <version>1.0</version>
     <name>hibernate-jpa</name>

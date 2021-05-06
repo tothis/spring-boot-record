@@ -3,9 +3,9 @@ package com.example.model;
 import lombok.Data;
 
 /**
+ * 用户
+ *
  * @author 李磊
- * @datetime 2019/12/26 22:19
- * @description 用户
  */
 @Data
 public class User {

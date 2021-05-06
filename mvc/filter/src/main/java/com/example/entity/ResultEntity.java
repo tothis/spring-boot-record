@@ -8,7 +8,6 @@ import lombok.Setter;
  * 统一返回数据
  *
  * @author 李磊
- * @since 1.0
  */
 @Getter
 @Setter

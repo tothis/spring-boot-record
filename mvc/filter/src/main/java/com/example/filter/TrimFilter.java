@@ -29,7 +29,6 @@ import java.util.*;
  * 参数去除前后空格
  *
  * @author 李磊
- * @since 1.0
  */
 @ConditionalOnProperty(value = "lilei.trim.enabled", havingValue = "true")
 @Slf4j

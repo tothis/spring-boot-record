@@ -9,7 +9,6 @@ import java.util.Map;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 @RestController
 public class TestController {

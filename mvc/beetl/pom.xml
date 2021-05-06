@@ -8,7 +8,6 @@
         <artifactId>mvc</artifactId>
         <version>1.0</version>
     </parent>
-    <groupId>com.example</groupId>
     <artifactId>beetl</artifactId>
     <version>1.0</version>
     <name>beetl</name>

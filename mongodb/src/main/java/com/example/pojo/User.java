@@ -12,7 +12,6 @@ import java.util.List;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 @Data
 // 标识为mongodb文档实体

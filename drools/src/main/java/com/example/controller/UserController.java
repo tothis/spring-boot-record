@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 @RequestMapping("user")
 @RestController

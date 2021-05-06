@@ -16,7 +16,6 @@ import java.util.List;
  * 参收中使用校验注解如@Range 当前类需要添加@Validated
  *
  * @author 李磊
- * @since 1.0
  */
 @Validated
 @RequestMapping("valid")

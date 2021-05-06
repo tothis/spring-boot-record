@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author 李磊
- * @since 1.0
  */
 @Slf4j
 @Component

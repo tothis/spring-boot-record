@@ -12,8 +12,6 @@ import java.util.Date;
 
 /**
  * @author 李磊
- * @datetime 2020/3/16 22:26
- * @description
  */
 @RestController
 public class TestController {
@@ -28,10 +26,6 @@ public class TestController {
         return localDateTime;
     }
 
-    /**
-     * @param user
-     * @return
-     */
     @PostMapping("user")
     public User user(@RequestBody User user) {
         System.out.println(user);

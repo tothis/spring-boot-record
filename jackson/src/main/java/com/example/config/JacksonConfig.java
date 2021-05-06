@@ -17,9 +17,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * Jackson配置
+ * <p>
+ * Jackson只能指定Date序列化格式 LocalDateTime需要手动配置
+ *
  * @author 李磊
- * @datetime 2020/4/9 21:59
- * @description jackson只能指定Date序列化格式 LocalDateTime需要手动配置
  */
 @Configuration
 public class JacksonConfig {

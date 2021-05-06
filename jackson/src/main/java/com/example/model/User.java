@@ -10,8 +10,6 @@ import java.util.Map;
 
 /**
  * @author 李磊
- * @datetime 2020/3/16 22:26
- * @description
  */
 @Data
 // @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -45,8 +43,6 @@ public class User {
     private String password;
     /**
      * 但@JsonIgnore放在set方法 并配合@JsonProperty使用却不生效
-     *
-     * @return
      */
     private String remark;
     // 接收前端表单key为'state'的值

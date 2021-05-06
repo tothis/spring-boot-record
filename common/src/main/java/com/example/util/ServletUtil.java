@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
  * servlet工具类
  *
  * @author 李磊
- * @since 1.0
  */
 public class ServletUtil {
     public static ServletRequestAttributes requestAttributes() {

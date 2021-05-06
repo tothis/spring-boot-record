@@ -13,7 +13,6 @@ import static com.example.config.DelayConfig.ROUTING_KEY;
  * 延时队列生产者
  *
  * @author 李磊
- * @since 1.0
  */
 @Slf4j
 @Component
