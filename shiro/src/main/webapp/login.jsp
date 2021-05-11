@@ -1,5 +1,5 @@
 <%@ page pageEncoding="utf8" trimDirectiveWhitespaces="true" %>
-<%@ page import="com.example.util.SpringUtil" %>
+<%@ page import="com.example.util.ContextUtil" %>
 <%
     String basePath = request.getScheme() + "://" + request.getServerName()
             + ":" + request.getServerPort() + request.getContextPath() + "/";
@@ -9,7 +9,7 @@
 <head>
     <title>login</title>
     <meta charset="utf-8">
-    <link href="<%=SpringUtil.getProperty("iconfont")%>" rel="stylesheet">
+    <link href="<%=ContextUtil.getProperty("iconfont")%>" rel="stylesheet">
     <link href="<%=basePath%>static/css/login.css" rel="stylesheet">
     <title>登录</title>
 </head>

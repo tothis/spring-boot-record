@@ -12,7 +12,7 @@ spring:
 mybatis-plus:
   global-config:
     db-config:
-      id-type: auto
+      # id-type: auto
       # 条件字段为空 则不使用此条件
       select-strategy: not_empty
       field-strategy: IGNORED
@@ -27,3 +27,9 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   mapper-locations: classpath:com/example/mapper/*.xml
   type-aliases-package: com.example.model
+
+# 自定义变量
+app:
+  snowflake:
+    work-id: 1
+    data-center-id: 1

@@ -16,20 +16,6 @@ class RedisUtilTest {
     }
 
     @Test
-    void set() {
-        RedisUtil.delete(RedisUtil.keys("*").toArray());
-        RedisUtil.set("0", DateUtil.currentDateTime());
-
-        RedisUtil.switchDB(1);
-        RedisUtil.delete(RedisUtil.keys("*").toArray());
-        RedisUtil.set("1", DateUtil.currentDateTime());
-        RedisUtil.switchDB(2);
-
-        RedisUtil.delete(RedisUtil.keys("*").toArray());
-        RedisUtil.set("2", DateUtil.currentDateTime());
-    }
-
-    @Test
     void expire() {
         String key = "test";
         // RedisUtil.set(key, 0);

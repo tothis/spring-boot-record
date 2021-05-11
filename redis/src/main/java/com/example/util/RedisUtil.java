@@ -1,406 +1,392 @@
 package com.example.util;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.BoundSetOperations;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Redis工具类
+ *
  * @author 李磊
  */
 @Slf4j
 @Component
 public class RedisUtil {
 
-    private static RedisTemplate redisTemplate;
+    private static RedisTemplate template;
+    private static ValueOperations value;
+    private static HashOperations hash;
+    private static ListOperations list;
+    private static SetOperations set;
+    private static ZSetOperations zSet;
 
     @Autowired
-    private void setRedisTemplate(RedisTemplate redisTemplate) {
-        RedisUtil.redisTemplate = redisTemplate;
-    }
-
-    /**
-     * 切换db
-     */
-    public static void switchDB(int index) {
-        RedisConnectionFactory connectionFactory = redisTemplate.getConnectionFactory();
-        LettuceConnectionFactory factory = (LettuceConnectionFactory) connectionFactory;
-        factory.setDatabase(index);
-        // 重置共享连接 下次访问时重新初始化
-        factory.resetConnection();
-        // 按新的设置初始化
-        factory.afterPropertiesSet();
+    private void setRedisTemplate(RedisTemplate template) {
+        RedisUtil.template = template;
+        RedisUtil.value = template.opsForValue();
+        RedisUtil.hash = template.opsForHash();
+        RedisUtil.list = template.opsForList();
+        RedisUtil.set = template.opsForSet();
+        RedisUtil.zSet = template.opsForZSet();
     }
 
     /**
      * 读取缓存
      *
-     * @param key
-     * @return
+     * @param key -
+     * @return -
      */
-    public static <K, V> V get(K key) {
-        return (V) redisTemplate.opsForValue().get(key);
+    public static <V> V get(String key) {
+        return (V) value.get(key);
     }
 
     /**
      * 写入缓存
      *
-     * @param key
-     * @param value
-     * @return
+     * @param key   -
+     * @param value -
+     * @return -
      */
-    public static <K, V> void set(K key, V value) {
-        set(key, value, 0L, null);
+    public static <V> void set(String key, V value) {
+        RedisUtil.value.set(key, value);
     }
 
     /**
      * 写入缓存设置时效时间
      *
-     * @param key
-     * @param value
-     * @return
+     * @param key   -
+     * @param value -
+     * @return -
      */
-    public static <K, V> void set(K key, V value, long expireTime, TimeUnit timeUnit) {
-        redisTemplate.opsForValue().set(key, value);
-        if (expireTime > 0) {
-            redisTemplate.expire(key, expireTime, timeUnit);
-        }
+    public static <V> void set(String key, V value, long expireTime, TimeUnit timeUnit) {
+        RedisUtil.value.set(key, value, expireTime, timeUnit);
     }
 
     /**
      * 批量删除对应的value
      *
-     * @param keys
+     * @param keys -
      */
-    public static <K> void delete(K... keys) {
-        for (K key : keys) {
-            delete(key);
-        }
+    public static <K> long delete(Collection<K> keys) {
+        return template.delete(keys);
     }
 
     /**
      * 批量删除key
      *
-     * @param pattern
+     * @param pattern -
      */
-    public static void deletePattern(String pattern) {
-        Set<String> keys = keys(pattern);
-        if (keys.size() > 0) {
-            redisTemplate.delete(keys);
-        }
+    public static long deletePattern(String pattern) {
+        return delete(keys(pattern));
     }
 
     /**
      * 删除对应的value
      *
-     * @param key
+     * @param key -
      */
-    public static <K> void delete(K key) {
-        if (hasKey(key)) {
-            redisTemplate.delete(key);
-        }
+    public static boolean delete(String key) {
+        return template.delete(key);
     }
 
     /**
      * 判断缓存中是否有对应的value
      *
-     * @param key
-     * @return
+     * @param key -
+     * @return -
      */
-    public static <K> boolean hasKey(K key) {
-        return redisTemplate.hasKey(key);
+    public static boolean hasKey(String key) {
+        return template.hasKey(key);
     }
 
     /**
      * 哈希添加
      *
-     * @param key
-     * @param hashKey
-     * @param value
+     * @param key     -
+     * @param hashKey -
+     * @param value   -
      */
-    public static <H, HK, HV> void hashPut(H key, HK hashKey, HV value) {
-        redisTemplate.opsForHash().put(key, hashKey, value);
+    public static <HV> void hashPut(String key, String hashKey, HV value) {
+        hash.put(key, hashKey, value);
     }
 
     /**
      * 哈希获取数据
      *
-     * @param key
-     * @param hashKey
-     * @return
+     * @param key     -
+     * @param hashKey -
+     * @return -
      */
-    public static <H, HK, HV> HV hashGet(H key, HK hashKey) {
-        return (HV) redisTemplate.opsForHash().get(key, hashKey);
+    public static <HV> HV hashGet(String key, String hashKey) {
+        return (HV) hash.get(key, hashKey);
     }
 
     /**
-     * @param key
-     * @param hashKeyMap
+     * @param key        -
+     * @param hashKeyMap -
      */
-    public static <H, HK, HV> void hashPutAll(H key, Map<HK, HV> hashKeyMap) {
-        redisTemplate.opsForHash().putAll(key, hashKeyMap);
+    public static <HV> void hashPutAll(String key, Map<String, HV> hashKeyMap) {
+        hash.putAll(key, hashKeyMap);
     }
 
     /**
      * Hash数据类型 查找 key绑定的hash集合中hashKey的元素是否存在
      *
-     * @param key
-     * @param hashKey
-     * @return
+     * @param key     -
+     * @param hashKey -
+     * @return -
      */
-    public static <H, HK> boolean hashHasKey(H key, HK hashKey) {
-        return redisTemplate.opsForHash().hasKey(key, hashKey);
+    public static boolean hashHasKey(String key, String hashKey) {
+        return hash.hasKey(key, hashKey);
     }
 
     /**
      * 获取hash所有值
      *
-     * @param key
-     * @return
+     * @param key -
+     * @return -
      */
-    public static <H, HK, HV> Map<HK, HV> hashGetAll(H key) {
-        return redisTemplate.opsForHash().entries(key);
+    public static <HV> Map<String, HV> hashGetAll(String key) {
+        return hash.entries(key);
     }
 
     /**
      * 哈希数据删除
      *
-     * @param key
-     * @param hashKeys
+     * @param key      -
+     * @param hashKeys -
      */
-    public static <H, HK> void hashDelete(H key, HK... hashKeys) {
-        redisTemplate.opsForHash().delete(key, hashKeys);
+    public static long hashDelete(String key, String... hashKeys) {
+        return hash.delete(key, hashKeys);
     }
 
     /**
-     * @param pattern
-     * @return
+     * @param pattern -
+     * @return -
      */
     public static Set<String> keys(String pattern) {
-        return redisTemplate.keys(pattern);
+        return template.keys(pattern);
     }
 
     /**
      * 集合列表右添加
      *
-     * @param key
-     * @param value
+     * @param key   -
+     * @param value -
      */
-    public static <K, V> void listRightPush(K key, V value) {
-        redisTemplate.opsForList().rightPush(key, value);
+    public static <V> long listRightPush(String key, V value) {
+        return list.rightPush(key, value);
     }
 
-    public static <K, V> void listLeftPush(K key, V value) {
-        redisTemplate.opsForList().leftPush(key, value);
+    public static <V> long listLeftPush(String key, V value) {
+        return list.leftPush(key, value);
     }
 
     /**
-     * @param key
-     * @return
-     * @author 李磊
-     * @datetime 2019/09/29 11:40
-     * @description 获取指定位置下标list数据
+     * 获取指定位置下标list数据
+     *
+     * @param key   -
+     * @param index -
+     * @return -
      */
-    public static <K, V> V listGet(K key, long index) {
-        return (V) redisTemplate.opsForList().index(key, index);
+    public static <V> V listGet(String key, long index) {
+        return (V) list.index(key, index);
     }
 
     /**
      * 集合列表获取
      *
-     * @param key
+     * @param key   -
      * @param begin 开始
      * @param end   结束
-     * @return 0 -1表示全部
+     * @return 0  -1表示全部
      */
-    public static <K, V> List<V> listRange(K key, long begin, long end) {
-        return redisTemplate.opsForList().range(key, begin, end);
+    public static <V> List<V> listRange(String key, long begin, long end) {
+        return list.range(key, begin, end);
     }
 
-    public static <K, V> List<V> listGetAll(K key) {
+    public static <V> List<V> listGetAll(String key) {
         return listRange(key, 0L, -1L);
     }
 
-    public static <K> long listSize(K key) {
-        return redisTemplate.opsForList().size(key);
+    public static long listSize(String key) {
+        return list.size(key);
     }
 
     /**
      * 删除集合
      *
-     * @param key
-     * @param count
-     * @param value
+     * @param key   -
+     * @param count -
+     * @param value -
      */
-    public static <K, V> long listRemove(K key, long count, V value) {
+    public static <V> long listRemove(String key, long count, V value) {
         // 删除key中值为value的num个 返回删除的个数 如果没有这个元素则返回0
-        return redisTemplate.opsForList().remove(key, count, value);
+        return list.remove(key, count, value);
     }
 
     /**
      * 修改list集合中的某个数据
      *
-     * @param key
-     * @param index
-     * @param value
+     * @param key   -
+     * @param index -
+     * @param value -
      */
-    public static <K, V> void listUpdate(K key, long index, V value) {
-        redisTemplate.opsForList().set(key, index, value);
+    public static <V> void listUpdate(String key, long index, V value) {
+        list.set(key, index, value);
     }
 
     /**
      * set集合添加
      *
-     * @param key
-     * @param value
+     * @param key   -
+     * @param value -
      */
-    public static <K, V> void setAdd(K key, V... value) {
-        redisTemplate.opsForSet().add(key, value);
+    public static <V> long setAdd(String key, V... value) {
+        return set.add(key, value);
     }
 
     /**
      * 删除set中指定的一条数据
      *
-     * @param key
-     * @param value
+     * @param key   -
+     * @param value -
      */
-    public static <K, V> void setRemove(K key, V value) {
-        redisTemplate.opsForSet().remove(key, value);
+    public static <V> long setRemove(String key, V value) {
+        return set.remove(key, value);
     }
 
     /**
      * set集合获取
      *
-     * @param key
-     * @return
+     * @param key -
+     * @return -
      */
-    public static <K, V> Set<V> setMembers(K key) {
-        return redisTemplate.opsForSet().members(key);
+    public static <V> Set<V> setMembers(String key) {
+        return set.members(key);
     }
 
     /**
      * set集合获取size
      *
-     * @param key
-     * @return
+     * @param key -
+     * @return -
      */
-    public static <K> long setSize(K key) {
-        return redisTemplate.opsForSet().size(key);
+    public static long setSize(String key) {
+        return set.size(key);
     }
 
     /**
      * set集合检查是否存在此值
      *
-     * @param key
-     * @return
+     * @param key -
+     * @return -
      */
-    public static <K, V, T> boolean setIsMember(K key, T value) {
-        BoundSetOperations<K, V> boundSetOperations = redisTemplate.boundSetOps(key);
-        return boundSetOperations.isMember(value);
+    public static <V> boolean setIsMember(String key, V value) {
+        return set.isMember(key, value);
     }
 
     /**
      * 有序集合添加
      *
-     * @param key
-     * @param value
-     * @param score
+     * @param key   -
+     * @param value -
+     * @param score -
      */
-    public static <K, V> void zSetAdd(K key, V value, double score) {
-        redisTemplate.opsForZSet().add(key, value, score);
+    public static <V> boolean zSetAdd(String key, V value, double score) {
+        return zSet.add(key, value, score);
     }
 
     /**
      * 有序集合获取
      *
-     * @param key
-     * @param min
-     * @param max
-     * @return
+     * @param key -
+     * @param min -
+     * @param max -
+     * @return -
      */
-    public static <K, V> Set<V> zSetRangeByScore(K key, double min, double max) {
-        return redisTemplate.opsForZSet().rangeByScore(key, min, max);
+    public static <V> Set<V> zSetRangeByScore(String key, double min, double max) {
+        return zSet.rangeByScore(key, min, max);
     }
 
     /**
      * 获取权重值
      *
-     * @param key
-     * @param value
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param key   -
+     * @param value -
+     * @return -
      */
-    public static <K, V> double zSetScore(K key, V value) {
-        return redisTemplate.opsForZSet().score(key, value);
+    public static <V> double zSetScore(String key, V value) {
+        return zSet.score(key, value);
     }
 
-    public static <K, V> void zSetRemove(K key, V... values) {
-        redisTemplate.opsForZSet().remove(key, values);
+    public static <V> long zSetRemove(String key, V... values) {
+        return zSet.remove(key, values);
     }
 
     /**
      * 查找value的索引
      *
-     * @param key
-     * @param value
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param key   -
+     * @param value -
+     * @return -
      */
-    public static <K, V> long zSetReverseRank(K key, V value) {
-        return redisTemplate.opsForZSet().reverseRank(key, value);
+    public static <V> long zSetReverseRank(String key, V value) {
+        return zSet.reverseRank(key, value);
     }
 
-    public static <K> long zSetSize(K key) {
-        return redisTemplate.opsForZSet().size(key);
+    public static long zSetSize(String key) {
+        return zSet.size(key);
     }
 
-    public static <T> void decrBy(T key, long value) {
-        redisTemplate.getConnectionFactory().getConnection().decrBy(
-                redisTemplate.getKeySerializer().serialize(key), value
-        );
-    }
-
-    public static <T> void incrBy(T key, long value) {
-        redisTemplate.getConnectionFactory().getConnection().incrBy(
-                redisTemplate.getKeySerializer().serialize(key), value
-        );
-    }
-
-    public static <K> long zSetRemoveRangeByScore(K key, double min, double max) {
-        return redisTemplate.opsForZSet().removeRangeByScore(key, min, max);
+    public static long zSetRemoveRangeByScore(String key, double min, double max) {
+        return zSet.removeRangeByScore(key, min, max);
     }
 
     /**
      * 获取key的过期时间
      *
-     * @param key
-     * @return
+     * @param key -
+     * @return -
      */
-    public static <K> long getExpire(K key) {
-        return redisTemplate.opsForValue().getOperations().getExpire(key);
+    public static long getExpire(String key) {
+        return template.getExpire(key);
     }
 
     /**
      * 递增
+     *
+     * @param key    -
+     * @param number -
+     * @return -
      */
     public static long increment(String key, long number) {
-        return redisTemplate.opsForValue().increment(key, number);
+        return value.increment(key, number);
     }
 
     /**
      * 递增
+     *
+     * @param key -
+     * @return -
      */
     public static long increment(String key) {
-        return redisTemplate.opsForValue().increment(key);
+        return value.increment(key);
+    }
+
+    /**
+     * 修改key
+     *
+     * @param oldKey -
+     * @param newKey -
+     */
+    public static void rename(String oldKey, String newKey) {
+        template.rename(oldKey, newKey);
     }
 }
