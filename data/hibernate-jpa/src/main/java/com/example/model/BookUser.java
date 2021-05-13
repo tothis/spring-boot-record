@@ -10,8 +10,6 @@ import javax.persistence.IdClass;
 
 /**
  * @author 李磊
- * @datetime 2020/2/10:15
- * @description
  */
 @Data
 @AllArgsConstructor

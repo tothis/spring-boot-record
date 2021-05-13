@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 多对多映射
+ *
  * @author 李磊
- * @datetime 2020/2/10 16:36
- * @description 多对多映射
  */
 @SpringBootTest(classes = HibernateJpaApplication.class)
 class RoleRepositoryTest {

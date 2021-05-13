@@ -8,8 +8,6 @@ import java.io.Serializable;
 
 /**
  * @author 李磊
- * @datetime 2020/1/11 18:00
- * @description
  */
 @Data
 @ApiModel(value = "com.example.model.BaseEntity", description = "基本实体类")

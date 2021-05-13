@@ -5,9 +5,9 @@ import ${superMapperClassPackage};
 import org.springframework.stereotype.Repository;
 
 /**
+ * ${table.comment!}mapper
+ *
  * @author ${author}
- * @datatime ${date}
- * @description ${table.comment!}mapper
  */
 <% if (kotlin) { %>
 interface ${table.mapperName} : ${superMapperClass}<${entity}>

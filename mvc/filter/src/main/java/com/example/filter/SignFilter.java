@@ -157,7 +157,6 @@ public class SignFilter extends OncePerRequestFilter implements Ordered {
      * 保存流 防止流第二次读取报错
      *
      * @author 李磊
-     * @since 1.0
      */
     class BodyServletRequestWrapper extends HttpServletRequestWrapper {
 

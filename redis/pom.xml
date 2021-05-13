@@ -9,9 +9,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>redis</artifactId>
-    <version>1.0</version>
-    <name>redis</name>
-    <description>redis</description>
 
     <dependencies>
         <!-- Redis -->

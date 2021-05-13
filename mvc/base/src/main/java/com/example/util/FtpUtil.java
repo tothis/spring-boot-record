@@ -14,9 +14,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
+ * FTP工具
+ *
  * @author 李磊
- * @datetime 2020/5/2 19:32
- * @description ftp工具类
  */
 @Slf4j
 @Component

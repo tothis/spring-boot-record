@@ -1,7 +1,7 @@
 package com.example.filter;
 
-import com.example.model.LoginUser;
 import com.example.entity.ResultEntity;
+import com.example.model.LoginUser;
 import com.example.util.JsonUtil;
 import com.example.util.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,9 +17,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
+ * 自定义登录过滤器
+ *
  * @author 李磊
- * @datetime 2020/6/22 0:08
- * @description 自定义登录过滤器
  */
 public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
 

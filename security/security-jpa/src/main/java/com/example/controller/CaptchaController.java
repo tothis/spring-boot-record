@@ -15,9 +15,7 @@ import java.io.IOException;
 import java.util.Base64;
 
 /**
- * @author: 李磊
- * @datetime: 2018/5/26 22:10:26
- * @description:
+ * @author 李磊
  */
 @RequestMapping("captcha")
 @Controller

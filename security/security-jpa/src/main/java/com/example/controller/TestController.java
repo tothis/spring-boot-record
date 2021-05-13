@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author 李磊
- * @datetime 2020/4/16 12:56
- * @description
  */
 @RestController
 public class TestController extends BaseController {

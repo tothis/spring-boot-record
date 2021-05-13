@@ -15,7 +15,6 @@ import static org.springframework.core.io.ResourceLoader.CLASSPATH_URL_PREFIX;
 
 /**
  * @author 李磊
- * @version 1.0
  */
 @Configuration
 public class DroolsConfig {

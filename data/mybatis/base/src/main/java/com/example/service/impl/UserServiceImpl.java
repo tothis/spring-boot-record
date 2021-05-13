@@ -8,15 +8,10 @@ import com.example.service.UserService;
 import com.example.type.State;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author 李磊
- * @datatime 2020-01-16
- * @description 业务实现
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,22 +22,11 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
-    /**
-     * @param entity 实体对象
-     * @return 插入成功记录数
-     * @description 插入一条记录
-     */
     @Override
     public int insert(User entity) {
         return userMapper.insert(entity);
     }
 
-    /**
-     * @param id 主键id
-     * @param id 主键id
-     * @return 实体
-     * @description 根据id查询
-     */
     @Override
     public Optional<User> selectById(Long id) {
         return userMapper.selectById(id);
@@ -53,11 +37,6 @@ public class UserServiceImpl implements UserService {
         return userMapper.findAll(user);
     }
 
-    /**
-     * @param id 主键id
-     * @return 删除成功记录数
-     * @description 根据id删除
-     */
     @Override
     public int deleteById(Long id) {
         return userMapper.deleteById(id);
@@ -76,26 +55,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Tree> tree(Long parentId) {
         // return userMapper.dbTree(parentId);
-        return top(parentId, userMapper.tree());
+        return tree(parentId, userMapper.tree());
     }
 
-    // 获取顶层节点
-    private List<Tree> top(Long parentId, List<Tree> trees) {
-        List<Tree> result = new ArrayList<>();
-        for (Tree tree : trees) {
-            if (tree.getParentId().equals(parentId)) {
-                tree.setTrees(tree(tree.getId(), trees));
-                result.add(tree);
-            }
-        }
-        return result;
-    }
-
-    // 递归获取下级节点
+    /**
+     * 递归获取下级节点
+     *
+     * @param parentId -
+     * @param trees    -
+     * @return -
+     */
     private List<Tree> tree(Long parentId, List<Tree> trees) {
         List<Tree> result = new ArrayList<>();
         for (Tree tree : trees) {
-            if (tree.getParentId().equals(parentId)) {
+            if (Objects.equals(tree.getParentId(), parentId)) {
                 tree.setTrees(tree(tree.getId(), trees));
                 result.add(tree);
             }

@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 登录失败入口
+ *
  * @author 李磊
- * @datetime 2020/6/22 0:08
- * @description 登录失败入口
  */
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

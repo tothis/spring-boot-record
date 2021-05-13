@@ -2,11 +2,16 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.0.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
     <groupId>com.example</groupId>
     <artifactId>spring-boot-record</artifactId>
     <version>1.0</version>
-    <name>spring-boot-record</name>
-    <description>spring-boot-record</description>
+
     <!-- 打包方式 默认jar 父工程需要打为pom -->
     <packaging>pom</packaging>
 
@@ -32,19 +37,12 @@
         <module>graphql</module>
         <module>jasypt</module>
         <module>dozer</module>
-        <module>quartz</module>
         <module>poi</module>
-        <module>websocket</module>
         <module>shardingsphere</module>
     </modules>
 
     <!-- properties可被子类继承 -->
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-
-        <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
-
         <beetl.version>1.2.20.RELEASE</beetl.version>
         <jstl.version>1.2</jstl.version>
         <tomcat-embed-jasper.version>9.0.30</tomcat-embed-jasper.version>
@@ -55,15 +53,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- jsp jstl标签 -->
+            <!-- JSP JSTL标签 -->
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>jstl</artifactId>
@@ -105,7 +95,7 @@
                 <version>${swagger.version}</version>
             </dependency>
 
-            <!-- webjars -->
+            <!-- WebJars -->
             <!-- 导入资源文件需要写版本号 加上此依赖可省略版本号书写 -->
             <dependency>
                 <groupId>org.webjars</groupId>
@@ -123,15 +113,32 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.example</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>common</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- log4j2 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+        <!-- 排除默认日志logging exclusion所有依赖 等于没有依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>

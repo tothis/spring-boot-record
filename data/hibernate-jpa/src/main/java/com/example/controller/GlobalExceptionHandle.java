@@ -12,8 +12,6 @@ import java.util.List;
 
 /**
  * @author 李磊
- * @datetime 2020/1/17 10:05
- * @description
  */
 @RestControllerAdvice
 public class GlobalExceptionHandle {

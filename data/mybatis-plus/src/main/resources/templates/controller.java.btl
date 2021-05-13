@@ -16,9 +16,9 @@ import ${superControllerClassPackage};
 <% } %>
 
 /**
+ * ${table.comment!}控制器
+ *
  * @author ${author}
- * @datetime ${date}
- * @description ${table.comment!}控制层
  */
 <% if (restControllerStyle) { %>
 @RestController

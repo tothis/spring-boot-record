@@ -3,19 +3,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.example</groupId>
-        <artifactId>spring-boot-record</artifactId>
-        <version>1.0</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.0.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <groupId>com.example</groupId>
     <artifactId>starter</artifactId>
     <version>1.0</version>
-    <name>starter</name>
-    <description>starter</description>
+
+    <packaging>pom</packaging>
 
     <modules>
         <module>starter-first</module>
         <module>starter-test</module>
     </modules>
-
-    <packaging>pom</packaging>
 </project>

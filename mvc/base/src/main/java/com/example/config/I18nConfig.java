@@ -7,8 +7,6 @@ import org.springframework.web.servlet.LocaleResolver;
 
 /**
  * @author 李磊
- * @datetime 2020/2/28 17:24
- * @description
  */
 @Configuration
 public class I18nConfig {

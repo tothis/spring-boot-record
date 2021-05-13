@@ -9,9 +9,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>dozer</artifactId>
-    <version>1.0</version>
-    <name>dozer</name>
-    <description>dozer</description>
 
     <properties>
         <dozer.version>6.5.0</dozer.version>

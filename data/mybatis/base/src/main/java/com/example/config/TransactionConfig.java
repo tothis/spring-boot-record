@@ -14,8 +14,6 @@ import java.util.Map;
 
 /**
  * @author 李磊
- * @datetime 2020/4/8 17:48
- * @description
  */
 @Configuration
 public class TransactionConfig {

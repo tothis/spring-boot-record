@@ -9,9 +9,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>security-mybatis-plus</artifactId>
-    <version>1.0</version>
-    <name>security-mybatis-plus</name>
-    <description>security-mybatis-plus</description>
 
     <dependencies>
         <!-- MyBatis-Plus -->

@@ -9,9 +9,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>swagger</artifactId>
-    <version>1.0</version>
-    <name>swagger</name>
-    <description>swagger</description>
 
     <properties>
         <swagger2markup.version>1.3.3</swagger2markup.version>

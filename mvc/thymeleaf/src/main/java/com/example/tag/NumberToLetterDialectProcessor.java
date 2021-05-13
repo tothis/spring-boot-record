@@ -18,8 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author 李　磊
  * 标签处理器
+ *
+ * @author 李磊
  */
 public class NumberToLetterDialectProcessor extends AbstractAttributeTagProcessor {
     // 标签名

@@ -12,13 +12,14 @@ import org.springframework.stereotype.Component;
 import java.sql.Statement;
 
 /**
- * @author 李磊
- * @datetime 2020/4/28 0:07
- * @description MyBatis允许拦截的接口
+ * MyBatis允许拦截的接口
+ * <p>
  * Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)
  * ParameterHandler (getParameterObject, setParameters)
  * ResultSetHandler (handleResultSets, handleOutputParameters)
  * StatementHandler (prepare, parameterize, batch, update, query)
+ *
+ * @author 李磊
  */
 @Intercepts({
         @Signature(type = StatementHandler.class, method = "query", args = {Statement.class, ResultHandler.class}),

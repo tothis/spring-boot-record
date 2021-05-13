@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 自定义权限不足处理器
+ *
  * @author 李磊
- * @datetime 2020/6/22 0:08
- * @description 自定义权限不足处理器
  */
 @Slf4j
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {

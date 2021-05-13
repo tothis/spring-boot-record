@@ -277,13 +277,12 @@ thymeleaf会自动生成一个变量名+'Stat'的状态变量
 ```
 ```java
 /**
- * @Auther: 李磊
- * @Date: 2019/3/23 11:00
+ * @author 李磊
  */
 @Controller
-@RequestMapping("/Test")
+@RequestMapping("test")
 public class TestController {
-    @RequestMapping("/test")
+    @RequestMapping("test")
     public String test(Model model){
         List list = new ArrayList();
         for (int i=0;i<10;i++) {
@@ -505,8 +504,9 @@ public class NumberToLetterDialect extends AbstractProcessorDialect {
 ```
 ```java
 /**
- * @author 李　磊
  * 标签处理器
+ *
+ * @author 李磊
  */
 public class NumberToLetterDialectProcessor extends AbstractAttributeTagProcessor {
     // 标签名

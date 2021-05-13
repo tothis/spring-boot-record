@@ -9,8 +9,6 @@ import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author 李磊
- * @datetime 2020/3/6 21:16
- * @description
  */
 public class PropertyUtilsTest {
     @Test

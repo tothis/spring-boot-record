@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
+ * 一对多映射
+ *
  * @author 李磊
- * @datetime 2020/2/10 16:36
- * @description 一对多映射
  */
 @SpringBootTest(classes = HibernateJpaApplication.class)
 class DepartmentRepositoryTest {

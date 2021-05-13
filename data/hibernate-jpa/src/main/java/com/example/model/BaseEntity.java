@@ -12,13 +12,14 @@ import java.time.LocalDateTime;
 
 /**
  * @author 李磊
- * @datetime 2020/3/4 12:45
- * @description
  */
 @Data
-@JsonInclude(JsonInclude.Include.NON_EMPTY) // 此注解可被继承 即继承此类的类此注解依然生效
+// 此注解可被继承 即继承此类的类此注解依然生效
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonIgnoreProperties(ignoreUnknown = true, value = "delFlag")
-@MappedSuperclass // 实体继承jpa映射
+// 实体继承JPA映射
+
+@MappedSuperclass
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

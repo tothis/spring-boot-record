@@ -6,9 +6,9 @@ import org.beetl.core.Function;
 import java.math.BigDecimal;
 
 /**
+ * 自定义beetl函数 toFixed转化浮点类型
+ *
  * @author 李磊
- * @datetime 2020/2/18 23:13
- * @description 自定义beetl函数 toFixed转化浮点类型
  */
 public class ToFixed implements Function {
     @Override

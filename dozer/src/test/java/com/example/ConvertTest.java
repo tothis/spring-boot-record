@@ -15,8 +15,6 @@ import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author 李磊
- * @datetime 2020/3/6 22:12
- * @description
  */
 @SpringBootTest(classes = DozerApplication.class)
 public class ConvertTest {

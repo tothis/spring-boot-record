@@ -12,9 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 /**
+ * 一对一映射
+ *
  * @author 李磊
- * @datetime 2020/2/10 16:36
- * @description 一对一映射
  */
 @SpringBootTest(classes = HibernateJpaApplication.class)
 class UserRepositoryTest {

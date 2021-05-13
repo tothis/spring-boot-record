@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author 李磊
- * @datetime 2020/03/18 22:20
- * @description
  */
 @Component
 public class Runner implements CommandLineRunner {

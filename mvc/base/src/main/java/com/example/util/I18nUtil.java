@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 import java.util.Locale;
 
 /**
+ * 国际化工具
+ *
  * @author 李磊
- * @datetime 2019/8/18 18:36
- * @description 国际化工具类
  */
 @Component
 public class I18nUtil {

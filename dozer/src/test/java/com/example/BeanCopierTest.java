@@ -13,8 +13,6 @@ import java.util.List;
 
 /**
  * @author 李磊
- * @datetime 2020/3/6 10:00
- * @description
  */
 @SpringBootTest(classes = DozerApplication.class)
 public class BeanCopierTest {

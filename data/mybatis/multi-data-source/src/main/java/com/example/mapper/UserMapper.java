@@ -8,8 +8,6 @@ import org.apache.ibatis.annotations.Update;
 
 /**
  * @author 李磊
- * @datetime 2020/3/17 13:39
- * @description
  */
 public interface UserMapper {
     @Select("SELECT * FROM user WHERE id = #{id}")

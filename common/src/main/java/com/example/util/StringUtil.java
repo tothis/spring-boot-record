@@ -5,8 +5,6 @@ import java.util.UUID;
 
 /**
  * @author 李磊
- * @datetime 2019/12/4 17:33
- * @description
  */
 public class StringUtil {
     public static <T extends CharSequence> T defaultIfBlank(final T str, final T defaultStr) {

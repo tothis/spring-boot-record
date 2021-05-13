@@ -14,8 +14,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author 李磊
- * @datetime 2020/6/23 11:18
- * @description
  */
 public class JwtUtil {
     public static final String TOKEN_HEADER = "authorization";

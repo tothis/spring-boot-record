@@ -9,12 +9,9 @@
         <version>1.0</version>
     </parent>
     <artifactId>mongodb</artifactId>
-    <version>1.0</version>
-    <name>mongodb</name>
-    <description>mongodb</description>
 
     <dependencies>
-        <!-- mongodb -->
+        <!-- MongoDB -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>

@@ -12,9 +12,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * bean转换类 只可copy同名同类型字段
+ *
  * @author 李磊
- * @datetime 2020/3/25 16:45
- * @description bean转换类 只可copy同名同类型字段
  */
 public class BeanCopierUtil {
 
@@ -76,22 +76,25 @@ public class BeanCopierUtil {
     }
 
     /**
-     * @param bean
-     * @description 使bean中为null的属性转换成空字符串
+     * 使bean中为null的属性转换成空字符串
      */
     public static void nullToEmpty(Object bean) {
         Class beanClass = bean.getClass();
         Field[] field = beanClass.getDeclaredFields();
-        for (int i = 0; i < field.length; i++) { // 遍历所有属性
-            String fieldName = field[i].getName(); // 获取属性名称
+        for (int i = 0; i < field.length; i++) {
+            // 属性名称
+            String fieldName = field[i].getName();
             // 将属性的首字符大写 方便构造get set方法
             fieldName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-            String type = field[i].getGenericType().toString(); // 获取属性类型
-            if (type.equals("class java.lang.String")) { // 如果属性为字符串
+            // 属性类型
+            String type = field[i].getGenericType().toString();
+            // 属性为字符串
+            if (type.equals("class java.lang.String")) {
                 try {
                     String getName = "get" + fieldName;
                     if (isExistMethod(beanClass, getName)) {
-                        Object invoke = beanClass.getMethod(getName).invoke(bean); // 调用get方法获取属性值
+                        // 调用get方法获取属性值
+                        Object invoke = beanClass.getMethod(getName).invoke(bean);
                         if (invoke == null) {
                             String setName = "set" + fieldName;
                             if (isExistMethod(beanClass, setName))

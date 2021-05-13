@@ -11,8 +11,6 @@ import java.util.List;
 
 /**
  * @author 李磊
- * @datetime 2020/1/20 11:44
- * @description
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 

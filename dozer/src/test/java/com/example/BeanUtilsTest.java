@@ -8,8 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * @author 李磊
- * @datetime 2020/3/6 9:59
- * @description
  */
 @SpringBootTest(classes = DozerApplication.class)
 public class BeanUtilsTest {

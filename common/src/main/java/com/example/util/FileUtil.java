@@ -6,8 +6,6 @@ import java.io.*;
 
 /**
  * @author 李磊
- * @time 2018/4/10 23:50
- * @description
  */
 public final class FileUtil {
     private FileUtil() {

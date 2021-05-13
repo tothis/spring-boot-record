@@ -9,15 +9,12 @@
         <version>1.0</version>
     </parent>
     <artifactId>filter</artifactId>
-    <version>1.0</version>
-    <name>filter</name>
-    <description>filter</description>
 
     <dependencies>
         <dependency>
-            <groupId>com.example</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>jackson</artifactId>
-            <version>1.0</version>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 

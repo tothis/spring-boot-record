@@ -6,8 +6,6 @@ import org.apache.ibatis.jdbc.SQL;
 
 /**
  * @author 李磊
- * @datetime 2020/4/29 23:29
- * @description
  */
 public class UserProvider {
     public String insert(User user) {

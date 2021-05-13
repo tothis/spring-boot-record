@@ -9,9 +9,8 @@
         <version>1.0</version>
     </parent>
     <artifactId>data</artifactId>
-    <version>1.0</version>
-    <name>data</name>
-    <description>data</description>
+
+    <packaging>pom</packaging>
 
     <modules>
         <module>jdbc</module>
@@ -27,6 +26,4 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
-
-    <packaging>pom</packaging>
 </project>

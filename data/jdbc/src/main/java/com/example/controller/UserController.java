@@ -12,9 +12,9 @@ import java.sql.ResultSet;
 import java.util.List;
 
 /**
+ * jdbcTemplate使用
+ *
  * @author 李磊
- * @datetime 2019/12/26 22:09
- * @description jdbcTemplate使用
  */
 @RequestMapping("user")
 @RestController

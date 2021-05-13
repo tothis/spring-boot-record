@@ -17,8 +17,6 @@ import java.util.Properties;
 
 /**
  * @author 李磊
- * @datetime 2020/2/22 0:06
- * @description
  */
 @Slf4j
 @Component

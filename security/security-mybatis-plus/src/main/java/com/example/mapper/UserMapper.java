@@ -7,8 +7,6 @@ import org.apache.ibatis.annotations.Select;
 
 /**
  * @author 李磊
- * @datetime 2020/6/22 0:54
- * @description
  */
 public interface UserMapper extends BaseMapper<User> {
     /**

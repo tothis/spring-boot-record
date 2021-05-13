@@ -9,9 +9,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>jasypt</artifactId>
-    <version>1.0</version>
-    <name>jasypt</name>
-    <description>jasypt</description>
 
     <properties>
         <jasypt.version>2.1.2</jasypt.version>

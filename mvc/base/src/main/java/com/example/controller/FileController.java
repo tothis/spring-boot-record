@@ -22,8 +22,6 @@ import java.util.UUID;
 
 /**
  * @author 李磊
- * @datetime 2019/12/27 21:58
- * @description
  */
 @Slf4j
 // 允许跨域

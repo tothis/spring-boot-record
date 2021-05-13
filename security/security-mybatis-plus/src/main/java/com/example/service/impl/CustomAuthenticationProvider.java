@@ -14,9 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.List;
 
 /**
+ * 自定义身份认证验证组件
+ *
  * @author 李磊
- * @datetime 2020/6/22 0:55
- * @description 自定义身份认证验证组件
  */
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 

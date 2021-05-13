@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 
 /**
  * @author 李磊
- * @datetime 2019/12/26 22:19
- * @description 用户
  */
 @Data
 @Entity

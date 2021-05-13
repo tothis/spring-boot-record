@@ -6,8 +6,6 @@ import java.util.List;
 
 /**
  * @author 李磊
- * @datetime 2020/3/2 0:38
- * @description
  */
 @Data
 public class Tree {

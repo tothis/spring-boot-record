@@ -6,8 +6,6 @@ import lombok.Data;
 
 /**
  * @author 李磊
- * @datatime 2020-01-16
- * @description 实体
  */
 @Data
 @ApiModel(value = "com.example.model.User", description = "用户")

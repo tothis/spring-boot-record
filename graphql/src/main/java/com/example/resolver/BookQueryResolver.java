@@ -9,8 +9,6 @@ import java.util.List;
 
 /**
  * @author 李磊
- * @time 2019/12/11 22:15
- * @description
  */
 @Component
 public class BookQueryResolver implements GraphQLQueryResolver {

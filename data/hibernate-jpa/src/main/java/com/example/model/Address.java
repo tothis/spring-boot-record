@@ -8,13 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 /**
+ * 业务逻辑为一个用户拥有一个地址
+ *
  * @author 李磊
- * @datetime 2020/2/10 16:25
- * @description 业务逻辑为一个用户拥有一个地址
  */
 @Data
-@ToString(exclude = "user") // 防止嵌套调用
-@NoArgsConstructor // jpa需要空参构造函数
+// 防止嵌套调用
+@ToString(exclude = "user")
+// JPA需要空参构造函数
+
+@NoArgsConstructor
 @Entity
 public class Address extends BaseEntity {
 

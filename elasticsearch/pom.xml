@@ -9,9 +9,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>elasticsearch</artifactId>
-    <version>1.0</version>
-    <name>elasticsearch</name>
-    <description>elasticsearch</description>
 
     <dependencies>
         <!-- elasticsearch -->

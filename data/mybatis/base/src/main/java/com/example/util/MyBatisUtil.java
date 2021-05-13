@@ -13,8 +13,6 @@ import java.sql.DriverManager;
 
 /**
  * @author 李磊
- * @datetime 2020/6/8 13:32
- * @description
  */
 @Component
 public final class MyBatisUtil {

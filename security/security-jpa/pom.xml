@@ -9,12 +9,9 @@
         <version>1.0</version>
     </parent>
     <artifactId>security-jpa</artifactId>
-    <version>1.0</version>
-    <name>security-jpa</name>
-    <description>security-jpa</description>
 
     <dependencies>
-        <!-- jpa -->
+        <!-- JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -23,7 +20,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
 
         <!-- jstl -->

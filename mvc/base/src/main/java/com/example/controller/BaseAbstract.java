@@ -17,9 +17,9 @@ import java.io.IOException;
 import java.net.URLDecoder;
 
 /**
+ * 基础Controller
+ *
  * @author 李磊
- * @datetime 2020/1/12 15:40
- * @description 基本controller类可被继承
  */
 @RequestMapping("base2")
 @Controller
@@ -110,16 +110,16 @@ public abstract class BaseAbstract {
     }
 
     /**
-     * 响应json格式的字符串
+     * 响应JSON格式的字符串
      *
-     * @param content json格式的字符串
+     * @param content JSON格式的字符串
      */
     protected final void ajax(String content) {
         ajax(content, "application/json");
     }
 
     /**
-     * 响应带状态的json格式的数据
+     * 响应带状态的JSON格式的数据
      *
      * @param status
      * @param content
@@ -131,7 +131,7 @@ public abstract class BaseAbstract {
     }
 
     /**
-     * 响应json格式的数据
+     * 响应JSON格式的数据
      *
      * @param content
      */

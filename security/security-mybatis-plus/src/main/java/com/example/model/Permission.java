@@ -6,8 +6,6 @@ import lombok.Data;
 
 /**
  * @author 李磊
- * @datetime 2020/6/22 0:45
- * @description
  */
 @ApiModel("权限")
 @Data

@@ -6,6 +6,8 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * 加密方式
+ *
+ * @author 李磊
  */
 public class Encryption {
 

@@ -9,9 +9,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>graphql</artifactId>
-    <version>1.0</version>
-    <name>graphql</name>
-    <description>graphql</description>
 
     <properties>
         <graphql.version>5.0.2</graphql.version>

@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * https://github.com/spring-projects/spring-mobile-samples
+ *
  * @author 李磊
- * @datetime 2020/5/13 15:52
- * @description https://github.com/spring-projects/spring-mobile-samples
  */
 @RequestMapping("mobile")
 @Controller

@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author 李磊
- * @datetime 2020/2/28 16:53
- * @description
  */
 @RequestMapping("i18n")
 @Controller

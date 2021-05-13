@@ -5,8 +5,6 @@ import java.util.Arrays;
 
 /**
  * @author 李磊
- * @datetime 2020/3/8 2:22
- * @description
  */
 public class ArrayUtil {
 

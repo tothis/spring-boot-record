@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * 模拟序列类
  *
  * @author 李磊
- * @time 2019/11/10 17:52
  */
 @Data
 @Document("sequence")

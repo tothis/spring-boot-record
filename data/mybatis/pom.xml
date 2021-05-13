@@ -9,9 +9,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>mybatis</artifactId>
-    <version>1.0</version>
-    <name>mybatis</name>
-    <description>mybatis</description>
 
     <modules>
         <module>base</module>

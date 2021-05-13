@@ -21,9 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author: 李磊
- * @datetime: 2018/5/26 22:10:26
- * @description:
+ * @author 李磊
  */
 @RequestMapping("captcha")
 @Controller

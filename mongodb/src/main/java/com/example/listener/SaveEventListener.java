@@ -14,10 +14,10 @@ import org.springframework.util.ReflectionUtils;
 
 /**
  * 保存文档监听类
+ * <p>
+ * 保存对象时 通过反射方式为其生成ID
  *
  * @author 李磊
- * @datetime 2019/11/10 18:00
- * @description 保存对象时 通过反射方式为其生成id
  */
 @Component
 public class SaveEventListener extends AbstractMongoEventListener<Object> {

@@ -13,8 +13,6 @@ import java.util.Optional;
 
 /**
  * @author 李磊
- * @datatime 2020-01-16
- * @description mapper
  */
 // 继承CoreMapper 同时也继承了CoreMapper对应xml的配置
 public interface UserMapper/* extends CoreMapper*/ {
@@ -23,7 +21,7 @@ public interface UserMapper/* extends CoreMapper*/ {
     // @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     // 可以获取所有数据类型的id
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
-    /**
+    /*
      * @SelectProvide
      * 指定的Class 必须能通过无参构造初始化
      * 指定方法 必须为public 返回值必须为String
@@ -127,9 +125,9 @@ public interface UserMapper/* extends CoreMapper*/ {
     // https://commons.apache.org/proper/commons-ognl/language-guide.html
     // 调用java类方法 需使用`$`包含
     // @Select("SELECT '${@com.example.util.StringUtil@uuid()}'")
-    // @Select("SELECT ${@com.example.util.StringUtil@uuid().hashCode()}")
+    // @Select("SELECT ${@com.example.util.StringUtil@uuid().hashCode}")
     // @Select("SELECT '${@com.example.util.DateUtil@FORMAT}'")
-    @Select("SELECT '${'李磊'.hashCode()}'")
+    @Select("SELECT '${'李磊'.hashCode}'")
     String run();
 
     @Select("<script>" +

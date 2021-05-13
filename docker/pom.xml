@@ -9,9 +9,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>docker</artifactId>
-    <version>1.0</version>
-    <name>docker</name>
-    <description>docker</description>
 
     <build>
         <plugins>

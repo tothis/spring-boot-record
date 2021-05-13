@@ -10,9 +10,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 <% } %>
 /**
+ * ${table.comment!}实体
+ *
  * @author ${author}
- * @datatime ${date}
- * @description ${table.comment!}实体
  */
 <% if (entityLombokModel) { %>
 @Data

@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 
 /**
  * @author 李磊
- * @datetime 2020/2/10 21:11
- * @description
  */
 @Data
 @NoArgsConstructor

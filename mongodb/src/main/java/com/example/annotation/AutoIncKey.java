@@ -9,7 +9,6 @@ import java.lang.annotation.Target;
  * 自定义注解 标识主键自增
  *
  * @author 李磊
- * @datetime 2019/11/10 17:52
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

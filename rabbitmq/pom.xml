@@ -8,9 +8,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>rabbitmq</artifactId>
-    <version>1.0</version>
-    <name>rabbitmq</name>
-    <description>rabbitmq</description>
 
     <dependencies>
         <dependency>

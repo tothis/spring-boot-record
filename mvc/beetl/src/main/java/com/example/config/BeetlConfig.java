@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author 李磊
- * @time 2019/12/13 17:08
  */
 @Configuration("beetl") // bean名称不要为beetlConfig
 public class BeetlConfig {

@@ -12,9 +12,9 @@ import java.io.File;
 import java.util.UUID;
 
 /**
+ * OpenOffice文档转化工具
+ *
  * @author 李磊
- * @datetime 2020/2/22 0:24
- * @description openOffice转化文档工具类
  */
 @Slf4j
 @Component

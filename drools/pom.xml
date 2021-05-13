@@ -9,9 +9,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>drools</artifactId>
-    <version>1.0</version>
-    <name>drools</name>
-    <description>drools</description>
 
     <properties>
         <drools.version>7.45.0.Final</drools.version>

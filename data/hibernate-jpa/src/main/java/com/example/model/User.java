@@ -10,12 +10,11 @@ import java.util.List;
 
 /**
  * @author 李磊
- * @datetime 2019/12/26 22:19
- * @description 用户
  */
 @Data
 @ToString(exclude = {"roleList", "department"})
-@Entity // jpa检测到@Entity时 会在数据库中生成对应表结构
+// JPA检测到@Entity时 会在数据库中生成对应表结构
+@Entity
 @Table(name = "user")
 public class User extends BaseEntity {
 

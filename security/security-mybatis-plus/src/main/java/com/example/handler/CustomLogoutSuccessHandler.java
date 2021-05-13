@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 自定义注销成功后处理器
+ *
  * @author 李磊
- * @datetime 2020/6/22 0:08
- * @description 自定义注销成功后处理器
  */
 public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
     @Override

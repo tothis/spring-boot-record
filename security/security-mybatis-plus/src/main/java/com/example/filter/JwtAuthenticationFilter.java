@@ -23,9 +23,9 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * 自定义JWT认证过滤器
+ *
  * @author 李磊
- * @datetime 2020/6/22 0:08
- * @description 自定义jwt认证过滤器
  */
 @Slf4j
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {

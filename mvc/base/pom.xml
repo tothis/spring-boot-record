@@ -9,9 +9,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>mvc-base</artifactId>
-    <version>1.0</version>
-    <name>mvc-base</name>
-    <description>mvc-base</description>
 
     <properties>
         <commons-net.version>3.6</commons-net.version>
@@ -22,9 +19,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.example</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>jackson</artifactId>
-            <version>1.0</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <!-- ftp工具 -->

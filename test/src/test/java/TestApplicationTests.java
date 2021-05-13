@@ -1,4 +1,4 @@
-import com.example.CommonApplication;
+import com.example.TestApplication;
 import com.example.util.ContextUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +8,11 @@ import org.springframework.core.env.Environment;
 /**
  * @author 李磊
  */
-@SpringBootTest(classes = CommonApplication.class)
-class ApplicationTest {
-
-    private Environment e;
+@SpringBootTest(classes = TestApplication.class)
+class TestApplicationTests {
 
     @Autowired
-    public void setE(Environment e) {
-        this.e = e;
-    }
+    private Environment e;
 
     @Test
     void contextLoads() {

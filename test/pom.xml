@@ -8,9 +8,6 @@
         <version>1.0</version>
     </parent>
     <artifactId>test</artifactId>
-    <version>1.0</version>
-    <name>test</name>
-    <description>test</description>
 
     <build>
         <plugins>
