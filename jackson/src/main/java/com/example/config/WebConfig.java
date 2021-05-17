@@ -1,7 +1,6 @@
 package com.example.config;
 
 import com.example.converter.DateConverter;
-import com.example.converter.DefaultHttpMessageConverter;
 import com.example.converter.LocalDateTimeConverter;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -24,7 +23,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        // Controller方法get请求时会使用converter转化
+        // Controller方法不接受JSON参数时会使用converter转化
         registry.addConverter(new DateConverter());
         registry.addConverter(new LocalDateTimeConverter());
     }
@@ -53,7 +52,7 @@ public class WebConfig implements WebMvcConfigurer {
                 }
             }
         });
-        MappingJackson2HttpMessageConverter converter = new DefaultHttpMessageConverter();
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setObjectMapper(mapper);
         return converter;
     }

@@ -1,3 +1,4 @@
+# sign
 POST localhost:8080
 Content-Type: application/json
 sign: 5964385f1c6ab569d98c134cf7c0975b
@@ -6,3 +7,20 @@ sign: 5964385f1c6ab569d98c134cf7c0975b
   "name": "lilei",
   "age": 18
 }
+
+### tirm
+GET http://localhost:8080/?name=%20lilei%20&age=18
+
+### tirm
+POST http://localhost:8080
+Content-Type: application/json
+
+{
+  "name": " lilei "
+}
+
+### tirm
+GET http://localhost:8080/get/%20lilei%20
+
+### tirm
+POST http://localhost:8080/post/%20lilei%20

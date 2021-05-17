@@ -5,8 +5,8 @@ lilei:
     enabled: false
   # 参数去除前后空格
   trim:
-    enabled: false
+    enabled: true
   # 参数签名验证
   sign:
-    enabled: true
+    enabled: false
     salt: LILEI

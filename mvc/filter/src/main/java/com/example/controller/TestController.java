@@ -1,9 +1,7 @@
 package com.example.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.entity.ResultEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -12,12 +10,23 @@ import java.util.Map;
  */
 @RestController
 public class TestController {
-    @PostMapping
-    Map test(@RequestBody Map params) {
-        return params;
+    @GetMapping
+    Map get(@RequestParam Map param) {
+        return param;
     }
 
-    @GetMapping
-    void get() {
+    @PostMapping
+    Map post(@RequestBody Map param) {
+        return param;
+    }
+
+    @GetMapping("get/{value}")
+    ResultEntity get(@PathVariable String value) {
+        return ResultEntity.ok(value);
+    }
+
+    @PostMapping("post/{value}")
+    ResultEntity post(@PathVariable String value) {
+        return ResultEntity.ok(value);
     }
 }

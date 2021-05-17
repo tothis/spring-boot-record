@@ -9,7 +9,6 @@ import com.example.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.Ordered;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -37,13 +36,8 @@ public class TrimFilter extends OncePerRequestFilter implements Ordered {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response
             , FilterChain chain) throws IOException, ServletException {
-        String method = request.getMethod();
-        if (method.equals(HttpMethod.POST.name()) || method.equals(HttpMethod.PUT.name())) {
-            ParameterRequestWrapper paramsRequest = new ParameterRequestWrapper(request);
-            chain.doFilter(paramsRequest, response);
-        } else {
-            chain.doFilter(request, response);
-        }
+        ParameterRequestWrapper paramsRequest = new ParameterRequestWrapper(request);
+        chain.doFilter(paramsRequest, response);
     }
 
     @Override
