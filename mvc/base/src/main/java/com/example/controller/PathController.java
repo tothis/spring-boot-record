@@ -37,7 +37,8 @@ public class PathController {
         String param = HttpUtil.param(request.getParameterMap());
         String hostName = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
         Object pathName1 = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
-        String pathName2 = request.getRequestURI();
+        // request.getRequestURI() 获取的路径包含 nginx 转发前缀
+        String pathName2 = request.getServletPath();
         StringBuffer url = request.getRequestURL();
         return new ArrayList() {{
             add(hostName + pathName1 + param);

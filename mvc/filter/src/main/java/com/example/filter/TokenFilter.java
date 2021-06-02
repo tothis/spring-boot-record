@@ -39,7 +39,7 @@ public class TokenFilter extends OncePerRequestFilter implements Ordered {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response
             , FilterChain chain) throws IOException, ServletException {
-        if (WHITELIST.contains(request.getRequestURI())) {
+        if (WHITELIST.contains(request.getServletPath())) {
             chain.doFilter(request, response);
             return;
         }

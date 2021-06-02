@@ -63,11 +63,10 @@ public class WebConfig implements WebMvcConfigurer {
      * @return
      */
     @Bean
-    public FilterRegistrationBean someFilterRegistration() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
+    public FilterRegistrationBean<CorsFilter> someFilterRegistration() {
+        FilterRegistrationBean<CorsFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(new CorsFilter());
         registration.addUrlPatterns("/api/*");
-        registration.setName("corsFilter");
         registration.setOrder(1);
         return registration;
     }
