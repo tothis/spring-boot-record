@@ -20,11 +20,11 @@ public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
     public RestHighLevelClient elasticsearchClient() {
         ClientConfiguration config = ClientConfiguration.builder()
                 .connectedTo("localhost:9200")
-                // .withConnectTimeout(Duration.ofSeconds(5))
-                // .withSocketTimeout(Duration.ofSeconds(3))
-                // .usingSsl()
-                // .withDefaultHeaders(defaultHeaders)
-                // .withBasicAuth(username, password)
+                /*.usingSsl()
+                .withConnectTimeout(Duration.ofSeconds(5))
+                .withSocketTimeout(Duration.ofSeconds(3))
+                .withDefaultHeaders(defaultHeaders)
+                .withBasicAuth(username, password)*/
                 .build();
         return RestClients.create(config).rest();
     }

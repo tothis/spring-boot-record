@@ -1,4 +1,5 @@
 package com.example.util;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
@@ -11,13 +12,13 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Redis工具类
+ * Redis 工具类
  *
  * @author 李磊
  */
 @Slf4j
 @Component
-public class RedisUtil {
+public final class RedisUtil {
 
     private static RedisTemplate template;
     private static ValueOperations value;
@@ -26,14 +27,7 @@ public class RedisUtil {
     private static SetOperations set;
     private static ZSetOperations zSet;
 
-    @Autowired
-    private void setRedisTemplate(RedisTemplate template) {
-        RedisUtil.template = template;
-        RedisUtil.value = template.opsForValue();
-        RedisUtil.hash = template.opsForHash();
-        RedisUtil.list = template.opsForList();
-        RedisUtil.set = template.opsForSet();
-        RedisUtil.zSet = template.opsForZSet();
+    private RedisUtil() {
     }
 
     /**
@@ -42,7 +36,7 @@ public class RedisUtil {
      * @param key -
      * @return -
      */
-    public static <V> V get(String key) {
+    public static <V> V get(final String key) {
         return (V) value.get(key);
     }
 
@@ -53,77 +47,77 @@ public class RedisUtil {
      * @param value -
      * @return -
      */
-    public static <V> void set(String key, V value) {
+    public static <V> void set(final String key, final V value) {
         RedisUtil.value.set(key, value);
     }
 
     /**
-     * 写入缓存设置时效时间
+     * 写入缓存并设置过期时间
      *
      * @param key   -
      * @param value -
      * @return -
      */
-    public static <V> void set(String key, V value, long expireTime, TimeUnit timeUnit) {
+    public static <V> void set(final String key, final V value, final long expireTime, final TimeUnit timeUnit) {
         RedisUtil.value.set(key, value, expireTime, timeUnit);
     }
 
     /**
-     * 批量删除对应的value
+     * 批量删除指定 value
      *
      * @param keys -
      */
-    public static <K> long delete(Collection<K> keys) {
+    public static long delete(final Collection<String> keys) {
         return template.delete(keys);
     }
 
     /**
-     * 批量删除key
+     * 批量删除 key
      *
      * @param pattern -
      */
-    public static long deletePattern(String pattern) {
+    public static long deletePattern(final String pattern) {
         return delete(keys(pattern));
     }
 
     /**
-     * 删除对应的value
+     * 删除指定 value
      *
      * @param key -
      */
-    public static boolean delete(String key) {
+    public static boolean delete(final String key) {
         return template.delete(key);
     }
 
     /**
-     * 判断缓存中是否有对应的value
+     * 是否存在 key
      *
      * @param key -
      * @return -
      */
-    public static boolean hasKey(String key) {
+    public static boolean hasKey(final String key) {
         return template.hasKey(key);
     }
 
     /**
-     * 哈希添加
+     * hash 添加
      *
      * @param key     -
      * @param hashKey -
      * @param value   -
      */
-    public static <HV> void hashPut(String key, String hashKey, HV value) {
+    public static <HV> void hashPut(final String key, final String hashKey, final HV value) {
         hash.put(key, hashKey, value);
     }
 
     /**
-     * 哈希获取数据
+     * hash 获取数据
      *
      * @param key     -
      * @param hashKey -
      * @return -
      */
-    public static <HV> HV hashGet(String key, String hashKey) {
+    public static <HV> HV hashGet(final String key, final String hashKey) {
         return (HV) hash.get(key, hashKey);
     }
 
@@ -131,38 +125,38 @@ public class RedisUtil {
      * @param key        -
      * @param hashKeyMap -
      */
-    public static <HV> void hashPutAll(String key, Map<String, HV> hashKeyMap) {
+    public static <HV> void hashPutAll(final String key, final Map<String, HV> hashKeyMap) {
         hash.putAll(key, hashKeyMap);
     }
 
     /**
-     * Hash数据类型 查找 key绑定的hash集合中hashKey的元素是否存在
+     * hash 查看元素是否存在
      *
      * @param key     -
      * @param hashKey -
      * @return -
      */
-    public static boolean hashHasKey(String key, String hashKey) {
+    public static boolean hashHasKey(final String key, final String hashKey) {
         return hash.hasKey(key, hashKey);
     }
 
     /**
-     * 获取hash所有值
+     * hash 获取所有值
      *
      * @param key -
      * @return -
      */
-    public static <HV> Map<String, HV> hashGetAll(String key) {
+    public static <HV> Map<String, HV> hashGetAll(final String key) {
         return hash.entries(key);
     }
 
     /**
-     * 哈希数据删除
+     * hash 数据删除
      *
      * @param key      -
      * @param hashKeys -
      */
-    public static long hashDelete(String key, String... hashKeys) {
+    public static long hashDelete(final String key, final String... hashKeys) {
         return hash.delete(key, hashKeys);
     }
 
@@ -170,32 +164,32 @@ public class RedisUtil {
      * @param pattern -
      * @return -
      */
-    public static Set<String> keys(String pattern) {
+    public static Set<String> keys(final String pattern) {
         return template.keys(pattern);
     }
 
     /**
-     * 集合列表右添加
+     * list 右添加
      *
      * @param key   -
      * @param value -
      */
-    public static <V> long listRightPush(String key, V value) {
+    public static <V> long listRightPush(final String key, final V value) {
         return list.rightPush(key, value);
     }
 
-    public static <V> long listLeftPush(String key, V value) {
+    public static <V> long listLeftPush(final String key, final V value) {
         return list.leftPush(key, value);
     }
 
     /**
-     * 获取指定位置下标list数据
+     * 获取 list 指定下标数据
      *
      * @param key   -
      * @param index -
      * @return -
      */
-    public static <V> V listGet(String key, long index) {
+    public static <V> V listGet(final String key, final long index) {
         return (V) list.index(key, index);
     }
 
@@ -205,90 +199,97 @@ public class RedisUtil {
      * @param key   -
      * @param begin 开始
      * @param end   结束
-     * @return 0  -1表示全部
+     * @return -
      */
-    public static <V> List<V> listRange(String key, long begin, long end) {
+    public static <V> List<V> listRange(final String key, final long begin, final long end) {
         return list.range(key, begin, end);
     }
 
-    public static <V> List<V> listGetAll(String key) {
+    /**
+     * 获取 list 所有数据
+     * <p>
+     * 0  -1表示全部
+     *
+     * @param key -
+     * @return -
+     */
+    public static <V> List<V> listGetAll(final String key) {
         return listRange(key, 0L, -1L);
     }
 
-    public static long listSize(String key) {
+    public static long listSize(final String key) {
         return list.size(key);
     }
 
     /**
-     * 删除集合
+     * 删除 list 中值为 value 的 num 个数据
      *
      * @param key   -
      * @param count -
      * @param value -
      */
-    public static <V> long listRemove(String key, long count, V value) {
-        // 删除key中值为value的num个 返回删除的个数 如果没有这个元素则返回0
+    public static <V> long listRemove(final String key, final long count, final V value) {
         return list.remove(key, count, value);
     }
 
     /**
-     * 修改list集合中的某个数据
+     * 修改 list 中某个数据
      *
      * @param key   -
      * @param index -
      * @param value -
      */
-    public static <V> void listUpdate(String key, long index, V value) {
+    public static <V> void listUpdate(final String key, final long index, final V value) {
         list.set(key, index, value);
     }
 
     /**
-     * set集合添加
+     * 添加 set
      *
      * @param key   -
      * @param value -
      */
-    public static <V> long setAdd(String key, V... value) {
+    public static <V> long setAdd(final String key, final V... value) {
         return set.add(key, value);
     }
 
     /**
-     * 删除set中指定的一条数据
+     * 删除 set 中指定数据
      *
      * @param key   -
      * @param value -
      */
-    public static <V> long setRemove(String key, V value) {
+    public static <V> long setRemove(final String key, final V... value) {
         return set.remove(key, value);
     }
 
     /**
-     * set集合获取
+     * 获取 set
      *
      * @param key -
      * @return -
      */
-    public static <V> Set<V> setMembers(String key) {
+    public static <V> Set<V> setMembers(final String key) {
         return set.members(key);
     }
 
     /**
-     * set集合获取size
+     * 获取 set size
      *
      * @param key -
      * @return -
      */
-    public static long setSize(String key) {
+    public static long setSize(final String key) {
         return set.size(key);
     }
 
     /**
-     * set集合检查是否存在此值
+     * 检查 set 是否存在此值
      *
      * @param key -
      * @return -
      */
-    public static <V> boolean setIsMember(String key, V value) {
+    public static <V> boolean setIsMember(final String key, final V value) {
         return set.isMember(key, value);
     }
 
@@ -299,7 +300,7 @@ public class RedisUtil {
      * @param value -
      * @param score -
      */
-    public static <V> boolean zSetAdd(String key, V value, double score) {
+    public static <V> boolean zSetAdd(final String key, final V value, final double score) {
         return zSet.add(key, value, score);
     }
 
@@ -311,7 +312,7 @@ public class RedisUtil {
      * @param max -
      * @return -
      */
-    public static <V> Set<V> zSetRangeByScore(String key, double min, double max) {
+    public static <V> Set<V> zSetRangeByScore(final String key, final double min, final double max) {
         return zSet.rangeByScore(key, min, max);
     }
 
@@ -322,40 +323,40 @@ public class RedisUtil {
      * @param value -
      * @return -
      */
-    public static <V> double zSetScore(String key, V value) {
+    public static <V> double zSetScore(final String key, final V value) {
         return zSet.score(key, value);
     }
 
-    public static <V> long zSetRemove(String key, V... values) {
+    public static <V> long zSetRemove(final String key, final V... values) {
         return zSet.remove(key, values);
     }
 
     /**
-     * 查找value的索引
+     * 查找 value 索引
      *
      * @param key   -
      * @param value -
      * @return -
      */
-    public static <V> long zSetReverseRank(String key, V value) {
+    public static <V> long zSetReverseRank(final String key, final V value) {
         return zSet.reverseRank(key, value);
     }
 
-    public static long zSetSize(String key) {
+    public static long zSetSize(final String key) {
         return zSet.size(key);
     }
 
-    public static long zSetRemoveRangeByScore(String key, double min, double max) {
+    public static long zSetRemoveRangeByScore(final String key, final double min, final double max) {
         return zSet.removeRangeByScore(key, min, max);
     }
 
     /**
-     * 获取key的过期时间
+     * 获取 key 过期时间
      *
      * @param key -
      * @return -
      */
-    public static long getExpire(String key) {
+    public static long getExpire(final String key) {
         return template.getExpire(key);
     }
 
@@ -366,7 +367,7 @@ public class RedisUtil {
      * @param number -
      * @return -
      */
-    public static long increment(String key, long number) {
+    public static long increment(final String key, final long number) {
         return value.increment(key, number);
     }
 
@@ -376,17 +377,27 @@ public class RedisUtil {
      * @param key -
      * @return -
      */
-    public static long increment(String key) {
+    public static long increment(final String key) {
         return value.increment(key);
     }
 
     /**
-     * 修改key
+     * 修改 key
      *
      * @param oldKey -
      * @param newKey -
      */
-    public static void rename(String oldKey, String newKey) {
+    public static void rename(final String oldKey, final String newKey) {
         template.rename(oldKey, newKey);
+    }
+
+    @Autowired
+    private void setRedisTemplate(final RedisTemplate template) {
+        RedisUtil.template = template;
+        RedisUtil.value = template.opsForValue();
+        RedisUtil.hash = template.opsForHash();
+        RedisUtil.list = template.opsForList();
+        RedisUtil.set = template.opsForSet();
+        RedisUtil.zSet = template.opsForZSet();
     }
 }

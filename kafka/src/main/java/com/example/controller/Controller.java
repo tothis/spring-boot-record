@@ -10,16 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Controller {
 
-    private final String SUCCESS = "success";
     private final Producer producer;
 
-    public Controller(Producer producer) {
+    Controller(final Producer producer) {
         this.producer = producer;
     }
 
     @GetMapping
-    public String send() {
-        producer.send();
-        return SUCCESS;
+    String send() {
+        return producer.send();
     }
 }

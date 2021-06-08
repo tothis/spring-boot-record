@@ -6,17 +6,19 @@ spring:
       retries: 0
       # 每次批量发送消息的数量
       batch-size: 16384
+      # 32 MB： 32 * 1024 * 1024
       buffer-memory: 33554432
-      # 指定消息key和消息体的编解码方式
+      # 指定消息 key 和消息体的序列化方式，默认为 StringSerializer。
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.example.serializer.MessageSerializer
     # 消费者
     consumer:
-      # 指定默认消费者group id
+      # 指定默认消费者 group ID
       group-id: test-group
       auto-commit-interval: 100
       auto-offset-reset: earliest
-      enable-auto-commit: true
-      # 指定消息key和消息体的编解码方式
+      # 指定消息 key 和消息体的反序列化方式，默认为 StringDeserializer。
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: com.example.serializer.MessageDeserializer
+    listener:
+      ack-mode: manual_immediate
