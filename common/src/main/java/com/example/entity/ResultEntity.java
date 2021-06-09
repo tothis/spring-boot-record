@@ -2,6 +2,7 @@ package com.example.entity;
 
 import com.example.type.MessageType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Setter;
  *
  * @author 李磊
  */
+@NoArgsConstructor
 @Getter
 @Setter
 public class ResultEntity<T> {
@@ -27,6 +29,11 @@ public class ResultEntity<T> {
     private String message;
 
     private T data;
+
+    public ResultEntity(MessageType type) {
+        this.code = type.getCode();
+        this.message = type.getMessage();
+    }
 
     public static <T> ResultEntity<T> ok(T data) {
         if (data == null) {

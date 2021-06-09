@@ -53,6 +53,15 @@ public final class JsonUtil {
         return null;
     }
 
+    public static <T> T toObject(String content, JavaType reference) {
+        try {
+            return MAPPER.readValue(content, reference);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static <T> T toObject(InputStream in, Class<T> valueType) {
         try {
             return MAPPER.readValue(in, valueType);

@@ -18,7 +18,7 @@ import java.lang.annotation.Annotation;
  *
  * @author 李磊
  */
-// 配置basePackages 防止修改第三方jar返回值 如swagger
+// 配置 basePackages 防止修改第三方 JAR 返回值。如：Swagger
 @RestControllerAdvice(basePackages = "com.example")
 public class ResponseHandler implements ResponseBodyAdvice<Object> {
 
@@ -26,7 +26,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
             = ResponseBody.class;
 
     /**
-     * 判断类或者方法是否使用@ResponseBody
+     * 判断类或者方法是否使用 @ResponseBody
      */
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
@@ -36,11 +36,11 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
     }
 
     /**
-     * 当类或者方法已使用@ResponseBody时 会调用此方法
+     * 当类或者方法已使用 @ResponseBody 时会调用此方法
      */
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        // 防止嵌套GlobalExceptionHandler处理后的数据
+        // 防止嵌套 GlobalExceptionHandler 处理后的数据
         return o instanceof ResultEntity ? o : ResultEntity.ok(o);
     }
 }

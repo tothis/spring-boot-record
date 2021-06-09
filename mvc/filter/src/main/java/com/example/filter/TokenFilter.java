@@ -6,7 +6,6 @@ import com.example.util.ServletUtil;
 import com.example.util.UserUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -20,14 +19,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * token过滤器
+ * token 过滤器
+ * <p>
+ * 使用 FilterRegistrationBean 注册过滤器时，实现 Ordered 中的 getOrder 会失效。
  *
  * @author 李磊
  */
 @Slf4j
 @Component
 @ConditionalOnProperty(value = "lilei.token.enabled", havingValue = "true")
-public class TokenFilter extends OncePerRequestFilter implements Ordered {
+public class TokenFilter extends OncePerRequestFilter {
 
     /**
      * 接口白名单
@@ -47,10 +48,10 @@ public class TokenFilter extends OncePerRequestFilter implements Ordered {
             /*String token = request.getHeader(CommonConstant.TOKEN_HEADER);
             Long userId = */
             UserUtil.getUserId();
-            // 刷新token过期时间 30分钟后失效
+            // 刷新 token 过期时间，30 分钟后失效。
             // RedisUtil.set(RedisKeyConstant.TOKEN + token, userId, 30, TimeUnit.MINUTES);
         } catch (GlobalException e) {
-            // @ControllerAdvice无法捕获Filter中的异常 此处手动返回前端异常数据
+            // @ControllerAdvice 无法捕获 Filter 中的异常 此处手动返回前端异常数据
             ResultEntity entity = new ResultEntity();
             entity.setCode(e.getCode());
             entity.setMessage(e.getMessage());
@@ -58,11 +59,5 @@ public class TokenFilter extends OncePerRequestFilter implements Ordered {
             return;
         }
         chain.doFilter(request, response);
-    }
-
-    @Override
-    public int getOrder() {
-        log.info("token启动");
-        return 0;
     }
 }

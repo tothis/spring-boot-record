@@ -18,7 +18,7 @@ public class UserUtil {
         if (o == null) {
             throw new GlobalException(MessageType.USER_TOKEN_INVALID);
         }
-        // redisTemplate获取Long值方式
+        // redisTemplate 获取 Long 值方式
         return ((Integer) o).longValue();*/
     }
 

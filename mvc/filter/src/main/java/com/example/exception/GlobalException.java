@@ -1,5 +1,6 @@
 package com.example.exception;
 
+import com.example.type.MessageType;
 import lombok.Getter;
 
 /**
@@ -10,8 +11,8 @@ import lombok.Getter;
 @Getter
 public class GlobalException extends RuntimeException {
 
-    private long code;
-    private String message;
+    private final long code;
+    private final String message;
 
     public GlobalException(MessageType type) {
         this.code = type.getCode();

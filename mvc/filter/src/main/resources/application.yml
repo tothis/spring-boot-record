@@ -2,11 +2,11 @@
 lilei:
   # 令牌验证
   token:
-    enabled: false
-  # 参数去除前后空格
-  trim:
+    enabled: true
+  # 记录日志
+  log:
     enabled: true
   # 参数签名验证
   sign:
-    enabled: false
+    enabled: true
     salt: LILEI

@@ -1,45 +1,41 @@
 package com.example.util;
 
+import cn.hutool.json.JSONUtil;
+import lombok.experimental.UtilityClass;
+import org.springframework.http.MediaType;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 /**
- * servlet工具类
+ * Servlet 工具类
  *
  * @author 李磊
  */
+@UtilityClass
 public class ServletUtil {
-    public static ServletRequestAttributes requestAttributes() {
+    public ServletRequestAttributes requestAttributes() {
         // 获取到当前线程绑定的请求对象
         return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     }
 
-    public static HttpServletRequest request() {
-        // 获取到当前线程绑定的请求对象
+    public HttpServletRequest request() {
         return requestAttributes().getRequest();
     }
 
-    public static HttpServletResponse response() {
+    public HttpServletResponse response() {
         return requestAttributes().getResponse();
     }
 
-    public static HttpSession session() {
-        return request().getSession();
-    }
-
-    public static <T> T sessionAttr(String name) {
-        return (T) session().getAttribute(name);
-    }
-
-    public static boolean isAjax() {
-        return isAjax(request());
-    }
-
-    public static boolean isAjax(HttpServletRequest request) {
-        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+    public <T> void write(T data) throws IOException {
+        String content = JSONUtil.toJsonStr(data);
+        HttpServletResponse response = response();
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        // 防止中文乱码
+        response.setCharacterEncoding("utf8");
+        response.getWriter().write(content);
     }
 }

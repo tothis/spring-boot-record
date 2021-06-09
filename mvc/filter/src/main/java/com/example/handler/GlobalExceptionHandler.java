@@ -2,7 +2,7 @@ package com.example.handler;
 
 import com.example.entity.ResultEntity;
 import com.example.exception.GlobalException;
-import com.example.exception.MessageType;
+import com.example.type.MessageType;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
