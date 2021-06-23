@@ -26,11 +26,12 @@ import java.time.format.DateTimeFormatter;
 @Configuration
 public class JacksonConfig {
 
-    @Value("${spring.jackson.date-format:yyyy-MM-dd HH:mm:ss}")
+    @Value("${spring.jackson.date-format}")
     private String pattern;
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer builderCustomizer() {
+        // 从 JSON 反序列化为 Java 对象时生效，即 get 请求的参数无法拦截（可通过 Converter 实现拦截）
         return builder -> {
             builder.serializerByType(LocalDateTime.class
                     , new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(pattern)));

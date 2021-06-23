@@ -1,0 +1,4 @@
+# 自定义变量
+lilei:
+  elasticsearch:
+    host-and-ports: 192.168.1.128:9200

@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 public class GlobalException extends RuntimeException {
 
-    private final long code;
+    private final int code;
     private final String message;
 
     public GlobalException(MessageType type) {

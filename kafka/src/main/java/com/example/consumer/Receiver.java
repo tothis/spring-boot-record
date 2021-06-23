@@ -25,7 +25,7 @@ public class Receiver {
         // 发送 ACK
         ack.acknowledge();
     }*/
-    void listen(ConsumerRecord<String, Message<Integer>> record, final Acknowledgment ack) {
+    void listener(final ConsumerRecord<String, Message<Integer>> record, final Acknowledgment ack) {
         Optional<Message<Integer>> kafkaMessage = Optional.ofNullable(record.value());
         // Kafka send 未实现 Serializable 的实体 此处会接收到空的 Optional
         if (kafkaMessage.isPresent()) {

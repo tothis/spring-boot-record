@@ -12,10 +12,10 @@ public enum MessageType {
     OK(0, "请求成功"),
     SYSTEM_ERROR(-1, "系统错误");
 
-    private final long code;
+    private final int code;
     private final String message;
 
-    MessageType(long code, String message) {
+    MessageType(final int code, final String message) {
         this.code = code;
         this.message = message;
     }

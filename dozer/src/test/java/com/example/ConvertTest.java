@@ -27,10 +27,10 @@ public class ConvertTest {
             setUserName("李磊");
             setPassword("密码");
         }};
-        long number = 1000_1000;
+        int number = 1000_1000;
 
         long begin = System.currentTimeMillis();
-        for (long i = 0L; i < number; i++) {
+        for (int i = 0; i < number; i++) {
             UserDTO userDTO = new UserDTO();
             userDTO.setUserName(user.getUserName());
             userDTO.setPassword(user.getPassword());
@@ -38,25 +38,25 @@ public class ConvertTest {
         System.out.println(System.currentTimeMillis() - begin);
 
         begin = System.currentTimeMillis();
-        for (long i = 0L; i < number; i++) {
+        for (int i = 0; i < number; i++) {
             beanCopier.copy(user, new UserDTO(), null);
         }
         System.out.println(System.currentTimeMillis() - begin);
 
         begin = System.currentTimeMillis();
-        for (long i = 0L; i < number; i++) {
+        for (int i = 0; i < number; i++) {
             BeanUtils.copyProperties(user, new UserDTO());
         }
         System.out.println(System.currentTimeMillis() - begin);
 
         begin = System.currentTimeMillis();
-        for (long i = 0L; i < number; i++) {
+        for (int i = 0; i < number; i++) {
             mapper.map(user, UserDTO.class);
         }
         System.out.println(System.currentTimeMillis() - begin);
 
         begin = System.currentTimeMillis();
-        for (long i = 0L; i < number; i++) {
+        for (int i = 0; i < number; i++) {
             PropertyUtils.copyProperties(new UserDTO(), user);
         }
         System.out.println(System.currentTimeMillis() - begin);

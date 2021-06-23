@@ -24,7 +24,7 @@ public class ResultEntity<T> {
         OK = r;
     }
 
-    private long code;
+    private int code;
 
     private String message;
 
