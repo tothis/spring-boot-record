@@ -26,6 +26,8 @@ public final class RedisUtil {
     private static ListOperations list;
     private static SetOperations set;
     private static ZSetOperations zSet;
+    private static StringRedisTemplate stringTemplate;
+    private static ValueOperations stringValue;
 
     private RedisUtil() {
     }
@@ -38,6 +40,16 @@ public final class RedisUtil {
      */
     public static <V> V get(final String key) {
         return (V) value.get(key);
+    }
+
+    /**
+     * 读取缓存
+     *
+     * @param key -
+     * @return -
+     */
+    public static String getString(final String key) {
+        return (String) stringValue.get(key);
     }
 
     /**
@@ -60,6 +72,29 @@ public final class RedisUtil {
      */
     public static <V> void set(final String key, final V value, final long expireTime, final TimeUnit timeUnit) {
         RedisUtil.value.set(key, value, expireTime, timeUnit);
+    }
+
+
+    /**
+     * 写入缓存
+     *
+     * @param key   -
+     * @param value -
+     * @return -
+     */
+    public static <V> void setString(final String key, final V value) {
+        stringValue.set(key, value);
+    }
+
+    /**
+     * 写入缓存并设置过期时间
+     *
+     * @param key   -
+     * @param value -
+     * @return -
+     */
+    public static <V> void setString(final String key, final String value, final long expireTime, final TimeUnit timeUnit) {
+        stringValue.set(key, value, expireTime, timeUnit);
     }
 
     /**
@@ -399,5 +434,11 @@ public final class RedisUtil {
         RedisUtil.list = template.opsForList();
         RedisUtil.set = template.opsForSet();
         RedisUtil.zSet = template.opsForZSet();
+    }
+
+    @Autowired
+    private void setStringRedisTemplate(final StringRedisTemplate stringTemplate) {
+        RedisUtil.stringTemplate = stringTemplate;
+        RedisUtil.stringValue = stringTemplate.opsForValue();
     }
 }

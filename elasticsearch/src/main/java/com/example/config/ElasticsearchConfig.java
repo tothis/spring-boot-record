@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.convert.ReadingConverter;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
@@ -53,7 +54,10 @@ public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
 
     /**
      * 查询时 Long 转 LocalDateTime
+     *
+     * @ReadingConverter 保证仅在查询时使用
      */
+    @ReadingConverter
     enum LongToLocalDateTimeConverter implements Converter<Long, LocalDateTime> {
         INSTANCE;
 
@@ -66,6 +70,7 @@ public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
     /**
      * 查询时 Long 转 LocalDate
      */
+    @ReadingConverter
     enum LongToLocalDateConverter implements Converter<Long, LocalDate> {
         INSTANCE;
 
