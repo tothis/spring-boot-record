@@ -2,32 +2,26 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!-- 继承父工程 -->
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>mybatis</artifactId>
+        <artifactId>spring-boot-record</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>mybatis-base</artifactId>
+    <artifactId>netty</artifactId>
+
+    <properties>
+        <netty.version>4.1.65.Final</netty.version>
+    </properties>
 
     <dependencies>
-        <!-- AOP -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>${netty.version}</version>
         </dependency>
     </dependencies>
 
     <build>
-        <resources>
-            <!-- Maven 编译 src 目录时，打包 XML 文件 -->
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

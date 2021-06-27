@@ -1,14 +1,15 @@
 package com.example;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@MapperScan("com.example.mapper")
+/**
+ * @author 李磊
+ */
 @SpringBootApplication
-public class MyBatisBaseApplication {
+public class NettyApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MyBatisBaseApplication.class, args);
+        SpringApplication.run(NettyApplication.class, args);
     }
 }

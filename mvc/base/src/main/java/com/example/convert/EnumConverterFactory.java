@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 
 /**
  * 枚举转化类
+ *
+ * @author 李磊
  */
 public class EnumConverterFactory implements ConverterFactory<String, Enum> {
     @Override

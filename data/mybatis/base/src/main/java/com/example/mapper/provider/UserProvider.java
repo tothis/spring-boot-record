@@ -9,12 +9,12 @@ import org.apache.ibatis.jdbc.SQL;
  */
 public class UserProvider {
     public String insert(User user) {
-        // return "INSERT INTO user (user_name, password, age, mail, birthday) " +
-        //         "VALUES (#{userName}, #{password}, #{age}, #{mail}, #{birthday})";
+        /*return "insert into user (name, password, age, mail, birthday) " +
+                "value (#{name}, #{password}, ${age}, #{mail}, #{birthday})";*/
         return new SQL() {{
             INSERT_INTO("user");
-            if (StringUtil.isNotBlank(user.getUserName())) {
-                VALUES("user_name", "#{userName}");
+            if (StringUtil.isNotBlank(user.getName())) {
+                VALUES("name", "#{name}");
             }
             if (StringUtil.isNotBlank(user.getPassword())) {
                 VALUES("password", "#{password}");

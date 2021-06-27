@@ -4,8 +4,8 @@
     <select id="findMap" resultMap="user">
         SELECT id, user_name, password, age, mail, birthday, address FROM `user`
         <where>
-            <if test="userName != null and userName != ''">
-                AND user_name LIKE "%"#{userName}"%"
+            <if test="name != null and name != ''">
+                AND name LIKE "%"#{name}"%"
             </if>
             <if test="age != null">
                 AND age = #{age}
@@ -14,7 +14,9 @@
     </select>
 
     <select id="dbTree" resultMap="com.example.mapper.CoreMapper.tree">
-        SELECT * FROM `tree` WHERE parent_id = #{parentId}
+        SELECT *
+        FROM `tree`
+        WHERE parent_id = #{parentId}
     </select>
 
     <resultMap id="page-data" type="map"/>
@@ -26,7 +28,13 @@
         需开启allowMultiQueries多语句执行 sql语句可携带分号
     -->
     <select id="findPage" resultMap="page-data,page-count">
-        SELECT SQL_CALC_FOUND_ROWS * FROM `user` LIMIT 0, 2;
+        SELECT SQL_CALC_FOUND_ROWS *
+        FROM `user`
+        LIMIT 0, 2;
         SELECT FOUND_ROWS() `count`;
+    </select>
+
+    <select id="selectInner" resultType="com.example.model.User$Address">
+        select 0 id, 0 userId, 'detail' detail
     </select>
 </mapper>
