@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -25,55 +24,38 @@ import java.util.Map;
  */
 @RequestMapping("captcha")
 @Controller
-public class CaptchaController {
+public class CaptchaController extends BaseController {
 
     private final String KEY_CAPTCHA = "KEY_CAPTCHA";
 
     private final String FORMAT_NAME = "JPG";
 
-    // 返回值为void produces属性不生效
-    // 返回值不为void response.setContentType不生效
-    @GetMapping("jpg")
-    public void captcha(HttpSession session, HttpServletResponse response) {
-        // 设置相应类型 告诉浏览器输出的内容为图片
-        // response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+    @ResponseBody
+    @GetMapping(value = "jpg", produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] jpg() {
         // 不缓存此内容
         response.setHeader("Cache-Control", "no-cache");
-        try {
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             StringBuffer code = new StringBuffer();
             BufferedImage image = new CaptchaUtil().genRandomCodeImage(code);
             session.setAttribute(KEY_CAPTCHA, code.toString());
             // 将内存中的图片通过流动形式输出到客户端
-            ImageIO.write(image, FORMAT_NAME, response.getOutputStream());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 生成的验证码 返回图片base64码
-     */
-    @ResponseBody
-    @GetMapping("base64")
-    public String captchaBase64(HttpSession session) {
-
-        StringBuffer code = new StringBuffer();
-        BufferedImage image = new CaptchaUtil().genRandomCodeImage(code);
-        session.setAttribute(KEY_CAPTCHA, code.toString());
-
-        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-            // 将内存中的图片通过流动形式输出自己数组输出流
-            ImageIO.write(image, FORMAT_NAME, byteArrayOutputStream);
-            // 将图片转为base64字符
-            byte[] bytes = byteArrayOutputStream.toByteArray();//转换成字节
-            // 转换成base64串 删除\r\n
-            String base64 = "data:image/jpg;base64," + Base64.getEncoder().encodeToString(bytes)
-                    .replace("\n", "").replace("\r", "");
-            return base64;
+            ImageIO.write(image, FORMAT_NAME, out);
+            return out.toByteArray();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 生成的验证码并返回图片 Base64 码
+     */
+    @ResponseBody
+    @GetMapping("base64")
+    public String base64(HttpSession session) {
+        return "<img src=\"data:image/jpg;base64,"
+                + Base64.getEncoder().encodeToString(jpg()) + "\">";
     }
 
     @ResponseBody
@@ -88,7 +70,7 @@ public class CaptchaController {
             String base64Img = new String(Base64.getEncoder().encode(outputStream.toByteArray()))
                     .replace("\n", "").replace("\r", "");
             outputStream.close();
-            return "data:image/jpg;base64," + base64Img;
+            return "<img src=\"data:image/jpg;base64," + base64Img + "\">";
         } catch (IOException e) {
             e.getStackTrace();
             return null;
@@ -118,7 +100,6 @@ public class CaptchaController {
         TYPES.put("FFD8FF", "jpg");
         TYPES.put("89504E", "png");
         TYPES.put("474946", "gif");
-        TYPES.put("524946", "webp");
     }
 
     /**
@@ -152,27 +133,4 @@ public class CaptchaController {
 
         return magicNumber.toString().toUpperCase();
     }
-
-//    @ResponseBody
-//    @GetMapping(value = "captcha2", produces = MediaType.IMAGE_JPEG_VALUE)
-//    public byte[] captcha3() throws IOException {
-//        FileInputStream inputStream = new FileInputStream("E:/user/Pictures/panda.jpg");
-//        int available = inputStream.available(); // 获取字节数
-//        byte[] bytes = new byte[available];
-//        inputStream.read(bytes, 0, available);
-//        return bytes;
-//    }
-
-//    todo 返回BufferedImage失效 待解决
-//    @ResponseBody
-//    @GetMapping(value = "captcha3", produces = MediaType.IMAGE_JPEG_VALUE)
-//    public BufferedImage captcha4() {
-//        BufferedImage read = null;
-//        try {
-//            read = ImageIO.read(new FileInputStream(new File("E:/user/Pictures/panda.jpg")));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return read;
-//    }
 }

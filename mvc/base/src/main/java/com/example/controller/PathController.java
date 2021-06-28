@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.util.HttpUtil;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerMapping;
@@ -17,6 +18,7 @@ import java.util.Map;
 /**
  * @author 李磊
  */
+@RequestMapping("path")
 @RestController
 public class PathController {
 
@@ -26,14 +28,8 @@ public class PathController {
         this.mapping = mapping;
     }
 
-    /*@GetMapping("test")
-    public String test() {
-        return "test";
-    }*/
-
-    // 拦截test下的所有子路径 但会被test test/xxxx等路径替代
-    @GetMapping("test/**")
-    public List test(HttpServletRequest request) {
+    @GetMapping("**")
+    public List<String> test(HttpServletRequest request) {
         String param = HttpUtil.param(request.getParameterMap());
         String hostName = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
         Object pathName1 = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
@@ -55,10 +51,14 @@ public class PathController {
             HashMap<String, Object> urlMap = new HashMap<>();
             RequestMappingInfo info = entry.getKey();
             HandlerMethod method = entry.getValue();
-            urlMap.put("requestURL", info.getPatternsCondition().getPatterns()); // url
-            urlMap.put("requestMethod", info.getMethodsCondition().getMethods()); // 请求方法
-            urlMap.put("className", method.getMethod().getDeclaringClass().getName()); // 类名
-            urlMap.put("methodName", method.getMethod().getName()); // 方法名
+            // URL
+            urlMap.put("requestURL", info.getPatternsCondition().getPatterns());
+            // 请求方法
+            urlMap.put("requestMethod", info.getMethodsCondition().getMethods());
+            // 类名
+            urlMap.put("className", method.getMethod().getDeclaringClass().getName());
+            // 方法名
+            urlMap.put("methodName", method.getMethod().getName());
             urlList.add(urlMap);
         }
         return urlList;

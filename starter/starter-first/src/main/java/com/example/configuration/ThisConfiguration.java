@@ -23,7 +23,7 @@ public class ThisConfiguration {
     private final ThisProperties properties;
 
     @Bean
-    // spring容器中没有ThisTemplate类的对象时 才调用该方法
+    // spring 容器中没有 ThisTemplate 类的对象时才调用该方法
     @ConditionalOnMissingBean(ThisTemplate.class)
     public ThisTemplate template() {
         log.info("用户信息 : {}", properties);

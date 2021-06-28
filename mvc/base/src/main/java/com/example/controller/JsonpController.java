@@ -24,8 +24,8 @@ public class JsonpController {
         class User {
             private String name;
         }
-        // 返回jackson的JSONPObject对象会解析成js对象的格式
-        // name({"data":"xxxx"]})而不是{"name": {"data":"xxxx"}}
+        // 返回 jackson 的 JSONPObject 对象会解析成 JS 对象的格式
+        // name({"data":"xxxx"]}) 而不是 {"name": {"data":"xxxx"}}
         return new JSONPObject(callbackName == null ? "name" : callbackName
                 , new HashMap<String, List<User>>() {{
             put("data", new ArrayList<User>() {{

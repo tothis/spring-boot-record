@@ -16,14 +16,13 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * @author 李磊
  */
 @RequestMapping("test")
 @Controller
-public class TestController extends BaseClass {
+public class TestController extends BaseController {
 
     private final MapConfig config;
 
@@ -33,8 +32,8 @@ public class TestController extends BaseClass {
 
     @ModelAttribute("staff")
     /**
-     * key为staff 未设置注解value值则key为user 相当于把类名转驼峰作为键名
-     * 当前类的controller可直接在参数或model中获取
+     * key 为 staff，未设置注解 value 值则 key 为 user 相当于把类名转驼峰作为键名
+     * 当前类的 controller 可直接在参数或 model 中获取
      */
     private User data(Long id, Byte age) {
         return User.builder()
@@ -45,8 +44,8 @@ public class TestController extends BaseClass {
     }
 
     /**
-     * key为author
-     * 当前类的controller只可在model中获取
+     * key 为 author
+     * 当前类的 controller 只可在 model 中获取
      */
     @ModelAttribute
     private void data(Model model, String name) {
@@ -86,7 +85,7 @@ public class TestController extends BaseClass {
                     put("name", "name3");
                 }});
             default:
-                // 直接返回json方式
+                // 直接返回 JSON 方式
                 return new ModelAndView(new MappingJackson2JsonView()) {{
                     addObject("name", "name4");
                 }};
@@ -95,7 +94,7 @@ public class TestController extends BaseClass {
 
     @GetMapping("forward1")
     public String forward1() {
-        // 被forwoard的方法请求方法必须一致 GET不能转发POST
+        // 被 forwoard 的方法请求方法必须一致，get 不能转发 post
         return "forward:"; // => /base
         // return "forward:forward2";
         // return "forward:/base/forward2";
@@ -122,7 +121,7 @@ public class TestController extends BaseClass {
     }
 
     /**
-     * 接收所有form表单name为array的值
+     * 接收所有 form 表单 name 为 array 的值
      */
     @PostMapping("array")
     public String[] array(String[] array) {
@@ -130,7 +129,7 @@ public class TestController extends BaseClass {
     }
 
     /**
-     * 接收json并转为array 接收多个参数时 只能有一个参数可使用@RequestBody
+     * 接收 JSON 并转为数组（接收多个参数时，只能有一个参数可使用 @RequestBody）
      */
     @PostMapping("json-array")
     public String[] jsonArray(@RequestBody String[] array) {
@@ -165,48 +164,36 @@ public class TestController extends BaseClass {
         return "semantic";
     }
 
-    // baseController测试
-    @ResponseBody
-    @GetMapping("test1")
-    public String test1() {
-        LOGGER.info(baseUrl());
-        if (new Random().nextBoolean())
-            setCookie("name", "lilei");
-        else
-            deleteCookie("name");
-        if (Math.random() < 0.5)
-            session.setAttribute("name", "lilei");
-        else
-            session.removeAttribute("name");
-        System.out.println(session.getAttribute("name"));
-        return baseUrl();
-    }
-
-    @GetMapping("test2")
-    public void test2() {
-        // ajax("frank");
-        // 会以第一次调用时type为准 此时依然为json
-        // ajax("李磊", "text/xml");
-
-        ajaxJson("frank", 1);
-        ajaxJson("李磊");
-    }
-
+    /**
+     * 使用 @RequestParam 把参数封装为 Map，required 为 true 时参数也可不传
+     *
+     * @param params -
+     * @return -
+     */
     @ResponseBody
     @GetMapping("find-map1")
-    // 使用@RequestParam把参数封装为Map required为true时参数也可不传
-    public Map findMap1(@RequestParam(required = false) Map params) {
+    public Map<String, Object> findMap1(@RequestParam(required = false) Map<String, Object> params) {
         return params;
     }
 
+    /**
+     * 使用 @RequestBody 把 JSON 参数封装为 Map
+     *
+     * @param params -
+     * @return -
+     */
     @ResponseBody
     @PostMapping("find-map2")
-    // 使用@RequestBody把json参数封装为Map
-    public Map findMap2(@RequestBody Map params) {
+    public Map<String, Object> findMap2(@RequestBody Map<String, Object> params) {
         return params;
     }
 
-    // 映射请求头信息
+    /**
+     * 映射请求头信息
+     *
+     * @param userAgent -
+     * @param accept    -
+     */
     @GetMapping("header")
     public void header(
             @RequestHeader("user-agent") String userAgent
@@ -217,8 +204,12 @@ public class TestController extends BaseClass {
         accept.forEach(System.out::println);
     }
 
-    @Getter // 将类对象转化成json需要get方法
-    @Setter // 将json转化成类对象需要set方法
+    /**
+     * 将类对象转化成 JSON 需要 get 方法
+     * 将 JSON 转化成类对象需要 set 方法
+     */
+    @Getter
+    @Setter
     @Builder
     static class User implements Serializable {
         private Long id;
