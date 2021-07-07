@@ -1,14 +1,24 @@
 package com.example.model;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.ScriptAssert;
 
+import javax.script.ScriptEngineFactory;
+import javax.script.ScriptEngineManager;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.util.List;
 
 /**
  * @author 李磊
  */
+@Slf4j
+// 多个条件使用 @ScriptAssert.List 或累加多个 @ScriptAssert
+
+@ScriptAssert(script = "_this.state1 !== 0", lang = "js", message = "state1 不可为 0")
+@ScriptAssert(script = "com.example.model.ValidTest.checkState(_this.state2)", lang = "js", message = "state2 不可为 0")
 @Data
 public class ValidTest {
 
@@ -40,8 +50,26 @@ public class ValidTest {
     @NotEmpty(message = "不可为空")
     private Item[] items;
 
+    private byte state1;
+    private byte state2;
+
     @Data
     static class Item {
         private String text;
+    }
+
+    public static boolean checkState(byte state) {
+        return state != 0;
+    }
+
+    public static void main(String[] args) {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        List<ScriptEngineFactory> factories = manager.getEngineFactories();
+        for (ScriptEngineFactory factory : factories) {
+            log.info("\n\n引擎名称 {}\t引擎简称 {}\n\t语言名称 {}"
+                    , factory.getEngineName()
+                    , factory.getNames()
+                    , factory.getLanguageName());
+        }
     }
 }

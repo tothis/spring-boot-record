@@ -1,6 +1,6 @@
 package com.example.config.security;
 
-import com.example.entity.ResultEntity;
+import com.example.entity.Result;
 import com.example.model.User;
 import com.example.service.UserService;
 import com.example.type.MessageType;
@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     PrintWriter out = response.getWriter();
                     User user = (User) authentication.getPrincipal();
                     user.setPassword(null);
-                    out.write(JsonUtil.toJson(ResultEntity.ok(user)));
+                    out.write(JsonUtil.toJson(Result.ok(user)));
                     out.flush();
                     out.close();
                 })
@@ -106,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         result = "记住我认证错误";
                     }
 
-                    ResultEntity r = new ResultEntity();
+                    Result r = new Result();
                     r.setCode(MessageType.SYSTEM_ERROR.getCode());
                     r.setMessage(result);
                     out.write(JsonUtil.toJson(r));
@@ -120,7 +120,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler((request, response, authentication) -> {
                     response.setContentType(contentType);
                     PrintWriter out = response.getWriter();
-                    out.write(JsonUtil.toJson(ResultEntity.ok(null)));
+                    out.write(JsonUtil.toJson(Result.OK));
                     out.flush();
                     out.close();
                 })

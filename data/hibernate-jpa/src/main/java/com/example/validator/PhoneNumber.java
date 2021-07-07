@@ -52,9 +52,9 @@ public @interface PhoneNumber {
             String phoneNumber = String.valueOf(value);
             switch (range) {
                 case CN:
-                    return RegUtil.isChinaPhoneNumber(phoneNumber);
+                    return RegUtil.isCnPhoneNumber(phoneNumber);
                 case HK:
-                    return RegUtil.isHKPhoneNumber(phoneNumber);
+                    return RegUtil.isHkPhoneNumber(phoneNumber);
                 case ALL:
                     return RegUtil.isPhoneNumber(phoneNumber);
                 default:

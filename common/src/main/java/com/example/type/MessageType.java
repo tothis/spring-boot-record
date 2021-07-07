@@ -10,7 +10,8 @@ import lombok.Getter;
 @Getter
 public enum MessageType {
     OK(0, "请求成功"),
-    SYSTEM_ERROR(-1, "系统错误");
+    SYSTEM_ERROR(-1, "系统错误"),
+    PARAMETER_ERROR(-2, "参数错误");
 
     private final int code;
     private final String message;

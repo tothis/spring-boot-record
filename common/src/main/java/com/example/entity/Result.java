@@ -2,7 +2,6 @@ package com.example.entity;
 
 import com.example.type.MessageType;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -10,15 +9,14 @@ import lombok.Setter;
  *
  * @author 李磊
  */
-@NoArgsConstructor
 @Getter
 @Setter
-public class ResultEntity<T> {
+public class Result<T> {
 
-    private static final ResultEntity OK;
+    public static final Result OK;
 
     static {
-        ResultEntity r = new ResultEntity();
+        Result r = new Result();
         r.setCode(MessageType.OK.getCode());
         r.setMessage(MessageType.OK.getMessage());
         OK = r;
@@ -30,11 +28,11 @@ public class ResultEntity<T> {
 
     private T data;
 
-    public static <T> ResultEntity<T> ok(T data) {
+    public static <T> Result<T> ok(T data) {
         if (data == null) {
             return OK;
         }
-        ResultEntity<T> r = new ResultEntity<>();
+        Result<T> r = new Result<>();
         r.setCode(MessageType.OK.getCode());
         r.setMessage(MessageType.OK.getMessage());
         r.setData(data);

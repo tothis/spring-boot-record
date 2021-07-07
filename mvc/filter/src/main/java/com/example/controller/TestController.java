@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.entity.ResultEntity;
+import com.example.entity.Result;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -21,12 +21,12 @@ public class TestController {
     }
 
     @GetMapping("get/{value}")
-    ResultEntity get(@PathVariable String value) {
-        return ResultEntity.ok(value);
+    Result get(@PathVariable String value) {
+        return Result.ok(value);
     }
 
     @PostMapping("post/{value}")
-    ResultEntity post(@PathVariable String value) {
-        return ResultEntity.ok(value);
+    Result post(@PathVariable String value) {
+        return Result.ok(value);
     }
 }

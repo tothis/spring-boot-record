@@ -10,6 +10,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -70,10 +71,16 @@ public class TestController {
     }
 
     @GetMapping("export2")
-    public void export2(HttpServletResponse response) throws IOException {
-        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("title"
-                , "sheetName"), User.class, users);
-        response.setHeader("content-disposition", "attachment;filename=" + fileName);
-        workbook.write(response.getOutputStream());
+    public void export2(HttpServletResponse response) {
+        try (
+                Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("title"
+                        , "sheetName"), User.class, users);
+                final ServletOutputStream out = response.getOutputStream()
+        ) {
+            response.setHeader("content-disposition", "attachment;filename=" + fileName);
+            workbook.write(out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -93,7 +93,7 @@ public final class RedisUtil {
      * @param value -
      * @return -
      */
-    public static <V> void setString(final String key, final String value, final long expireTime, final TimeUnit timeUnit) {
+    public static void setString(final String key, final String value, final long expireTime, final TimeUnit timeUnit) {
         stringValue.set(key, value, expireTime, timeUnit);
     }
 
@@ -393,6 +393,16 @@ public final class RedisUtil {
      */
     public static long getExpire(final String key) {
         return template.getExpire(key);
+    }
+
+    /**
+     * 设置 key 过期时间
+     *
+     * @param key -
+     * @return -
+     */
+    public static boolean expire(final String key, final long timeout, final TimeUnit unit) {
+        return template.expire(key, timeout, unit);
     }
 
     /**

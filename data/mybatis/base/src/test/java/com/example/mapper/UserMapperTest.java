@@ -39,7 +39,7 @@ class UserMapperTest {
 
     @Test
     void findPage() {
-        // [[{password=密码0, user_name=name0}, {password=密码1, user_name=name1}], [10]]
+        // [[{password=密码0, name=name0}, {password=密码1, name=name1}], [10]]
         System.out.println(mapper.findPage());
     }
 

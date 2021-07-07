@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.entity.ResultEntity;
+import com.example.entity.Result;
 import com.example.model.User;
 import com.example.type.MessageType;
 import com.example.util.StringUtil;
@@ -22,17 +22,17 @@ public class LoginController {
      */
     @ResponseBody
     @PostMapping("sign-in")
-    public ResultEntity signIn(User user) {
+    public Result signIn(User user) {
         String userName = user.getUserName();
         String password = user.getPassword();
         if (StringUtil.isBlank(userName)) {
-            return new ResultEntity() {{
+            return new Result() {{
                 setCode(MessageType.SYSTEM_ERROR.getCode());
                 setMessage("用户名不能为空");
             }};
         }
         if (StringUtil.isBlank(password)) {
-            return new ResultEntity() {{
+            return new Result() {{
                 setCode(MessageType.SYSTEM_ERROR.getCode());
                 setMessage("密码不能为空");
             }};
@@ -45,7 +45,7 @@ public class LoginController {
             // 从session取出用户信息
             User loginUser = (User) subject.getPrincipal();
             // 返回登录用户的信息给前台 含用户的所有角色和权限
-            return ResultEntity.ok(loginUser);
+            return Result.ok(loginUser);
         } catch (UnknownAccountException uae) {
             log.warn("用户帐号不存在");
             result = "用户帐号或密码不正确";
@@ -58,7 +58,7 @@ public class LoginController {
         } catch (AuthenticationException e) {
             result = "登录出错";
         }
-        return new ResultEntity() {{
+        return new Result() {{
             setCode(MessageType.SYSTEM_ERROR.getCode());
             setMessage(result);
         }};

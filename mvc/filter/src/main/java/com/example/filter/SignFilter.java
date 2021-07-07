@@ -5,7 +5,7 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.example.constant.FilterConstant;
-import com.example.entity.ResultEntity;
+import com.example.entity.Result;
 import com.example.type.MessageType;
 import com.example.util.JsonUtil;
 import com.example.util.ServletUtil;
@@ -148,7 +148,7 @@ public class SignFilter extends OncePerRequestFilter implements Ordered {
         if (sign(requestWrapper)) {
             chain.doFilter(requestWrapper, response);
         } else {
-            ServletUtil.write(new ResultEntity(MessageType.SYSTEM_ERROR));
+            ServletUtil.write(new Result(MessageType.SYSTEM_ERROR));
         }
     }
 

@@ -1,6 +1,6 @@
 package com.example.filter;
 
-import com.example.entity.ResultEntity;
+import com.example.entity.Result;
 import com.example.exception.GlobalException;
 import com.example.util.ServletUtil;
 import com.example.util.UserUtil;
@@ -52,7 +52,7 @@ public class TokenFilter extends OncePerRequestFilter {
             // RedisUtil.set(RedisKeyConstant.TOKEN + token, userId, 30, TimeUnit.MINUTES);
         } catch (GlobalException e) {
             // @ControllerAdvice 无法捕获 Filter 中的异常 此处手动返回前端异常数据
-            ResultEntity entity = new ResultEntity();
+            Result entity = new Result();
             entity.setCode(e.getCode());
             entity.setMessage(e.getMessage());
             ServletUtil.write(entity);

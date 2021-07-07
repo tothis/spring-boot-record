@@ -1,6 +1,6 @@
 package com.example.handler;
 
-import com.example.entity.ResultEntity;
+import com.example.entity.Result;
 import com.example.exception.GlobalException;
 import com.example.type.MessageType;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(GlobalException.class)
-    public ResultEntity catchGlobalException(GlobalException e) {
-        ResultEntity r = new ResultEntity();
+    public Result catchGlobalException(GlobalException e) {
+        Result r = new Result();
         r.setCode(e.getCode());
         r.setMessage(e.getMessage());
         return r;
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResultEntity catchRuntimeException(RuntimeException e) {
+    public Result catchRuntimeException(RuntimeException e) {
         e.printStackTrace();
-        ResultEntity r = new ResultEntity();
+        Result r = new Result();
         r.setCode(MessageType.SYSTEM_ERROR.getCode());
         r.setMessage(e.getMessage());
         return r;
@@ -33,9 +33,9 @@ public class GlobalExceptionHandler {
 
     // @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception.class)
-    public ResultEntity catchException(Exception e) {
+    public Result catchException(Exception e) {
         e.printStackTrace();
-        ResultEntity r = new ResultEntity();
+        Result r = new Result();
         r.setCode(MessageType.SYSTEM_ERROR.getCode());
         r.setMessage(MessageType.SYSTEM_ERROR.getMessage());
         return r;
