@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration
-@MapperScan("tech.yunx.mapper")
+@MapperScan("com.example.mapper")
 public class MybatisPlusConfig {
 
     @Bean
@@ -36,8 +36,8 @@ public class MybatisPlusConfig {
 
     @Bean
     public IdentifierGenerator idGenerator() {
-        log.info("初始化雪花ID配置 workerId->[{}] dataCenterId->[{}]", workerId, dataCenterId);
-        // 初始化雪花ID生成工具配置
+        log.info("初始化雪花 ID 配置 workerId->[{}] dataCenterId->[{}]", workerId, dataCenterId);
+        // 初始化雪花 ID 生成工具配置
         IdWorker.initSequence(workerId, dataCenterId);
         return new DefaultIdentifierGenerator(workerId, dataCenterId);
     }

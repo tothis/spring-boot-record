@@ -66,7 +66,7 @@ public class ValidTest {
         ScriptEngineManager manager = new ScriptEngineManager();
         List<ScriptEngineFactory> factories = manager.getEngineFactories();
         for (ScriptEngineFactory factory : factories) {
-            log.info("\n\n引擎名称 {}\t引擎简称 {}\n\t语言名称 {}"
+            log.info("\n\t引擎名称 {}\n\t引擎简称 {}\n\t语言名称 {}"
                     , factory.getEngineName()
                     , factory.getNames()
                     , factory.getLanguageName());

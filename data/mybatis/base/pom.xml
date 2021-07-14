@@ -20,7 +20,7 @@
 
     <build>
         <resources>
-            <!-- Maven 编译 src 目录时，打包 XML 文件 -->
+            <!-- Maven 编译 src 目录时打包 XML 文件 -->
             <resource>
                 <directory>src/main/java</directory>
                 <includes>

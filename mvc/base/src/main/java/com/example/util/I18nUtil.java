@@ -23,8 +23,8 @@ public class I18nUtil {
     }
 
     /**
-     * @param code 对应messages配置的key
-     * @return
+     * @param code 对应 messages 配置的 key
+     * @return -
      */
     public static String getMessage(String code) {
         return I18nUtil.getMessage(code, new Object[]{});
@@ -43,9 +43,9 @@ public class I18nUtil {
     }
 
     /**
-     * @param code 对应messages配置的key
-     * @param args 数组参数
-     * @return
+     * @param code 对应 messages 配置的 key -
+     * @param args 数组参数 -
+     * @return -
      */
     public static String getMessage(String code, Object[] args) {
         return I18nUtil.getMessage(code, args, "");
@@ -56,15 +56,15 @@ public class I18nUtil {
     }
 
     /**
-     * @param code           对应messages配置的key
+     * @param code           对应 messages 配置的 key
      * @param args           数组参数
-     * @param defaultMessage 没有设置key的时候的默认值
-     * @return
+     * @param defaultMessage 没有设置 key 的时候的默认值
+     * @return -
      */
     public static String getMessage(String code, Object[] args, String defaultMessage) {
-        // 获取当前请求的Locale 第一种方式 不依赖request
+        // 获取当前请求的 Locale 第一种方式 不依赖 request
         Locale locale = LocaleContextHolder.getLocale();
-        // 获取当前请求的Locale 第二种方式
+        // 获取当前请求的 Locale 第二种方式
         // Locale locale = RequestContextUtils.getLocale(request);
         return I18nUtil.getMessage(code, args, defaultMessage, locale);
     }
@@ -72,11 +72,11 @@ public class I18nUtil {
     /**
      * 指定语言
      *
-     * @param code
-     * @param args
-     * @param defaultMessage
-     * @param locale
-     * @return
+     * @param code           -
+     * @param args           -
+     * @param defaultMessage -
+     * @param locale         -
+     * @return -
      */
     public static String getMessage(String code, Object[] args, String defaultMessage, Locale locale) {
         return messageSource.getMessage(code, args, defaultMessage, locale);

@@ -1,3 +1,9 @@
+spring:
+  jackson:
+    # Jackson 只能指定 Date 序列化格式，LocalDateTime 需要手动配置
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_empty
 # 自定义变量
 lilei:
   # 令牌验证

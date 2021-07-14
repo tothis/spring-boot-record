@@ -21,7 +21,6 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jackson</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
 
         <!-- ftp工具 -->

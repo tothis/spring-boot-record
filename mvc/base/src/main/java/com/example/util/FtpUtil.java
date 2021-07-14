@@ -23,20 +23,20 @@ import java.io.OutputStream;
 public class FtpUtil {
 
     /**
-     * FTPClient.enterLocalPassiveMode()作用 每次连接前ftp client告诉ftp server开通一个端口传输数据
-     * ftp server可能每次开启不同端口传输数据 但linux由于安全限制 可能某些端口没有开启 就会出现阻塞
+     * FTPClient.enterLocalPassiveMode() 作用：每次连接前 FTP client 告诉 FTP server 开通一个端口传输数据，
+     * FTP server 可能每次开启不同端口传输数据。
      * <p>
-     * ftp工作原理 ftp要用到两个tcp连接即要使用两个端口 一个是命令链路 用来传递命令 一个是数据链路 用来上传下载数据
-     * 连接ftp server时有active和passive两种模式 通常使用主动模式完成上传下载功能
-     * 主动模式工作原理 客户端使用命令链路主动告诉服务端 我打开了XX端口 来连接我
-     * 被动模式工作原理 与主动模式相反 服务端告诉客户端 我打开了XX端口 来连接我 被动模式用于有防火墙情况
+     * FTP 工作原理：FTP 要用到两个 TCP 连接即要使用两个端口：命令链路（传递命令）、数据链路（上传下载数据）。
+     * 连接 FTP server 时有 active、passive 两种模式，通常使用主动模式完成上传下载功能。
+     * 主动模式工作原理：客户端使用命令链路主动告诉服务端，我打开了 xx 端口并请求连接。
+     * 被动模式工作原理：与主动模式相反。服务端告诉客户端，我打开了 xx 端口并请求连接。被动模式用于有防火墙情况。
      */
     private static String host;
     /**
-     * 端口 默认21
+     * 端口（默认 21）
      */
     private static int port;
-    private static String userName;
+    private static String name;
     private static String password;
     private static String basePath;
     private static FTPClient ftp;
@@ -51,21 +51,6 @@ public class FtpUtil {
         FtpUtil.port = port;
     }
 
-    @Value("${ftp-server.user-name}")
-    public void setUserName(String userName) {
-        FtpUtil.userName = userName;
-    }
-
-    @Value("${ftp-server.password}")
-    public void setPassword(String password) {
-        FtpUtil.password = password;
-    }
-
-    @Value("${upload-file-path}")
-    public void setBasePath(String basePath) {
-        FtpUtil.basePath = basePath;
-    }
-
     public static FTPClient getFtp() {
         if (ftp != null) {
             return ftp;
@@ -73,10 +58,10 @@ public class FtpUtil {
         try {
             ftp = new FTPClient();
             ftp.setRemoteVerificationEnabled(false);
-            // 连接ftp服务器
-            ftp.connect(host/*, port*/);
+            // 连接 FTP 服务器
+            ftp.connect(host, port);
             // 登录
-            ftp.login(userName, password);
+            ftp.login(name, password);
             ftp.setBufferSize(10240);
             // 设置传输超时时间为60秒
             ftp.setDataTimeout(600000);
@@ -93,6 +78,21 @@ public class FtpUtil {
         } catch (IOException e) {
             throw new RuntimeException("ftp连接失败");
         }
+    }
+
+    @Value("${ftp-server.password}")
+    public void setPassword(String password) {
+        FtpUtil.password = password;
+    }
+
+    @Value("${upload-file-path}")
+    public void setBasePath(String basePath) {
+        FtpUtil.basePath = basePath;
+    }
+
+    @Value("${ftp-server.name}")
+    public void setName(String userName) {
+        FtpUtil.name = userName;
     }
 
     /**

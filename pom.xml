@@ -12,7 +12,7 @@
     <artifactId>spring-boot-record</artifactId>
     <version>1.0</version>
 
-    <!-- 打包方式 默认jar 父工程需要打为pom -->
+    <!-- 打包方式（默认 JAR 父工程需要打为 POM） -->
     <packaging>pom</packaging>
 
     <!-- 声明子模块 -->
@@ -24,7 +24,6 @@
         <module>drools</module>
         <module>docker</module>
         <module>swagger</module>
-        <module>shiro</module>
         <module>security</module>
         <module>data</module>
         <module>jackson</module>
@@ -45,8 +44,6 @@
     <!-- properties可被子类继承 -->
     <properties>
         <beetl.version>1.2.20.RELEASE</beetl.version>
-        <jstl.version>1.2</jstl.version>
-        <tomcat-embed-jasper.version>9.0.30</tomcat-embed-jasper.version>
         <mysql-connector.version>8.0.21</mysql-connector.version>
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
         <swagger.version>3.0.0</swagger.version>
@@ -54,18 +51,15 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- JSP JSTL标签 -->
             <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>jstl</artifactId>
-                <version>${jstl.version}</version>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>redis</artifactId>
+                <version>${project.version}</version>
             </dependency>
-
-            <!-- JSP引擎 Spring Boot内置Tomcat无此依赖 -->
             <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-jasper</artifactId>
-                <version>${tomcat-embed-jasper.version}</version>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jackson</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- Beetl -->
@@ -97,7 +91,7 @@
             </dependency>
 
             <!-- WebJars -->
-            <!-- 导入资源文件需要写版本号 加上此依赖可省略版本号书写 -->
+            <!-- 导入资源文件需要写版本号，加上此依赖可省略版本号书写 -->
             <dependency>
                 <groupId>org.webjars</groupId>
                 <artifactId>webjars-locator</artifactId>
@@ -125,12 +119,12 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- log4j2 -->
+        <!-- Log4j 2 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
-        <!-- 排除默认日志logging exclusion所有依赖 等于没有依赖 -->
+        <!-- 排除默认日志（exclusion 所有依赖，等同于没有依赖） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>

@@ -1,17 +1,12 @@
 package com.example.config;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -35,23 +30,10 @@ public class JacksonConfig {
                     , new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(NORM_DATETIME_PATTERN)));
             builder.deserializerByType(LocalDateTime.class
                     , new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(NORM_DATETIME_PATTERN)));
-
+            // JS 数字精度小于 Java long，返回数据时把 long 类型属性转为字符串类型 Jackson
+            builder.serializerByType(long.class, ToStringSerializer.instance);
+            // 基本类型和基本类型包子类型需分开设置
+            builder.serializerByType(Long.class, ToStringSerializer.instance);
         };
-    }
-
-    // 配置 application.yml 中或配置此 bean
-    // @Bean
-    // spring 中无 ObjectMapper 实例时调用
-    // @ConditionalOnMissingBean(ObjectMapper.class)
-    public ObjectMapper jacksonObjectMapper(Jackson2ObjectMapperBuilder builder) {
-        ObjectMapper objectMapper = builder.build();
-        // 属性为空字符串或 null 时不序列化
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-        // 未知属性反序列化不报错
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        // 允许单引号
-        objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-        objectMapper.setDateFormat(new SimpleDateFormat(NORM_DATETIME_PATTERN));
-        return objectMapper;
     }
 }

@@ -2,18 +2,9 @@ package com.example.config;
 
 import com.example.converter.DateConverter;
 import com.example.converter.LocalDateTimeConverter;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import lombok.SneakyThrows;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.List;
 
 /**
  * @author 李磊
@@ -23,14 +14,14 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        // Controller方法不接受JSON参数时会使用converter转化
+        // controller 方法不接受 JSON 参数时会使用 converter 转化
         registry.addConverter(new DateConverter());
         registry.addConverter(new LocalDateTimeConverter());
     }
 
-    @Bean
+    /*@Bean
     public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter(ObjectMapper mapper) {
-        // 返回JSON null值处理
+        // 返回 JSON null 值处理
         mapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
             @SneakyThrows
             @Override
@@ -55,5 +46,5 @@ public class WebConfig implements WebMvcConfigurer {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         converter.setObjectMapper(mapper);
         return converter;
-    }
+    }*/
 }

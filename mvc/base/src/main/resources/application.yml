@@ -1,73 +1,65 @@
 server:
   port: 8080
   servlet:
-    # 项目根路径 默认'/'
+    # 项目根路径（默认 /）
     context-path: /
-#  tomcat:
-#    uri-encoding: UTF-8
 spring:
   servlet:
     multipart:
-      # 单个文件的最大值 KB MB GB
+      # 单个文件的最大值（KB、MB、GB）
       max-file-size: 4GB
       # 上传文件总的最大值
       max-request-size: 40GB
   mvc:
-    # 静态资源的访问路径为/**时 才会处理请求 默认值为 /**
+    # 静态资源的访问路径为 /** 时，才会处理请求（默认值为 /**）
     static-path-pattern: /**
     view:
-      # controller返回页面路径的前后缀 默认'/'
+      # controller 返回页面路径的前后缀（默认 /）
       prefix: /
       suffix: .html
-    # 开启form表单指定提交方法 默认false
-    hiddenmethod:
-      filter:
-        enabled: true
-    servlet:
-      # 默认'/
-      path: /
-      load-on-startup: 1 # 默认懒加载 即客户端第一次访问时加载dispatcherServlet
+  jackson:
+    # Jackson 只能指定 Date 序列化格式，LocalDateTime 需要手动配置
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_empty
   resources:
-    # springboot查找静态资源文件的文件路径 默认值不可直接访问templates的文件
+    # Spring Boot 查找静态资源文件的文件路径，默认值不可直接访问 templates 目录文件
     # 默认值为 classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
-    static-locations: classpath:static # ,classpath:templates
+    static-locations: classpath:templates
     chain:
       strategy:
         content:
-          # 开启内容版本策略 默认false
+          # 开启内容版本策略（默认 false）
           enabled: true
-          # 指定应用路径 多个以逗号分隔 默认'/**'
+          # 指定应用路径（多个以逗号分隔，默认 /**）
           paths: /**
   thymeleaf:
     # 开发时关闭缓存
     cache: false
-    # 检查模板位置 默认true
+    # 检查模板位置（默认 true）
     check-template-location: true
     encoding: UTF-8
-    # 模板路径 默认templates/ 后斜杠不可省略
+    # 模板路径（默认 templates/，后斜杠不可省略）
     prefix: classpath:templates/
     servlet:
       content-type: text/html
     suffix: .html
   messages:
-    # 指定message的basename 多个以逗号分隔 如果不加包名的话 默认从classpath路径开始 默认前缀messages
+    # 指定 message 的 basename，多个以逗号分隔。如不加包名，默认从 classpath 路径开始。默认前缀 messages
     basename: i18n/messages,constant
     encoding: UTF-8
-    # 设定加载的资源文件缓存失效时间 -1为永不过期 默认-1
+    # 设定加载的资源文件缓存失效时间（默认永不过期）
     cache-duration: 3600
 # 自定义变量
 sftp-server:
   host: 192.168.1.128
-  user-name: root
-  password: 123456
   port: 22
+  name: root
+  password: 123456
   timeout: 60000
 ftp-server:
   host: 192.168.1.128
-  user-name: root
-  password: 123456
   port: 21
+  name: root
+  password: 123456
 upload-file-path: /data/upload/file/
-# 特殊字符使用 \ 转义或使用 '' 包围
-# open-office: /opt/openoffice4/program/soffice
-open-office-path: '"D:\OpenOffice 4\program\soffice" -headless -accept="socket,host=127.0.0.1,port=8100;urp;" -nofirststartwizard'

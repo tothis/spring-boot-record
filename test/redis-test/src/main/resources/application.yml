@@ -1,0 +1,24 @@
+spring:
+  redis:
+    # Redis 数据库索引（默认为 0）
+    database: 0
+    # Redis 服务器地址
+    host: 192.168.1.128
+    # Redis 服务器连接端口
+    port: 6379
+    # 连接超时时间（单位：毫秒）
+    timeout: 1000
+    # Redis服务器连接密码（默认无密码）
+    password: 123456
+    lettuce:
+      pool:
+        # 连接池最大连接数（使用负值表示无限制）
+        max-active: 8
+        # 连接池最大阻塞等待时间（使用负值表示无限制）
+        max-wait: -1
+        # 连接池中的最大空闲连接（使用负值表示无限制）
+        max-idle: 8
+        # 连接池中的最小空闲连接
+        min-idle: 0
+        # 配置多长时间进行检测需要关闭的空闲连接（单位：毫秒）
+        time-between-eviction-runs: 60000

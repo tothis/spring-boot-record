@@ -4,16 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.example</groupId>
-        <artifactId>spring-boot-record</artifactId>
+        <artifactId>test</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>test</artifactId>
-
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>base-test</module>
-        <module>jackson-test</module>
-        <module>redis-test</module>
-    </modules>
+    <artifactId>base-test</artifactId>
 </project>

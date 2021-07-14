@@ -26,7 +26,7 @@ public final class SftpUtil {
 
     private static int port;
 
-    private static String userName;
+    private static String name;
 
     private static String password;
 
@@ -44,26 +44,6 @@ public final class SftpUtil {
         SftpUtil.port = port;
     }
 
-    @Value("${sftp-server.user-name}")
-    public void setUserName(String userName) {
-        SftpUtil.userName = userName;
-    }
-
-    @Value("${sftp-server.password}")
-    public void setPassword(String password) {
-        SftpUtil.password = password;
-    }
-
-    @Value("${sftp-server.timeout}")
-    public void setTimeout(int timeout) {
-        SftpUtil.timeout = timeout;
-    }
-
-    @Value("${upload-file-path}")
-    public void setBasePath(String basePath) {
-        SftpUtil.basePath = basePath;
-    }
-
     /**
      * 私有化构造方法
      */
@@ -79,7 +59,7 @@ public final class SftpUtil {
 
         try {
             // linux服务器地址 账号 密码
-            sftp = getChannel(host, port, userName, password, timeout);
+            sftp = getChannel(host, port, name, password, timeout);
 
             // 判断目录文件夹是否存在 不存在即创建
             try {
@@ -105,28 +85,6 @@ public final class SftpUtil {
         }
 
         log.info("文件上传信息[{}]", basePath + fileName);
-    }
-
-    static class ProgressMonitor implements SftpProgressMonitor {
-
-        private long count;
-
-        @Override
-        public boolean count(long count) {
-            this.count = this.count + count;
-            System.out.println("已传输字节 -> " + this.count + "bytes");
-            return true;
-        }
-
-        @Override
-        public void end() {
-            System.out.println("结束传输");
-        }
-
-        @Override
-        public void init(int op, String src, String dest, long max) {
-            System.out.println("开始传输");
-        }
     }
 
     /**
@@ -171,7 +129,7 @@ public final class SftpUtil {
         ChannelSftp sftp = null;
         try {
             // linux服务器地址 账号 密码
-            sftp = getChannel(host, 22, userName, password, 60000);
+            sftp = getChannel(host, 22, name, password, 60000);
 
             // 获得输出流 通过response获得的输出流 用于向客户端写内容
             ServletOutputStream out = response.getOutputStream();
@@ -196,7 +154,7 @@ public final class SftpUtil {
         ChannelSftp sftp = null;
         try {
             // linux服务器地址 账号 密码
-            sftp = getChannel(host, 22, userName, password, 60000);
+            sftp = getChannel(host, 22, name, password, 60000);
 
             // 获取输出流 并自动输出到客户端 路径名 + 文件名
             sftp.get(basePath + fileName, out);
@@ -235,7 +193,7 @@ public final class SftpUtil {
                 ServletOutputStream out = response.getOutputStream()
         ) {
             // linux服务器地址 账号 密码
-            sftp = getChannel(host, 22, userName, password, 60000);
+            sftp = getChannel(host, 22, name, password, 60000);
 
             // 获取输出流 并自动输出到客户端 路径名 + 文件名
             sftp.get(basePath + fileName, out);
@@ -244,6 +202,48 @@ public final class SftpUtil {
         } finally {
             sftp.quit(); // 退出连接
             closeChannel(); // 关闭连接
+        }
+    }
+
+    @Value("${sftp-server.password}")
+    public void setPassword(String password) {
+        SftpUtil.password = password;
+    }
+
+    @Value("${sftp-server.timeout}")
+    public void setTimeout(int timeout) {
+        SftpUtil.timeout = timeout;
+    }
+
+    @Value("${upload-file-path}")
+    public void setBasePath(String basePath) {
+        SftpUtil.basePath = basePath;
+    }
+
+    @Value("${sftp-server.name}")
+    public void setName(String userName) {
+        SftpUtil.name = userName;
+    }
+
+    static class ProgressMonitor implements SftpProgressMonitor {
+
+        private long count;
+
+        @Override
+        public boolean count(long count) {
+            this.count = this.count + count;
+            System.out.println("已传输字节 -> " + this.count + "bytes");
+            return true;
+        }
+
+        @Override
+        public void end() {
+            System.out.println("结束传输");
+        }
+
+        @Override
+        public void init(int op, String src, String dest, long max) {
+            System.out.println("开始传输");
         }
     }
 
