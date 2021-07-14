@@ -24,7 +24,6 @@
         <module>drools</module>
         <module>docker</module>
         <module>swagger</module>
-        <module>security</module>
         <module>data</module>
         <module>jackson</module>
         <module>redis</module>

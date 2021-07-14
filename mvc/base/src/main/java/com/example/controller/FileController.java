@@ -23,8 +23,7 @@ import java.util.UUID;
  * @author 李磊
  */
 @Slf4j
-// 允许跨域
-@CrossOrigin // 或response.setHeader("Access-Control-Allow-Origin", "*");
+@CrossOrigin
 @RequestMapping("file")
 @Controller
 public class FileController {
@@ -79,16 +78,6 @@ public class FileController {
     @GetMapping("sftp-download")
     public void sftpDownload(HttpServletResponse r, String fileName, String localFileName) {
         SftpUtil.webDownload(r, fileName, localFileName);
-    }
-
-    /**
-     * 上传office文档
-     */
-    @ResponseBody
-    @PostMapping("document")
-    public String document(MultipartFile file) {
-        String uploadFile = WebFileUtil.uploadFile(file);
-        return OpenOfficeUtil.documentConvert(filePath + uploadFile);
     }
 
     @PostMapping("pdf")
@@ -152,7 +141,7 @@ public class FileController {
         boolean flag = mergeFiles(tempFiles, fileName);
 
         if (flag) {
-            data.put("recordVedio", fileName);
+            data.put("recordVideo", fileName);
         }
 
         data.put("flag", String.valueOf(flag));
@@ -164,7 +153,7 @@ public class FileController {
      *
      * @param _files     分片文件数组
      * @param resultPath 合并后的文件全路径名
-     * @return
+     * @return -
      */
     public boolean mergeFiles(String[] _files, String resultPath) {
 
@@ -184,7 +173,7 @@ public class FileController {
                         , _files[j].lastIndexOf(".")));
                 int varJ1 = Integer.parseInt(_files[j + 1].substring(_files[j + 1].lastIndexOf("-") + 1
                         , _files[j + 1].lastIndexOf(".")));
-                if (varJ > varJ1) { // 即这两个相邻的数是逆序的 交换
+                if (varJ > varJ1) {
                     String temp = _files[j];
                     _files[j] = _files[j + 1];
                     _files[j + 1] = temp;
@@ -200,13 +189,6 @@ public class FileController {
                 return false;
             }
         }
-//        // 逆序排序 前端使用异步ajax上传较快但不能包装文件先后顺序 数据并不是有序的此方法不可用
-//        for (int min = 0, max = files.length - 1; min < max; min++, max--) {
-//            // 对数组的元素进行位置交换
-//            File temp = files[min]; // 定义空变量 保存下标为min的元素 min就为空
-//            files[min] = files[max];
-//            files[max] = temp;
-//        }
 
         File resultFile = new File(resultPath);
         try {

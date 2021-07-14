@@ -30,12 +30,15 @@ public class ServletUtil {
         return requestAttributes().getResponse();
     }
 
-    public <T> void write(T data) throws IOException {
+    public <T> void write(T data) {
         String content = JSONUtil.toJsonStr(data);
         HttpServletResponse response = response();
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        // 防止中文乱码
-        response.setCharacterEncoding("utf8");
-        response.getWriter().write(content);
+        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+        try {
+            response.getWriter().write(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }
